@@ -30,10 +30,9 @@ grow_vertical = 2
 [node name="TabContainer" type="TabContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_tusby")
-current_tab = 2
+current_tab = 0
 
 [node name="About" type="MarginContainer" parent="MarginContainer/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -65,6 +64,7 @@ Mahan Khalili (mkh-user)
 Mahan Khalili (mkh-user)"
 
 [node name="License" type="MarginContainer" parent="MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
