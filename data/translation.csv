@@ -41,8 +41,8 @@ menu.edit.line.select_paragraph,Select Paragraph,انتخاب بند
 menu.edit.line.join,Join Lines,ادغام خطوط
 menu.edit.line.move_to_new_file,Move To New File,انتقال به فایل جدید
 menu.edit.completion_query,Completion Query,درخواست تکمیل
-menu.edit.auto_format,Auto Format,قالب بندی خودکار
 menu.edit.indention,Indention,فرورفتگی
+menu.edit.indention.auto_indent,Auto Indent,تورفتگی خودکار
 menu.edit.indention.to_spaces,Convert Indent To Spaces,تبدیل فرورفتگی به فاصله
 menu.edit.indention.to_tabs,Convert Indent To Tabs,تبدیل فرورفتگی به تب
 menu.edit.convert_case,Convert Case,تبدیل حروف
@@ -70,10 +70,11 @@ menu.go_to.breakpoints,Breakpoints...,نقاط توقف...
 menu.go_to.toggle_breakpoint,Toggle Breakpoint,نقطه توقف
 menu.go_to.remove_all_breakpoints,Remove All Breakpoints,حذف همه نقاط توقف
 menu.command,Command,دستور
-menu.command.remove_all_indents,Remove All Indents,حذف همه تورفتگی ها
 menu.command.palette,Command Pallete...,پالت فرمان...
 menu.format,Format,قالب
+menu.format.auto_format,Auto Format,قالب بندی خودکار
 menu.format.auto_indention,Auto Indention,تورفتگی خودکار
+menu.format.remove_all_indents,Remove All Indents,حذف همه تورفتگی ها
 menu.format.save_as_template,Save As Template...,ذخیره به عنوان قالب...
 menu.format.templates,Templates...,قالب ها...
 menu.insert,Insert,درج
@@ -107,7 +108,6 @@ menu.view.highlight_current_line,Highlight Current Line,برجسته کردن خ
 menu.view.show_control_chars,Show Control Characters,نمایش کاراکتر های کنترل
 menu.view.show_tabs,Show Tabs,نمایش تب ها
 menu.view.show_spaces,Show Spaces,نمایش فاصله ها
-menu.view.syntax_highlighter,Syntax Highlighter...,برجسته ساز نحوی...
 menu.view.normal_view,Normal View,نمای عادی
 menu.view.presentation_view,Presentation View,نمای ارائه
 menu.view.reading_view,Reading View,نمای مطالعه
