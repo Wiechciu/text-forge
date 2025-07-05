@@ -10,7 +10,6 @@ func _ready() -> void:
 func _run_action() -> void:
 	dialog = preload("res://scripts/script_scenes/save_file.tscn").instantiate()
 	dialog.file_selected.connect(_save_file)
-	dialog.root_subfolder = Global.get_file_path().get_base_dir() if Global.get_file_path() != "Unsaved" else OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 	dialog.show()
 
 func _save_file(path: String) -> void:
