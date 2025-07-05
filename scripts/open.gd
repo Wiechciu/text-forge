@@ -12,6 +12,7 @@ func _run_action() -> void:
 		return
 	dialog = preload("res://scripts/script_scenes/open_file.tscn").instantiate()
 	dialog.file_selected.connect(_open_file)
+	dialog.root_subfolder = OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS)
 	add_child(dialog)
 	dialog.show()
 

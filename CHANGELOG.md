@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- Submit Issue
 		- Online Docs
 		- About
+- Default directory for open and save as
 
 ### Changed
 
