@@ -95,7 +95,7 @@ menu.view.toggle_dark_mode,Toggle Dark Mode,تغییر حالت تاریک
 menu.view.focus_editor,Focus On Editor,تمرکز روی ویرایشگر
 menu.view.notes_panel,Notes Panel,پنل یادداشت
 menu.view.changelog_panel,Change Log Panel,پنل گزارش تعییرات
-menu.view.line_length_guides,Line Lenght Guids...,خطوط راهنما...
+menu.view.line_length_guides,Line Length Guides...,خطوط راهنما...
 menu.view.show_breakpoints,Show Breakpoints,نمایش نقاط توقف
 menu.view.show_bookmarks,Show Bookmarks,نمایش نشانک ها
 menu.view.show_line_numbers,Show Line Numbers,نمایش شماره خط
