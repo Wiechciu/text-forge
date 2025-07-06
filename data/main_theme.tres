@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=35 format=3 uid="uid://dnvygvv1c55qb"]
+[gd_resource type="Theme" load_steps=37 format=3 uid="uid://dnvygvv1c55qb"]
 
 [ext_resource type="FontFile" uid="uid://d03vkdeo2egtn" path="res://assets/JetBrainsMono-Regular.ttf" id="1_qjhx0"]
 [ext_resource type="Texture2D" uid="uid://bwarwcjjx7it3" path="res://assets/active.png" id="2_u427p"]
@@ -172,6 +172,15 @@ bg_color = Color(0.11834, 0.167543, 0.216756, 1)
 border_width_top = 3
 border_color = Color(0.11834, 0.167543, 0.216756, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okkhu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rga1e"]
+bg_color = Color(0.0625005, 0.0961309, 0.129758, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [resource]
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_x6qos")
 Button/styles/focus = SubResource("StyleBoxFlat_qjhx0")
@@ -240,3 +249,6 @@ TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_1ojjt")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_amhry")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_1ojjt")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_okkhu")
+Tree/colors/guide_color = Color(0.11834, 0.167543, 0.216756, 1)
+Tree/styles/focus = SubResource("StyleBoxEmpty_okkhu")
+Tree/styles/panel = SubResource("StyleBoxFlat_rga1e")

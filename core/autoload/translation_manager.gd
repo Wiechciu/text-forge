@@ -16,10 +16,14 @@ var fallback: String = "en"
 
 
 func _ready() -> void:
-	language = Settings.get_setting("languages", "main", "en")
-	fallback = Settings.get_setting("languages", "fallback", "en")
+	Signals.settings_changed.connect(_load_config)
 	if FileAccess.file_exists("user://_translation.cfg"):
 		DirAccess.remove_absolute("user://_translation.cfg")
+
+
+func _load_config() -> void:
+	language = Settings.get_setting("languages", "main", "en")
+	fallback = Settings.get_setting("languages", "fallback", "en")
 
 
 ## Stes [member language] and [member fallback] to [param language_code] and [param fallback_code].

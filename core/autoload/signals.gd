@@ -42,6 +42,9 @@ signal caret_selected(index: int)
 ## Emits when user selects a mode
 signal mode_selected
 
+## Emits when one or more setting option changed with centalized preferences editor
+signal settings_changed
+
 ## Requests updating for recent files, [method Core._update_recent_files] is basic connection
 signal update_recent_files
 
