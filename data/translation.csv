@@ -1,6 +1,7 @@
 key,en,fa
 menu.file,File,فایل
 menu.file.new,New,جدید
+menu.file.new_window,New Window,پنجره جدید
 menu.file.new_with_template,New With Template,جدید با قابل
 menu.file.open,Open...,بازکردن...
 menu.file.recent_files,Recent Files,فایل های اخیر
