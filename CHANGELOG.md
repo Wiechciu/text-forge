@@ -33,6 +33,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- Breakpoints
 		- Bookmarks
 		- Line Numbers
+		- Line Length Guides
+		- Full Screen
+	- Tools:
+		- Color Picker
 	- Help:
 		- GitHub Repository
 		- Mode Library
@@ -41,10 +45,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- Submit Issue
 		- Online Docs
 		- About
+	- Drag & Drop for open files
+- Prefrences panel
 
 ### Changed
 
 - Edit/Auto Format shortcut: ~Ctrl+Alt+F~ to Ctrl+Shift+F
+- New structure for menus
 
 ### Removed
 
