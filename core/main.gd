@@ -3,7 +3,7 @@ class_name Core
 
 ## Core class of Text Forge for base node in editor window
 ##
-## Text Forge is a lightweight, extensible, and mode-driven text editor. Customizable, scriptable, 
+## Text Forge is a lightweight, extensible, and mode-driven text editor. Customizable, scriptable,
 ## that can handle any format and language! [br]
 ## [b]Note:[/b] Text Forge is open source, see [url=https://mkh-user/text-forge]Official repo[/url] for more information.
 
@@ -68,7 +68,7 @@ func _load_scripts() -> void:
 func _load_main_menu() -> void:
 	var config := ConfigFile.new()
 	config.load(MAIN_UI_DATA)
-	
+
 	# to keep new menu button for each loop
 	var new_menu_button: MenuButton
 	var menu_name: String
@@ -77,12 +77,12 @@ func _load_main_menu() -> void:
 		main_menu_data[menu_section] = config.get_value("main_menu", menu_section)
 	for menu_item: String in config.get_section_keys("main_menu"):
 		if menu_item.ends_with("_submenu"): continue # skip next steps for submenu items
-		
+
 		menu_name = menu_item.erase(menu_item.rfind("_menu"), 5).capitalize() # get menu name
-		
+
 		new_menu_button = MENU_BUTTON_SCENE.instantiate() # create new menu button
 		new_menu_button.text = TFT.get_text("menu." + menu_name.to_snake_case(), TRANSLATION_FILE)
-		
+
 		# for each option in current menu
 		for item: Dictionary in main_menu_data[menu_item]:
 			main_menu_data[menu_item][main_menu_data[menu_item].find(item)]["popup"] = new_menu_button.get_popup()
@@ -150,7 +150,7 @@ func _handle_menu_option_state(id: int, menu: PopupMenu, rootmenu: String = "") 
 	# for radio checkable options
 	if menu.is_item_radio_checkable(index) and not menu.is_item_checked(index): # ignore select currently selected option
 		menu.toggle_item_checked(index) # toggle selected option state
-		
+
 		# search for related radio options and set them to unchecked
 		var check_index = index - 1
 		while true: # options before selected option
@@ -166,7 +166,7 @@ func _handle_menu_option_state(id: int, menu: PopupMenu, rootmenu: String = "") 
 			if not menu.is_item_radio_checkable(check_index): break
 			menu.set_item_checked(check_index, false)
 			check_index += 1
-	
+
 	if not rootmenu:
 		Signals.run_script.emit(id)
 	else:
