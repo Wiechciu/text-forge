@@ -2,8 +2,10 @@ extends Node
 class_name GlobalAccess
 
 ## Global access way to all parts of Text Forge
-## 
+##
 ## You can access to this class using [code]Global[/code] autoload.
+
+var commands := {}
 
 ## Returns currently opened file path
 func get_file_path() -> String:
@@ -62,3 +64,9 @@ func get_panel_manager() -> PanelManager:
 
 func send_notification(type: int = 0, title: String = "", text: String = "") -> void:
 	Signals.editor_notification.emit(type, title, text)
+
+func define_command(command_name: String, key_string: String, callable: Callable) -> void:
+	commands[command_name] = [key_string, callable]
+
+func get_command_list() -> Dictionary:
+	return commands

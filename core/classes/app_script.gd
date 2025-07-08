@@ -17,6 +17,11 @@ func _load_shortcut() -> void:
 	if FileAccess.file_exists("res://shortcuts/{0}.tres".format([name])):
 		action_shortcut = load("res://shortcuts/{0}.tres".format([name])).events[0]
 		menu.set_item_accelerator(menu.get_item_index(id), _convert_event_to_key(action_shortcut))
+	_define_action()
+
+
+func _define_action() -> void:
+	Global.define_command(name.capitalize(), action_shortcut.as_text_keycode(), self._run_action)
 
 func _convert_event_to_key(event: InputEventKey) -> int:
 	return (KEY_MASK_CTRL if event.ctrl_pressed else 0) | (KEY_MASK_ALT if event.alt_pressed else 0) | (KEY_MASK_SHIFT if event.shift_pressed else 0) | event.keycode

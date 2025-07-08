@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Log editor notifications
 - Find & Replace panel
 - Action Scripts for:
+	- File:
+		- New Window
+		- Restart
 	- Edit:
 		- Evulate Selection
 	- Search:
@@ -26,6 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- Find Previous
 		- Replace All
 	- Command:
+		- Command Palette
+	- Format:
 		- Remove All Indents
 	- View:
 		- Change Editor Font Size
@@ -45,12 +50,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- Submit Issue
 		- Online Docs
 		- About
-	- Drag & Drop for open files
+- Drag & Drop for open files
 - Prefrences panel
 
 ### Changed
 
 - Edit/Auto Format shortcut: ~Ctrl+Alt+F~ to Ctrl+Shift+F
+- Edit/Duplicate Selection shortcut: ~Ctrl+Shift+D~ to Ctrl+D
 - New structure for menus
 
 ### Removed
