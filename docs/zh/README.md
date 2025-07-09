@@ -52,19 +52,19 @@ Text Forge 使用配置文件加载用户界面，具备灵活的 UI 系统，�
 
 ## 🧩 创建自定义模式
 
-Text Forge 可通过模式支持任意文件类型。如需创建或编辑模式，请参考 [此处指南](https://github.com/mkh-user/text-forge)。
+Text Forge 可通过模式支持任意文件类型。如需创建或编辑模式，请参考 [此处指南](https://github.com/text-forge/text-forge)。
 
 ---
 
 ## 🛠 添加命令
 
-无需修改源代码即可为 Text Forge 添加新功能。请参考 [此处文档](https://github.com/mkh-user/text-forge) 获取示例与说明。
+无需修改源代码即可为 Text Forge 添加新功能。请参考 [此处文档](https://github.com/text-forge/text-forge) 获取示例与说明。
 
 ---
 
 ## ✅ 可用模式
 
-请访问 [此页面](https://github.com/mkh-user/text-forge) 查看当前可用的模式列表。
+请访问 [此页面](https://github.com/text-forge/text-forge) 查看当前可用的模式列表。
 
 ---
 
@@ -89,9 +89,9 @@ Text Forge 可通过模式支持任意文件类型。如需创建或编辑模式
 你需要安装 **Godot 引擎（4.4 或更高版本）**。下载或克隆本仓库后，用 Godot 打开项目，按下 `F5` 即可运行。为保持源码整洁，`modes/` 文件夹未包含在本仓库中。
 
 ### 获取模式与软件包  
-前往 [此链接](https://github.com/mkh-user/text-forge-modes/releases) 下载所需模式，并解压至 `modes` 文件夹中。
+前往 [此链接](https://github.com/text-forge/mode-library/releases) 下载所需模式，并解压至 `modes` 文件夹中。
 
-你还可以在 [此页面](https://github.com/mkh-user/text-forge-modes/wiki/Packages) 找到为特定用户类型准备的功能包。功能包是为特定使用场景组合的模式集合。
+你还可以在 [此页面](https://github.com/text-forge/mode-library/wiki/Packages) 找到为特定用户类型准备的功能包。功能包是为特定使用场景组合的模式集合。
 
 ---
 

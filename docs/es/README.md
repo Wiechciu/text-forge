@@ -52,19 +52,19 @@ En Text Forge, cada archivo se maneja mediante un **modo**, que se carga a trav�
 
 ## 🧩 Crear un Modo Personalizado
 
-Text Forge puede manejar cualquier archivo mediante modos. Si deseas crear o editar uno, consulta [esta guía](https://github.com/mkh-user/text-forge) para obtener ejemplos y documentación.
+Text Forge puede manejar cualquier archivo mediante modos. Si deseas crear o editar uno, consulta [esta guía](https://github.com/text-forge/text-forge) para obtener ejemplos y documentación.
 
 ---
 
 ## 🛠 Agregar un Comando
 
-Puedes añadir cualquier funcionalidad a Text Forge sin modificar el código fuente. Consulta [esta página](https://github.com/mkh-user/text-forge) para ver ejemplos y guías.
+Puedes añadir cualquier funcionalidad a Text Forge sin modificar el código fuente. Consulta [esta página](https://github.com/text-forge/text-forge) para ver ejemplos y guías.
 
 ---
 
 ## ✅ Modos Disponibles
 
-Consulta los modos disponibles en [este enlace](https://github.com/mkh-user/text-forge).
+Consulta los modos disponibles en [este enlace](https://github.com/text-forge/text-forge).
 
 ---
 
@@ -89,9 +89,9 @@ Descarga Text Forge desde la página de lanzamientos de GitHub y ejecútalo. Par
 Necesitas **Godot Engine (versión 4.4 o superior)** para ejecutar Text Forge. Una vez instalado, descarga o clona el repositorio y ábrelo con Godot. Luego, presiona `F5` para ejecutar el proyecto. Para mantener el repositorio limpio y separado de los modos, la carpeta `modes/` está excluida.
 
 ### Obtener Modos y Paquetes  
-Para obtener los **modos** que necesitas, visita [esta página](https://github.com/mkh-user/text-forge-modes/releases), descárgalos y extráelos en la carpeta `modes`.
+Para obtener los **modos** que necesitas, visita [esta página](https://github.com/text-forge/mode-library/releases), descárgalos y extráelos en la carpeta `modes`.
 
-También puedes encontrar **paquetes** preconfigurados para casos específicos en [esta página](https://github.com/mkh-user/text-forge-modes/wiki/Packages). Los paquetes son colecciones de modos útiles para tipos específicos de usuarios.
+También puedes encontrar **paquetes** preconfigurados para casos específicos en [esta página](https://github.com/text-forge/mode-library/wiki/Packages). Los paquetes son colecciones de modos útiles para tipos específicos de usuarios.
 
 ---
 

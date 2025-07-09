@@ -1,4 +1,4 @@
-[en](https://github.com/mkh-user/Text-Forge/tree/Main/README.md) | [fa](https://github.com/mkh-user/Text-Forge/tree/Main/docs/fa/README.md) | [zh](https://github.com/mkh-user/Text-Forge/tree/Main/docs/zh/README.md) | [es](https://github.com/mkh-user/Text-Forge/tree/Main/docs/es/README.md)
+[en](https://github.com/text-forge/text-forge/tree/Main/README.md) | [fa](https://github.com/text-forge/text-forge/tree/Main/docs/fa/README.md) | [zh](https://github.com/text-forge/text-forge/tree/Main/docs/zh/README.md) | [es](https://github.com/text-forge/text-forge/tree/Main/docs/es/README.md)
 # Text Forge
 
 Text Forge is a lightweight, extensible, and mode-driven text editor. It's customizable, scriptable, and ready to handle
@@ -63,19 +63,19 @@ editor core!
 ## 🧩 Creating a Custom Mode
 
 Text Forge can handle any file with modes, so if you want to create a mode or edit existing one, you can see 
-[here](https://github.com/mkh-user/text-forge-modes/wiki/Modes-structure-guide) for guides and examples.
+[here](https://github.com/text-forge/mode-library/wiki/Modes-structure-guide) for guides and examples.
 
 ---
 
 ## 🛠 Adding a Command
 
-You can add any functionality in text forge without change source, see [here](https://github.com/mkh-user/text-forge) for guides and examples.
+You can add any functionality in text forge without change source, see [here](https://github.com/text-forge/text-forge) for guides and examples.
 
 ---
 
 ## ✅ Available Modes
 
-See [here](https://github.com/mkh-user/text-forge-modes) for available modes.
+See [here](https://github.com/text-forge/mode-library) for available modes.
 
 ---
 
@@ -96,9 +96,9 @@ Just download Text Forge from Github releases page and run it! To keep our edito
 You need **Godot Engine** (4.4 or later) to run Text Forge. After get it, download or clone repo and open it with Godot. Then, just press `F5` to run project.  To keep source repo clean and separated from modes, we don't include modes in this repo! (`modes/` folder is ignored)
 
 ### Get Modes & Packages
- To get the **modes** you need, go to [this link](https://github.com/mkh-user/text-forge-modes/releases), download your modes, and extract them into the `modes` folder.
+ To get the **modes** you need, go to [this link](https://github.com/text-forge/mode-library/releases), download your modes, and extract them into the `modes` folder.
  
- Also, You can find equipped **packages** for specific cases on [this page](https://github.com/mkh-user/text-forge-modes/wiki/Packages). Packages are a collection of mods that are useful for a specific type of user.
+ Also, You can find equipped **packages** for specific cases on [this page](https://github.com/text-forge/mode-library/wiki/Packages). Packages are a collection of mods that are useful for a specific type of user.
 
 ---
 

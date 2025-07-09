@@ -1,4 +1,4 @@
-[en](https://github.com/mkh-user/Text-Forge/tree/Main/docs/en/README.md) | [fa](https://github.com/mkh-user/Text-Forge/tree/Main/docs/fa/README.md) | [zh](https://github.com/mkh-user/Text-Forge/tree/Main/docs/zh/README.md) | [es](https://github.com/mkh-user/Text-Forge/tree/Main/docs/es/README.md)
+[en](https://github.com/text-forge/text-forge/tree/Main/docs/en/README.md) | [fa](https://github.com/text-forge/text-forge/tree/Main/docs/fa/README.md) | [zh](https://github.com/text-forge/text-forge/tree/Main/docs/zh/README.md) | [es](https://github.com/text-forge/text-forge/tree/Main/docs/es/README.md)
 # Text Forge - Simplicity to start, power to grow!
 
 Text Forge is a lightweight, extensible, and mode-driven text editor. It's customizable, scriptable, and ready to handle
@@ -56,16 +56,16 @@ Our goal is to create a tool that puts creative and technical decisions back in 
 
 ### Get Core
 #### From Releases
-Just download Text Forge from [GitHub releases page](https://github.com/mkh-user/text-forge/releases) and run it! To keep our editor lightweight and clean, we don't include modes in the releases!
+Just download Text Forge from [GitHub releases page](https://github.com/text-forge/text-forge/releases) and run it! To keep our editor lightweight and clean, we don't include modes in the releases!
 #### From Source
 You need **Godot Engine** (4.4 or later) to run Text Forge. After download, download or clone repo and open it with 
 Godot. Then, just press `F5` to run project. To keep source repo clean and separated from modes, we don't include modes
 in this repo! (`modes/` folder is ignored) You can export project for any platform you want with Godot.
 
 ### Get Modes & Packages
-To get the **modes** you need, go to [this link](https://github.com/mkh-user/text-forge-modes/releases), download your modes, and extract them into the `modes` folder.
+To get the **modes** you need, go to [this link](https://github.com/text-forge/mode-library/releases), download your modes, and extract them into the `modes` folder.
 
-Also, You can find equipped **packages** for specific cases on [this page](https://github.com/mkh-user/text-forge-modes/wiki/Packages). Packages are a collection of mods that are useful for a specific type of user.
+Also, You can find equipped **packages** for specific cases on [this page](https://github.com/text-forge/mode-library/wiki/Packages). Packages are a collection of mods that are useful for a specific type of user.
 
 ---
 
@@ -73,7 +73,7 @@ Also, You can find equipped **packages** for specific cases on [this page](https
 
 Modes are special modules that allow Text Forge to support a variety of files and languages along with custom buffer and
 formats and highlights, Text Forge does not support any specific formats without modes (only UTF-8 is available without
-mode), you can find or make your mood for any usage. You can see [here](https://github.com/mkh-user/text-forge-modes) for available modes.
+mode), you can find or make your mood for any usage. You can see [here](https://github.com/text-forge/mode-library) for available modes.
 
 ---
 
@@ -81,13 +81,13 @@ mode), you can find or make your mood for any usage. You can see [here](https://
 
 You can add any functionality in text forge without change source, see [here](comming soon) for guides and examples.
 Modes are a good way for add new features, If you want to create a mode or edit existing one, you can see
-[here](https://github.com/mkh-user/text-forge-modes/wiki/Modes-structure-guide) for guides and examples.
+[here](https://github.com/text-forge/mode-library/wiki/Modes-structure-guide) for guides and examples.
 
 ---
 
 ## 🤍 Contributing
 
-Text Forge designed to be community-driven, so you can help this community in any way you can think! Please go to [Contributing Guide Page](https://github.com/mkh-user/text-forge/blob/Main/CONTRIBUTING.md) to get more information.
+Text Forge designed to be community-driven, so you can help this community in any way you can think! Please go to [Contributing Guide Page](https://github.com/text-forge/text-forge/blob/Main/CONTRIBUTING.md) to get more information.
 
 ---
 

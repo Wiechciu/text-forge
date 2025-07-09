@@ -5,7 +5,7 @@ class_name Core
 ##
 ## Text Forge is a lightweight, extensible, and mode-driven text editor. Customizable, scriptable,
 ## that can handle any format and language! [br]
-## [b]Note:[/b] Text Forge is open source, see [url=https://mkh-user/text-forge]Official repo[/url] for more information.
+## [b]Note:[/b] Text Forge is open source, see [url=https://text-forge/text-forge]Official repo[/url] for more information.
 
 ## [Container] that will keep menu buttons
 @export var menu_container: Container

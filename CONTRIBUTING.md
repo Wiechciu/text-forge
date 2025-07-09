@@ -6,15 +6,15 @@ Thank you for your interest in contributing to **Text Forge**. This guide is her
 
 ## 🛠️ Types of Contributions
 
-- Reporting [bugs](https://github.com/mkh-user/text-forge/issues/new?template=bug_report.md) or [issues](https://github.com/mkh-user/text-forge/issues/new/choose)
-- Proposing and implementing [new features](https://github.com/mkh-user/text-forge/issues/new?template=feature_request.md)
-- Creating or improving [modes](https://github.com/mkh-user/text-forge-modes)
+- Reporting [bugs](https://github.com/text-forge/text-forge/issues/new?template=bug_report.md) or [issues](https://github.com/text-forge/text-forge/issues/new/choose)
+- Proposing and implementing [new features](https://github.com/text-forge/text-forge/issues/new?template=feature_request.md)
+- Creating or improving [modes](https://github.com/text-forge/mode-library)
 - Writing or extending action scripts
 - Improving code or documentation
 - Designing and refining UI/UX
 - Building or updating modular plugins
-- Contributing in [Projects](https://github.com/mkh-user/Text-Forge/projects)
-- Accepting responsibility for issues labeled [`help wanted`](https://github.com/mkh-user/text-forge/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22) or [`good first issue`](https://github.com/mkh-user/text-forge/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
+- Contributing in [Projects](https://github.com/text-forge/text-forge/projects)
+- Accepting responsibility for issues labeled [`help wanted`](https://github.com/text-forge/text-forge/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22) or [`good first issue`](https://github.com/text-forge/text-forge/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 - Create Themes
 
 ---
