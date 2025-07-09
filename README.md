@@ -1,9 +1,13 @@
 [en](https://github.com/mkh-user/Text-Forge/tree/Main/docs/en/README.md) | [fa](https://github.com/mkh-user/Text-Forge/tree/Main/docs/fa/README.md) | [zh](https://github.com/mkh-user/Text-Forge/tree/Main/docs/zh/README.md) | [es](https://github.com/mkh-user/Text-Forge/tree/Main/docs/es/README.md)
-# Text Forge
+# Text Forge - Simplicity to start, power to grow!
 
 Text Forge is a lightweight, extensible, and mode-driven text editor. It's customizable, scriptable, and ready to handle
 any format and language. There is a data-driven and object-oriented environment for create customized code editors without any
 change in source.
+
+Text Forge is an editor with **highly structured** core, there is a lot of ways to enhance your environment as a 
+programmer! Just plug what you want and see how it will expand everything as you want, with this modular framework you
+have a complete workspace that is as fast as possible!
 
 > [!Note]
 > This project currently is in development state, feel free to contribute in any way you like. Text Forge is an 
