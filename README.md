@@ -9,6 +9,10 @@ Text Forge is an editor with **highly structured** core, there is a lot of ways 
 programmer! Just plug what you want and see how it will expand everything as you want, with this modular framework you
 have a complete workspace that is as fast as possible!
 
+![screenshot](https://github.com/user-attachments/assets/2d4ffa6a-dfd3-4514-aefc-1b90ba22f9eb)
+ ^ Simple screenshot from Text Forge in `HTML` mode with *Find & Replace* panel (This screenshot is a demo of special auto formatter, html file in image was generated automiticaly by text forge auto format [from this input](https://github.com/user-attachments/assets/4e3dda16-7167-428e-aae3-47cd4bd19f86))
+
+
 > [!Note]
 > This project currently is in development state, feel free to contribute in any way you like. Text Forge is an 
 > open-source project, so you can use it **for free**,  **forever**, **for anything**, just share what you think about 
@@ -78,6 +82,12 @@ mode), you can find or make your mood for any usage. You can see [here](https://
 You can add any functionality in text forge without change source, see [here](comming soon) for guides and examples.
 Modes are a good way for add new features, If you want to create a mode or edit existing one, you can see
 [here](https://github.com/mkh-user/text-forge-modes/wiki/Modes-structure-guide) for guides and examples.
+
+---
+
+## 🤍 Contributing
+
+Text Forge designed to be community-driven, so you can help this community in any way you can think! Please go to [Contributing Guide Page](https://github.com/mkh-user/text-forge/blob/Main/CONTRIBUTING.md) to get more information.
 
 ---
 
