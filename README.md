@@ -1,34 +1,36 @@
-[en](https://github.com/mkh-user/Text-Forge/tree/Main/README.md) | [fa](https://github.com/mkh-user/Text-Forge/tree/Main/docs/fa/README.md) | [zh](https://github.com/mkh-user/Text-Forge/tree/Main/docs/zh/README.md) | [es](https://github.com/mkh-user/Text-Forge/tree/Main/docs/es/README.md)
+[en](https://github.com/mkh-user/Text-Forge/tree/Main/docs/en/README.md) | [fa](https://github.com/mkh-user/Text-Forge/tree/Main/docs/fa/README.md) | [zh](https://github.com/mkh-user/Text-Forge/tree/Main/docs/zh/README.md) | [es](https://github.com/mkh-user/Text-Forge/tree/Main/docs/es/README.md)
 # Text Forge
 
 Text Forge is a lightweight, extensible, and mode-driven text editor. It's customizable, scriptable, and ready to handle
-any format and language in a data-driven and object-oriented environment without any change in source.
+any format and language. There is a data-driven and object-oriented environment for create customized code editors without any
+change in source.
 
 > [!Note]
-> Text Forge still has many uncompleted/unenabled capabilities, but it is usable even now (because most of these uncompleted capabilities are not core-related).
+> This project currently is in development state, feel free to contribute in any way you like. Text Forge is an 
+> open-source project, so you can use it **for free**,  **forever**, **for anything**, just share what you think about 
+> Text Forge with us!
 
 ---
 
 ## ✨ Core Principles
 
-- **Language-Agnostic Foundation:**
-  
-  **No built-in assumptions** about HTML, Python, JSON, or any language. All formatting and highlight rules are defined 
-  in editable and portable assets.
-
-- **Hot-Pluggable Modes:**
-
-  Each mode is self-contained with syntax-highlight, formatting behavior, and buffers based on file types.
-
-- **Scriptable Shortcuts & Actions:**
-
-  All actions (even `open` and `new`) and their shortcuts are modular scripts separated from source.
+- **lightweight design**
+- **extensibility**
+- **mode-drive design**
+- **be customizable**
+- **scriptable design**
+- **language agnostic design**
+- **data-driven interface**
+- **object-oriented design**
+- **plug-and-play extension architecture**
 
 ---
 
 ## Why Text Forge?
 
-Text Forge is a response to the growing demand for tools that **empower** rather than constrain. Designed as a standalone text editor with a focus on **modularity, deep customization, and minimal design**, it offers a flexible and efficient foundation for users who want full control over their editing environment.
+Text Forge is a response to the growing demand for tools that **empower** rather than constrain. Designed as a 
+standalone text editor with a focus on **modularity, deep customization, and minimal design**, it offers a flexible and 
+efficient foundation for users who want full control over their editing environment.
 
 With Text Forge:
 - The internal architecture is structured to make components easy to add, remove, or redefine
@@ -40,68 +42,43 @@ Our goal is to create a tool that puts creative and technical decisions back in 
 
 ---
 
-## 🧠 Project Structure
+## 🚀 Installing
 
-### Core
-Text Forge have an object-oriented core with systems to handle any extension type, so anything can change without change
-one line in the core.
+- Requires desktop platform. Full checked in Windows, Windows and Linux is available too in release, for macOS you can build from source.
 
-### Data-driven UI
-Text Forge uses configuration files to load UI and have flexible UI system for have highly extendable UI sections.
+### Get Core
+#### From Releases
+Just download Text Forge from [GitHub releases page](https://github.com/mkh-user/text-forge/releases) and run it! To keep our editor lightweight and clean, we don't include modes in the releases!
+#### From Source
+You need **Godot Engine** (4.4 or later) to run Text Forge. After download, download or clone repo and open it with 
+Godot. Then, just press `F5` to run project. To keep source repo clean and separated from modes, we don't include modes
+in this repo! (`modes/` folder is ignored) You can export project for any platform you want with Godot.
 
-### Editor API & Modes
-In Text Forge we have a **mode** to work with a file, modes will load by Editor API in app to handle loading/saving, 
-syntax-highlighting and auto formatting, so Text Forge can handle any file using modes in `/modes` folder!
+### Get Modes & Packages
+To get the **modes** you need, go to [this link](https://github.com/mkh-user/text-forge-modes/releases), download your modes, and extract them into the `modes` folder.
 
-### Script & Shortcuts
-Need to customize any option functionality? So you can replace your code in its script in `/scripts` folder to create 
-your own actions. Need complete UX customization? Create your shortcut mapping in `/shortcuts` folder without touch 
-editor core! 
+Also, You can find equipped **packages** for specific cases on [this page](https://github.com/mkh-user/text-forge-modes/wiki/Packages). Packages are a collection of mods that are useful for a specific type of user.
 
 ---
 
-## 🧩 Creating a Custom Mode
+## 🧰 Modes
 
-Text Forge can handle any file with modes, so if you want to create a mode or edit existing one, you can see 
+Modes are special modules that allow Text Forge to support a variety of files and languages along with custom buffer and
+formats and highlights, Text Forge does not support any specific formats without modes (only UTF-8 is available without
+mode), you can find or make your mood for any usage. You can see [here](https://github.com/mkh-user/text-forge-modes) for available modes.
+
+---
+
+## 🧩 Extend Text Forge Features
+
+You can add any functionality in text forge without change source, see [here](comming soon) for guides and examples.
+Modes are a good way for add new features, If you want to create a mode or edit existing one, you can see
 [here](https://github.com/mkh-user/text-forge-modes/wiki/Modes-structure-guide) for guides and examples.
 
 ---
 
-## 🛠 Adding a Command
+## 🔐 License & Credit
 
-You can add any functionality in text forge without change source, see [here](https://github.com/mkh-user/text-forge) for guides and examples.
+MIT 2025 Mahan Khalili and contributors. See more information in LICENSE file.
 
----
-
-## ✅ Available Modes
-
-See [here](https://github.com/mkh-user/text-forge-modes) for available modes.
-
----
-
-## 🔐 License
-
-MIT 2025 Mahan Khalili. See more informations in LICENSE file.
-
----
-
-## 🚀 Installing
-
-- Requires desktop platforms (full checked in Windows)
-
-### Get Core
-#### From Releases
-Just download Text Forge from Github releases page and run it! To keep our editor lightweight and clean, we don't include modes in the releases!
-#### From Source
-You need **Godot Engine** (4.4 or later) to run Text Forge. After get it, download or clone repo and open it with Godot. Then, just press `F5` to run project.  To keep source repo clean and separated from modes, we don't include modes in this repo! (`modes/` folder is ignored)
-
-### Get Modes & Packages
- To get the **modes** you need, go to [this link](https://github.com/mkh-user/text-forge-modes/releases), download your modes, and extract them into the `modes` folder.
- 
- Also, You can find equipped **packages** for specific cases on [this page](https://github.com/mkh-user/text-forge-modes/wiki/Packages). Packages are a collection of mods that are useful for a specific type of user.
-
----
-
-## 🙌 Credit
-
-Crafted by Mahan Khalili, with an eye toward modularity, control, and clarity.
+Core concept crafted by Mahan Khalili, with an eye toward modularity, control, and clarity.
