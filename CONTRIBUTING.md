@@ -6,15 +6,16 @@ Thank you for your interest in contributing to **Text Forge**. This guide is her
 
 ## 🛠️ Types of Contributions
 
-- Reporting bugs or issues
-- Proposing and implementing new features
-- Creating or improving modes
+- Reporting [bugs](https://github.com/mkh-user/text-forge/issues/new?template=bug_report.md) or [issues](https://github.com/mkh-user/text-forge/issues/new/choose)
+- Proposing and implementing [new features](https://github.com/mkh-user/text-forge/issues/new?template=feature_request.md)
+- Creating or improving [modes](https://github.com/mkh-user/text-forge-modes)
 - Writing or extending action scripts
 - Improving code or documentation
 - Designing and refining UI/UX
 - Building or updating modular plugins
 - Contributing in [Projects](https://github.com/mkh-user/Text-Forge/projects)
-- Accepting responsibility for issues labeled `help wanted` or `unassigned`
+- Accepting responsibility for issues labeled `help wanted` or `good first issue`
+- Create Themes
 
 ---
 
@@ -31,9 +32,10 @@ Before opening an issue or submitting a pull request:
 ## 🔀 How to Submit a Pull Request
 
 1. Fork the `main` branch
-2. Create a new branch for your changes (use a descriptive name)
-3. Make changes and commit with clear, concise messages
-4. Open a Pull Request and describe what you’ve done and why
+2. If your work is related to an issue, write a note in that issue and say you will work on it
+3. Create a new branch for your changes (use a descriptive name in kebab-case)
+4. Make changes and commit with clear, concise messages
+5. Open a Pull Request and describe what you’ve done and why
 
 ---
 
@@ -62,8 +64,7 @@ assets/                 Assets like images, fonts, icons
 data/                   Config files and static data (e.g. menus)
 modes/                  Standalone editing modes (e.g. HTML Mode) 
 docs/                   Project documentation and external guides  
-resources/              Core reusable scripts and base classes  
-scenes/                 Main application structure and base nodes  
+core/                   Main application structure and base nodes  
 scripts/                Action scripts and command logic  
 scripts/script_scenes/  Scenes and assets tied to action scripts  
 shortcuts/              Keybinding definitions for action scripts  
