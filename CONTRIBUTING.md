@@ -14,7 +14,7 @@ Thank you for your interest in contributing to **Text Forge**. This guide is her
 - Designing and refining UI/UX
 - Building or updating modular plugins
 - Contributing in [Projects](https://github.com/mkh-user/Text-Forge/projects)
-- Accepting responsibility for issues labeled `help wanted` or `good first issue`
+- Accepting responsibility for issues labeled [`help wanted`](https://github.com/mkh-user/text-forge/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22) or [`good first issue`](https://github.com/mkh-user/text-forge/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 - Create Themes
 
 ---
