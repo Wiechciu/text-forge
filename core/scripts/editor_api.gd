@@ -4,7 +4,7 @@ class_name EditorAPI
 ## Editor API and Mode Manager
 
 ## Modes folder
-const MODES_FOLDER := "res://modes/"
+const MODES_FOLDER := "user://modes/"
 
 ## List of all modes
 var modes: Array = []

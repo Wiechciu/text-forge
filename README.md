@@ -55,16 +55,18 @@ Our goal is to create a tool that puts creative and technical decisions back in 
 
 ### Get Core
 #### From Releases
-Just download Text Forge from [GitHub releases page](https://github.com/text-forge/text-forge/releases) and run it! To keep our editor lightweight and clean, we don't include modes in the releases!
+Just download Text Forge from [GitHub releases page](https://github.com/text-forge/text-forge/releases) and run it!
 #### From Source
 You need **Godot Engine** (4.4 or later) to run Text Forge. After download, download or clone repo and open it with 
-Godot. Then, just press `F5` to run project. To keep source repo clean and separated from modes, we don't include modes
-in this repo! (`modes/` folder is ignored) You can export project for any platform you want with Godot.
+Godot. Then, just press `F5` to run project. Also, you can export project for any platform you want with Godot.
+
+> [!Important]
+> After get core (from source or build) you should get modes!
 
 ### Get Modes & Packages
-To get the **modes** you need, go to [this link](https://github.com/text-forge/mode-library/releases), download your modes, and extract them into the `modes` folder.
+To get the **modes** you need, go to [this link](https://github.com/text-forge/mode-library/releases), download your modes, and extract them into the `modes` folder in data folder (run editor and use `Settings > Open Data Folder` menu option to access to data folder).
 
-Also, You can find equipped **packages** for specific cases on [this page](https://github.com/text-forge/mode-library/wiki/Packages). Packages are a collection of mods that are useful for a specific type of user.
+Also, You can find equipped **packages** for specific cases on [this page](https://github.com/text-forge/mode-library/wiki/Packages). Packages are a collection of mods that are useful for a specific type of user and you can install them same as modes.
 
 ---
 
