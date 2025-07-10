@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Help menu
-- Docs: Project Structure Guide
 - Notifications panel
 - Panel support
 - Translation system
@@ -42,6 +41,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- Full Screen
 	- Tools:
 		- Color Picker
+	- Settings:
+		- Preferences
+		- Mode manager
+		- Open Data Folder
 	- Help:
 		- GitHub Repository
 		- Mode Library
@@ -52,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- About
 - Drag & Drop for open files
 - Prefrences panel
+- Mode Manager
 
 ### Changed
 

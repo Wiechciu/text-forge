@@ -95,7 +95,7 @@ func load_file(path: String) -> void:
 		var select_menu := PopupMenu.new()
 		select_menu.add_separator("Select a mode to open file")
 		for mode in available_modes:
-			select_menu.add_item(mode.name + " - " + mode.description)
+			select_menu.add_item(mode.name)
 		select_menu.index_pressed.connect(func(index): Signals.mode_selected.emit(index))
 		add_child(select_menu)
 		select_menu.size = Vector2(400, 0)
@@ -160,3 +160,8 @@ func _load_modes() -> void:
 			mode.highlighter[key] = config.get_value("highlighter", key)
 		mode.script = load(MODES_FOLDER.path_join(mode_dir).path_join("mode.gd"))
 		modes.append(mode)
+
+
+func reload_modes() -> void:
+	modes = []
+	_load_modes()
