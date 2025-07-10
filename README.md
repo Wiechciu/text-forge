@@ -1,4 +1,3 @@
-[en](https://github.com/text-forge/text-forge/tree/Main/docs/en/README.md) | [fa](https://github.com/text-forge/text-forge/tree/Main/docs/fa/README.md) | [zh](https://github.com/text-forge/text-forge/tree/Main/docs/zh/README.md) | [es](https://github.com/text-forge/text-forge/tree/Main/docs/es/README.md)
 # Text Forge - Simplicity to start, power to grow!
 
 Text Forge is a lightweight, extensible, and mode-driven text editor. It's customizable, scriptable, and ready to handle
@@ -74,6 +73,13 @@ Also, You can find equipped **packages** for specific cases on [this page](https
 Modes are special modules that allow Text Forge to support a variety of files and languages along with custom buffer and
 formats and highlights, Text Forge does not support any specific formats without modes (only UTF-8 is available without
 mode), you can find or make your mood for any usage. You can see [here](https://github.com/text-forge/mode-library) for available modes.
+
+---
+
+## 📜 Documentation
+
+You can see https://text-forge.github.io/docs for official online documentation. Text Forge documentation is available 
+in [this repository](https://github.com/text-forge/docs) at GitHub.
 
 ---
 
