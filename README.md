@@ -1,4 +1,7 @@
 # Text Forge - Simplicity to start, power to grow!
+Extensible and modular code editor with Godot 4.4
+
+---
 
 Text Forge is a lightweight, extensible, and mode-driven text editor. It's customizable, scriptable, and ready to handle
 any format and language. There is a data-driven and object-oriented environment for create customized code editors without any
@@ -51,22 +54,7 @@ Our goal is to create a tool that puts creative and technical decisions back in 
 
 ## 🚀 Installing
 
-- Requires desktop platform. Full checked in Windows, Windows and Linux is available too in release, for macOS you can build from source.
-
-### Get Core
-#### From Releases
-Just download Text Forge from [GitHub releases page](https://github.com/text-forge/text-forge/releases) and run it!
-#### From Source
-You need **Godot Engine** (4.4 or later) to run Text Forge. After download, download or clone repo and open it with 
-Godot. Then, just press `F5` to run project. Also, you can export project for any platform you want with Godot.
-
-> [!Important]
-> After get core (from source or build) you should get modes!
-
-### Get Modes & Packages
-To get the **modes** you need, go to [this link](https://github.com/text-forge/mode-library/releases), download your modes, and extract them into the `modes` folder in data folder (run editor and use `Settings > Open Data Folder` menu option to access to data folder).
-
-Also, You can find equipped **packages** for specific cases on [this page](https://github.com/text-forge/mode-library/wiki/Packages). Packages are a collection of mods that are useful for a specific type of user and you can install them same as modes.
+Please see [Setup page in Text Forge Online Docs](https://text-forge.github.io/docs/setup/) for installation guide.
 
 ---
 
@@ -74,28 +62,22 @@ Also, You can find equipped **packages** for specific cases on [this page](https
 
 Modes are special modules that allow Text Forge to support a variety of files and languages along with custom buffer and
 formats and highlights, Text Forge does not support any specific formats without modes (only UTF-8 is available without
-mode), you can find or make your mood for any usage. You can see [here](https://github.com/text-forge/mode-library) for available modes.
+mode), you can find or make your mood for any usage. You can see [here](https://github.com/text-forge/mode-library) for 
+available modes. You can read more about modes [here](https://text-forge.github.io/docs/modes).
 
 ---
 
 ## 📜 Documentation
 
-You can see https://text-forge.github.io/docs for official online documentation. Text Forge documentation is available 
-in [this repository](https://github.com/text-forge/docs) at GitHub.
-
----
-
-## 🧩 Extend Text Forge Features
-
-You can add any functionality in text forge without change source, see [here](comming soon) for guides and examples.
-Modes are a good way for add new features, If you want to create a mode or edit existing one, you can see
-[here](https://github.com/text-forge/mode-library/wiki/Modes-structure-guide) for guides and examples.
+You can see [text-forge.github.io/docs](https://text-forge.github.io/docs) for official online documentation. Text Forge
+documentation source is available in [this repository](https://github.com/text-forge/docs) at GitHub.
 
 ---
 
 ## 🤍 Contributing
 
 Text Forge designed to be community-driven, so you can help this community in any way you can think! Please go to [Contributing Guide Page](https://github.com/text-forge/text-forge/blob/Main/CONTRIBUTING.md) to get more information.
+Also, you can make modes, action scripts, themes, packages, etc. to improve and customize Text Forge without touch the core.
 
 ---
 
