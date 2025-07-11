@@ -26,13 +26,13 @@ config/icon="uid://c5as0fd5jhnm8"
 [autoload]
 
 SLib="*res://addons/SLib/SLib.gd"
-SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
 Settings="*res://core/autoload/settings_api.gd"
-Global="*res://core/autoload/global.gd"
 Signals="*res://core/autoload/signals.gd"
 TFT="*res://core/autoload/translation_manager.gd"
 ExtensionCore="*res://core/extension_core/extension_core.gd"
 ExtensionHub="*res://core/extension_core/extension_hub.gd"
+Global="*res://core/autoload/global.tscn"
+SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
 
 [debug]
 
@@ -42,7 +42,6 @@ gdscript/warnings/narrowing_conversion=0
 
 [display]
 
-window/size/mode=2
 window/subwindows/embed_subwindows=false
 window/stretch/aspect="ignore"
 window/per_pixel_transparency/allowed=true

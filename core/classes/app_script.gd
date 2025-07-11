@@ -7,7 +7,12 @@ var need_file: bool = false
 var action_shortcut := InputEventKey.new()
 
 func _ready() -> void:
+	_initialize()
 	_load_shortcut()
+	_define_action()
+
+func _initialize() -> void:
+	pass
 
 func _check_option() -> void:
 	if need_file:
@@ -17,7 +22,6 @@ func _load_shortcut() -> void:
 	if FileAccess.file_exists("res://shortcuts/{0}.tres".format([name])):
 		action_shortcut = load("res://shortcuts/{0}.tres".format([name])).events[0]
 		menu.set_item_accelerator(menu.get_item_index(id), _convert_event_to_key(action_shortcut))
-	_define_action()
 
 
 func _define_action() -> void:

@@ -48,10 +48,10 @@ func _load_scripts() -> void:
 	for menu in main_menu_data:
 		for item in main_menu_data[menu]:
 			if not item.get("type", 0) in [0, 1, 2, 3]: continue
-			if not FileAccess.file_exists("res://scripts/" + item.get("text", "").to_snake_case().replace(".", "") + ".gd"):
+			if not FileAccess.file_exists("res://action_scripts/" + item.get("text", "").to_snake_case().replace(".", "") + ".gd"):
 				if item.has("popup") and item.get("type", 0) != 1: item.get("popup").set_item_disabled(item.get("popup").get_item_index(item.get("code", 0)), true)
 				continue
-			var script = load("res://scripts/" + item.get("text", "").to_snake_case().replace(".", "") + ".gd").new()
+			var script = load("res://action_scripts/" + item.get("text", "").to_snake_case().replace(".", "") + ".gd").new()
 			if item.get("type", 0) == 1:
 				Signals.run_subscript.connect(script.run)
 			else:
