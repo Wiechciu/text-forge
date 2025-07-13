@@ -13,7 +13,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout source repo
+      - name: Checkout main repo
         uses: actions/checkout@v4
 
       - name: Copy docs to a temp folder
@@ -21,14 +21,14 @@ jobs:
           mkdir -p synced-docs
           cp -r docs/* synced-docs/
 
-      - name: Checkout target docs repo
+      - name: Checkout docs repo
         uses: actions/checkout@v4
         with:
           repository: text-forge/docs
           token: ${{ secrets.DOCS_DEPLOY_TOKEN }}
           path: docs-repo
 
-      - name: Sync docs to target repo
+      - name: Sync to docs repo
         run: |
           rm -rf docs-repo/docs/*
           cp -r synced-docs/* docs-repo/docs/
@@ -36,5 +36,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git commit -m "Update docs from text-forge/text-forge: ${{ github.sha }}"
+          git commit -m "Update docs to: ${{ github.sha }}"
           git push
