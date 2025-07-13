@@ -16,6 +16,7 @@ Thank you for your interest in contributing to **Text Forge**. This guide is her
 - Contributing in [Projects](https://github.com/text-forge/text-forge/projects)
 - Accepting responsibility for issues labeled [`help wanted`](https://github.com/text-forge/text-forge/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22help%20wanted%22) or [`good first issue`](https://github.com/text-forge/text-forge/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 - Create Themes
+- Other items in [docs](https://text-forge.github.io/docs/conribution_types)
 
 ---
 
@@ -23,7 +24,7 @@ Thank you for your interest in contributing to **Text Forge**. This guide is her
 
 Before opening an issue or submitting a pull request:
 
-- Make sure a similar issue hasn’t already been reported
+- Make sure a similar issue hasn't already been reported
 - Consider whether the contribution aligns with the project’s philosophy
 - Review the documentation and project structure
 
@@ -31,8 +32,8 @@ Before opening an issue or submitting a pull request:
 
 ## 🔀 How to Submit a Pull Request
 
-1. Fork the `main` branch
-2. If your work is related to an issue, write a note in that issue and say you will work on it
+1. Fork the `Main` branch
+2. If your work is related to an issue, write a note in that issue and say you will work on it, it will help others to don't do what you are doing now
 3. Create a new branch for your changes (use a descriptive name in kebab-case)
 4. Make changes and commit with clear, concise messages
 5. Open a Pull Request and describe what you’ve done and why
@@ -59,19 +60,19 @@ Before opening an issue or submitting a pull request:
 ## 📁 Project Structure
 
 ```
-addons/                 Third-party or custom Godot plugins  
-assets/                 Assets like images, fonts, icons  
-data/                   Config files and static data (e.g. menus)
-modes/                  Standalone editing modes (e.g. HTML Mode) 
-docs/                   Project documentation and external guides  
-core/                   Main application structure and base nodes  
-scripts/                Action scripts and command logic  
-scripts/script_scenes/  Scenes and assets tied to action scripts  
-shortcuts/              Keybinding definitions for action scripts  
+addons/                        Third-party or custom Godot plugins  
+assets/                        Assets like images, fonts, icons  
+data/                          Config files and static data (e.g. menus)
+modes/                         Standalone editing modes (e.g. HTML Mode) 
+docs/                          Project documentation and external guides  
+core/                          Main application structure and base nodes  
+action_scripts/                Action scripts and command logic  
+action_scripts/script_scenes/  Scenes and assets tied to action scripts  
+shortcuts/                     Keybinding definitions for action scripts  
 ```
 
 ---
 
 ## 💬 Communication
 
-Please use GitHub Issues or the Discussion board to ask questions, suggest ideas, or provide feedback. We welcome your contributions!
+Please use [GitHub Issues](https://github.com/text-forge/text-forge/issues) or the [Discussion board](https://github.com/text-forge/text-forge/discussions) to ask questions, suggest ideas, or provide feedback. We welcome your contributions!

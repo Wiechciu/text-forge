@@ -10,9 +10,8 @@ change in source.
 Text Forge is an editor with **highly structured** core, there is a lot of ways to enhance your environment as a 
 programmer! Just plug what you want and see how it will expand everything as you want, with this modular framework you
 have a complete workspace that is as fast as possible!
-
-![screenshot](https://github.com/user-attachments/assets/2d4ffa6a-dfd3-4514-aefc-1b90ba22f9eb)
- ^ Simple screenshot from Text Forge in `HTML` mode with *Find & Replace* panel (This screenshot is a demo of special auto formatter, html file in image was generated automiticaly by text forge auto format [from this input](https://github.com/user-attachments/assets/4e3dda16-7167-428e-aae3-47cd4bd19f86))
+![introduction_screenshot.png](docs/img/introduction_screenshot.png)
+ ^ Simple screenshot from Text Forge in `HTML` mode with *Find & Replace* panel (This screenshot is a demo of special auto formatter, html file in image was generated automatically by text forge auto format [from this input](https://github.com/user-attachments/assets/4e3dda16-7167-428e-aae3-47cd4bd19f86))
 
 
 > [!Note]
@@ -70,13 +69,13 @@ available modes. You can read more about modes [here](https://text-forge.github.
 ## 📜 Documentation
 
 You can see [text-forge.github.io/docs](https://text-forge.github.io/docs) for official online documentation. Text Forge
-documentation source is available in [this repository](https://github.com/text-forge/docs) at GitHub.
+documentation source is available in `docs/`folder in this repository.
 
 ---
 
 ## 🤍 Contributing
 
-Text Forge designed to be community-driven, so you can help this community in any way you can think! Please go to [Contributing Guide Page](https://github.com/text-forge/text-forge/blob/Main/CONTRIBUTING.md) to get more information.
+Text Forge designed to be community-driven, so you can help this community in any way you can think! Please go to [Contributing Guide Page](https://text-forge.github.io/docs/conributing) to get more information.
 Also, you can make modes, action scripts, themes, packages, etc. to improve and customize Text Forge without touch the core.
 
 ---

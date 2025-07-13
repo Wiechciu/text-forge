@@ -54,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 		- Online Docs
 		- About
 - Drag & Drop for open files
-- Prefrences panel
+- Preferences panel
 - Mode Manager
 
 ### Changed
