@@ -60,6 +60,25 @@ func _ready() -> void:
 	_load_scripts()
 
 
+## Appends [param file_path] in [constant FileDatabase.RECENT_FILES_DATA]. New file will be in top
+## of list. This function will emit [signal SignalBus.reload_recent_files].
+func append_to_recent_files(file_path: String) -> void:
+	var file: FileAccess
+	var files: String
+	if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA):
+		file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
+		files = file.get_as_text()
+		file.close()
+	else:
+		files = ""
+
+	file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
+	file.store_string(file_path + "\n" + files)
+	file.close()
+
+	Signals.reload_recent_files.emit()
+
+
 ## Loads data in [member main_menu_data], uses [constant FileDatabase.MAIN_UI_DATA] and [constant DATA_SECTION].
 func _load_main_menu_data() -> void:
 	var config := ConfigFile.new()
@@ -269,22 +288,3 @@ func _reload_recent_files() -> void:
 	var file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
 	file.store_string("\n".join(recent_files))
 	file.close()
-
-
-## Appends [param file_path] in [constant FileDatabase.RECENT_FILES_DATA]. New file will be in top
-## of list. This function will emit [signal SignalBus.reload_recent_files].
-func append_to_recent_files(file_path: String) -> void:
-	var file: FileAccess
-	var files: String
-	if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA):
-		file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
-		files = file.get_as_text()
-		file.close()
-	else:
-		files = ""
-
-	file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
-	file.store_string(file_path + "\n" + files)
-	file.close()
-
-	Signals.reload_recent_files.emit()

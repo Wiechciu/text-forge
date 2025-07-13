@@ -69,7 +69,7 @@ func get_editor_text() -> String:
 	return get_editor().get_text()
 
 
-## Sets [param text] to as text of [Editor] [CodeEdit]. If [param keep_carets] is [code]false[/code],
+## Sets [param text] as text of [Editor] [CodeEdit]. If [param keep_carets] is [code]false[/code],
 ## this actiona will move caret to start of text. If [code]true[/code] all carets and selection
 ## origins will restore automatically. (This action is based on line and column, so if your change
 ## containes line/column changing (for example line merging) you can set it to [code]false[/code]

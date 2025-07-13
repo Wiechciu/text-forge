@@ -2,7 +2,7 @@ extends MultiActionScript
 
 func _run_action(item_id, popup) -> void:
 	if Global.get_file_name().ends_with("*"):
-		Signals.editor_notification.emit(0, "Please do this action again", "You have unsaved changes, But there isn's support for load recent files after save/discad changes.")
+		Global.send_notification(Global.Notification.INFO, "Please do this action again", "You have unsaved changes, But there isn's support for load recent files after save/discad changes.")
 		await SLib.wait(1)
 		Signals.close_file.emit()
 		return
