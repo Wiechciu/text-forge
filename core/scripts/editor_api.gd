@@ -23,9 +23,10 @@ func _ready() -> void:
 
 ## Will send auto format command to correct mode. Pushs error if there is no compatible mode, uses
 ## current mode if is compatible, otherwise creates [PopupMenu] to choose correct mode.
-func auto_format(path: String) -> void:
+func auto_format() -> void:
+	var path = Global.get_file_path()
 	if path == "Unsaved":
-		Global.send_notification(Global.Notification.ERROR, "Please save file before auto formatting", "")
+		Global.send_notification(Global.Notification.ERROR, "Please save file before auto formatting.", "File extension for auto format is required.")
 		return
 
 	var available_modes := _get_available_modes(path.get_extension())

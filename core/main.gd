@@ -38,6 +38,8 @@ const MENU_TRANSLATION_PREFIX: String = "menu."
 @export var scripts: Control
 ## [PanelManager] node, see class for more information.
 @export var panel_manager: PanelManager
+## About window.
+@export var about: Window
 
 ## Recent files [PopupMenu], see also [method _update_recent_files].
 var recent_files_submenu: PopupMenu
@@ -77,6 +79,10 @@ func append_to_recent_files(file_path: String) -> void:
 	file.close()
 
 	Signals.reload_recent_files.emit()
+
+
+func show_about() -> void:
+	about.show()
 
 
 ## Loads data in [member main_menu_data], uses [constant FileDatabase.MAIN_UI_DATA] and [constant DATA_SECTION].
