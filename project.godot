@@ -29,10 +29,10 @@ SLib="*res://addons/SLib/SLib.gd"
 Settings="*res://core/autoload/settings_api.gd"
 Signals="*res://core/autoload/signals.gd"
 TFT="*res://core/autoload/translation_manager.gd"
-ExtensionCore="*res://core/extension_core/extension_core.gd"
 ExtensionHub="*res://core/extension_core/extension_hub.gd"
-Global="*res://core/autoload/global.tscn"
 SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
+Global="*res://core/autoload/global.gd"
+Factory="*res://core/autoload/factory.gd"
 
 [debug]
 

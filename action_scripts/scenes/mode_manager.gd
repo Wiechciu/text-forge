@@ -50,7 +50,7 @@ func _import_mode(path: String) -> void:
 	var reader = ZIPReader.new()
 	var err := reader.open(path)
 	if err:
-		Global.send_notification(2, "Can't load this file!", "Load {0} for import mode or package failed. Error code: {1}".format([path, str(err)]))
+		Global.send_notification(Global.Notification.ERROR, "Can't load this file!", "Load {0} for import mode or package failed. Error code: {1}".format([path, str(err)]))
 		return
 
 	if not DirAccess.dir_exists_absolute(SLib.globalize_path("user://modes")):
@@ -70,7 +70,7 @@ func _import_mode(path: String) -> void:
 
 	Global.get_editor_api().reload_modes()
 	_load_mode_list()
-	Global.send_notification(0, "Load mode / package completed.")
+	Global.send_notification(Global.Notification.INFO, "Load mode / package completed.")
 
 func _close() -> void:
 	queue_free()
@@ -106,7 +106,7 @@ func _export_mode(path: String) -> void:
 	var writer = ZIPPacker.new()
 	var err = writer.open(path)
 	if err != OK:
-		Global.send_notification(2, "Cann't export mode!", "Error code: " + str(err))
+		Global.send_notification(Global.Notification.ERROR, "Cann't export mode!", "Error code: " + str(err))
 		return
 	writer.start_file(modes[current_mode_index].path_join("mode.cfg"))
 	var file := FileAccess.open("user://modes".path_join(modes[current_mode_index]).path_join("mode.cfg"), FileAccess.READ)
@@ -120,7 +120,7 @@ func _export_mode(path: String) -> void:
 	file.close()
 
 	writer.close()
-	Global.send_notification(0, "Export mode completed.", "Exported file: " + path)
+	Global.send_notification(Global.Notification.INFO, "Export mode completed.", "Exported file: " + path)
 
 
 func _on_remove_pressed() -> void:
@@ -133,7 +133,7 @@ func _on_remove_pressed() -> void:
 
 func _remove_mode() -> void:
 	OS.move_to_trash(SLib.globalize_path("user://modes".path_join(modes[current_mode_index])))
-	Global.send_notification(0, "Remove mode completed.")
+	Global.send_notification(Global.Notification.INFO, "Remove mode completed.")
 	Global.get_editor_api().reload_modes()
 	_load_mode_list()
 	about.hide()
@@ -143,7 +143,7 @@ func _save_package(path: String) -> void:
 	var writer = ZIPPacker.new()
 	var err = writer.open(path)
 	if err != OK:
-		Global.send_notification(2, "Cann't export package!", "Error code: " + str(err))
+		Global.send_notification(Global.Notification.ERROR, "Cann't export package!", "Error code: " + str(err))
 		return
 	for index in mode_list.get_selected_items():
 		writer.start_file(modes[index].path_join("mode.cfg"))
@@ -158,7 +158,7 @@ func _save_package(path: String) -> void:
 		file.close()
 
 	writer.close()
-	Global.send_notification(0, "Export package completed.", "Exported file: " + path)
+	Global.send_notification(Global.Notification.INFO, "Export package completed.", "Exported file: " + path)
 	mode_list.select_mode = ItemList.SELECT_SINGLE
 	mode_list.deselect_all()
 

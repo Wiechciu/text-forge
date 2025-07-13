@@ -13,7 +13,7 @@ var index: int
 var matches: Array[Vector2i] = []
 
 func _ready() -> void:
-	Signals.open_find_panel.connect(Global.get_panel_manager().show_panel.bind(PanelManager.PANEL_RIGHT, index))
+	Signals.open_find_panel.connect(Global.get_panel_manager().show_panel.bind(PanelManager.Panels.RIGHT, index))
 	Signals.shift_find_result.connect(func(next):
 		if next:
 			_on_next_pressed()

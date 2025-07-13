@@ -2,8 +2,7 @@ extends ActionScript
 
 var dialog: FileDialog
 
-func _ready() -> void:
-	_load_shortcut()
+func _initialize() -> void:
 	Signals.open_file.connect(func(path): _open_file(path))
 
 func _run_action() -> void:
@@ -28,12 +27,12 @@ func _open_file(path: String) -> void:
 
 
 func _append_to_recent_files(path: String) -> void:
-	var file = FileAccess.open(Global.get_core().RECENT_FILES_DATA, FileAccess.READ)
-	var files = file.get_as_text() if FileAccess.file_exists(Global.get_core().RECENT_FILES_DATA) else ""
-	if FileAccess.file_exists(Global.get_core().RECENT_FILES_DATA):
+	var file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
+	var files = file.get_as_text() if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA) else ""
+	if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA):
 		file.close()
-	file = FileAccess.open(Global.get_core().RECENT_FILES_DATA, FileAccess.WRITE)
+	file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
 	file.store_string(path + "\n" + files)
 	file.close()
-	Signals.update_recent_files.emit()
+	Signals.reload_recent_files.emit()
 	menu.set_item_disabled(menu.get_item_index(id + 1), Global.get_core().recent_files_submenu.item_count == 0)

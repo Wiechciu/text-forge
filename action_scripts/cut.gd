@@ -3,7 +3,7 @@ extends ActionScript
 var selected_caret_index: int = -1
 
 func _initialize() -> void:
-	Signals.caret_selected.connect(func(index): selected_caret_index = index - 2)
+	Signals.caret_selected.connect(func(idx): selected_caret_index = idx - 2)
 
 func _run_action() -> void:
 	if Global.get_editor().get_caret_count() == 1:
@@ -14,7 +14,7 @@ func _run_action() -> void:
 		select_caret.add_item("All")
 		for caret in Global.get_editor().get_caret_count():
 			select_caret.add_item("{0} (Line {1})".format([caret, Global.get_editor().get_caret_line(caret)]))
-		select_caret.index_pressed.connect(func(index): Signals.caret_selected.emit(index))
+		select_caret.index_pressed.connect(func(idx): Signals.caret_selected.emit(idx))
 		add_child(select_caret)
 		select_caret.size = Vector2(400, 0)
 		select_caret.popup_centered()
