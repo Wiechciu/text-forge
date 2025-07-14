@@ -16,9 +16,14 @@ func _ready() -> void:
 	# TODO: Handle this with modes.
 	Global.get_editor().add_comment_delimiter("#", "", true)
 
+	Settings.define_preset("edit", "indent_with_space", false)
+	Settings.define_preset("edit", "indent_size", 4)
+
 	Signals.mode_selected.connect(func(index): selected_mode_index = index - 1)
+	Signals.settings_changed.connect(_load_configs)
 
 	_load_modes()
+	_load_configs()
 
 
 ## Will send auto format command to correct mode. Pushs error if there is no compatible mode, uses
@@ -57,10 +62,6 @@ func auto_format() -> void:
 
 		select_menu.queue_free()
 		_auto_format(available_modes[selected_mode_index].script)
-
-
-func _auto_format(script: GDScript) -> void:
-	script.new().auto_format()
 
 
 ## Will send save command to correct mode. Pushs error if there is no compatible mode, uses
@@ -132,6 +133,15 @@ func load_file(path: String) -> void:
 	current_mode = available_modes[selected_mode_index]
 	_load_highlighter(current_mode.highlighter)
 	_load_file(current_mode.script, path)
+
+
+func _load_configs() -> void:
+	Global.get_editor().indent_use_spaces = Settings.get_setting("edit", "indent_with_space")
+	Global.get_editor().indent_size = Settings.get_setting("edit", "indent_size")
+
+
+func _auto_format(script: GDScript) -> void:
+	script.new().auto_format()
 
 
 func _save_file(saver: GDScript, path: String) -> void:
