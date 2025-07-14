@@ -85,6 +85,8 @@ func set_editor_text(text: String, keep_carets: bool = true) -> void:
 	if keep_carets:
 		for idx in carets.size():
 			var selection: Array = carets[idx]
+			if idx >= get_editor().get_caret_count():
+				get_editor().add_caret(0, 0)
 			get_editor().select(selection[0].x, selection[0].y, selection[1].x, selection[1].y, idx)
 
 

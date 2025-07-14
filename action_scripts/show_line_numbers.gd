@@ -1,8 +1,8 @@
 extends ActionScript
 
-func _ready() -> void:
+func _initialize() -> void:
+	Settings.define_preset("editor_ui", "show_line_numbers", true)
 	Signals.settings_changed.connect(_load_config)
-	_load_shortcut()
 	_load_config()
 
 func _run_action() -> void:

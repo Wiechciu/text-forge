@@ -26,7 +26,7 @@ func _ready() -> void:
 			options.current_tab = 3
 			options.get_child(3).text = ", ".join(value.map(func(item): return str(item)))
 		_:
-			Global.send_notification(2, "Invalid Setting Type!", "There isn't support for type {0} (in {1} > {2})".format([str(typeof(value)), section, key]))
+			Global.send_notification(Global.Notification.ERROR, "Invalid Setting Type!", "There isn't support for type {0} (in {1} > {2})".format([str(typeof(value)), section, key]))
 			queue_free()
 
 func _on_check_box_pressed() -> void:

@@ -24,6 +24,10 @@ extends ActionScript
 ##     return text.to_camel_case()
 ## [/codeblock]
 
+## Initializes this action script, for this class, it means set [member ActionScript.requires_file] to [code]true[/code].
+func _initialize() -> void:
+	requires_file = true
+
 ## Handles main operation, you just have to override [method _format_text]. [br]
 ## What this function do:[br]
 ## - Handle complex operation[br]

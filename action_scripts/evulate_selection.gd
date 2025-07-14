@@ -1,6 +1,12 @@
 extends ActionScript
 
+func _initialize() -> void:
+	requires_file = true
+
 func _run_action() -> void:
+	if Global.get_editor().get_caret_count():
+		Global.send_notification(Global.Notification.WARNING, "Exulate selection only supports main caret!")
+
 	var expression = Expression.new()
 	expression.parse(Global.get_editor().get_selected_text(0))
 	var result = expression.execute([], self)

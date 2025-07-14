@@ -28,7 +28,9 @@ var index: int:
 ## Parent [PopupMenu].
 var menu: PopupMenu
 ## Specifies whether this action script requires opened file or no. See also [method _check_option].
-var need_file := false
+var requires_file := false
+## Specifies whether this action script requires saved file or no. See also [method _check_option].
+var requires_saved_file := false
 ## [InputEventKey] for this action script. See also [method _load_shortcut].
 var action_shortcut := InputEventKey.new()
 
@@ -47,10 +49,11 @@ func _initialize() -> void:
 
 ## Sets linked item enabled/disabled based on current situation.[br][br]
 ## [b]Note:[/b] This function is not intended to be overriden, if you override it the automatic
-## status checking based on [member need_file] will be lost!
+## status checking based on [member requires_file] and [member requires_save_file] will be lost!
 func _check_option() -> void:
-	if need_file:
-		menu.set_item_disabled(menu.get_item_index(id), Global.get_file_path() == "")
+	var has_file := Global.get_file_path() != "" if requires_file else true
+	var has_saved_file := Global.get_file_path() != "Unsaved" if requires_saved_file else true
+	menu.set_item_disabled(index, not (has_file and has_saved_file))
 
 
 ## Loads shortcut as item accelerator (see also [method PopupMenu.set_item_accelerator]). This means

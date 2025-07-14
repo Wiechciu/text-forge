@@ -1,9 +1,8 @@
 extends ActionScript
 
-func _ready() -> void:
-	_load_shortcut()
-	if not Global.get_editor().text_changed.is_connected(_check_undo):
-		Global.get_editor().text_changed.connect(_check_undo)
+func _initialize() -> void:
+	requires_file = true
+	Global.get_editor().text_changed.connect(_check_undo)
 
 func _run_action() -> void:
 	Global.get_editor().undo()

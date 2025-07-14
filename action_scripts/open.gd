@@ -3,7 +3,7 @@ extends ActionScript
 var dialog: FileDialog
 
 func _initialize() -> void:
-	Signals.open_file.connect(func(path): _open_file(path))
+	Signals.open_file.connect(_open_file)
 
 func _run_action() -> void:
 	if Global.get_file_name().ends_with("*"):

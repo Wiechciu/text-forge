@@ -3,14 +3,11 @@ extends ActionScript
 var callback: int = -1
 var dialog: FileDialog
 
-func _ready() -> void:
-	need_file = true
-	_load_shortcut()
+func _initialize() -> void:
+	requires_file = true
 
 func _run_action() -> void:
-	dialog = preload("res://action_scripts/scenes/save_file.tscn").instantiate()
-	dialog.file_selected.connect(_save_file)
-	dialog.show()
+	add_child(Factory.file_dialog(FileDialog.FILE_MODE_SAVE_FILE, FileDialog.ACCESS_FILESYSTEM, [], _save_file, true))
 
 func _save_file(path: String) -> void:
 	Global.get_editor_api().save_file(path)

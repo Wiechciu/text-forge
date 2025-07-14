@@ -1,5 +1,8 @@
 extends ActionScript
 
+func _initialize() -> void:
+	requires_file = true
+
 func _run_action() -> void:
 	for caret in Global.get_editor().get_caret_count():
 		if Global.get_editor().get_char_index(Global.get_editor().get_selection_origin_line(caret), Global.get_editor().get_selection_origin_column(caret)) > Global.get_editor().get_char_index(Global.get_editor().get_caret_line(caret), Global.get_editor().get_caret_column(caret)):

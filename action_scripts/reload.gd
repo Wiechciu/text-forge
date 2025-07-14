@@ -1,11 +1,10 @@
 extends ActionScript
 
-func _ready() -> void:
-	need_file = true
-	_load_shortcut()
+func _initialize() -> void:
+	requires_file = true
+	requires_saved_file = true
 
 func _run_action() -> void:
-	if Global.get_file_path() == "Unsaved": return
 	if Global.get_file_name().ends_with("*"):
 		Signals.save_request.emit(id)
 		return

@@ -1,8 +1,8 @@
 extends ActionScript
 
-func _ready() -> void:
-	_load_shortcut()
-	Global.get_editor().text_changed.connect(func(): _check_redo())
+func _initialize() -> void:
+	requires_file = true
+	Global.get_editor().text_changed.connect(_check_redo)
 
 func _run_action() -> void:
 	Global.get_editor().redo()

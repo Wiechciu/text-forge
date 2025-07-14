@@ -9,7 +9,7 @@ func _on_close_requested() -> void:
 
 func _ready() -> void:
 	var config := ConfigFile.new()
-	config.load(Settings.SETTINGS_FILE)
+	config.load(Settings.PRESETS_FILE)
 	tree.create_item()
 	for section in config.get_sections():
 		var tab := VBoxContainer.new()

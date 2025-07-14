@@ -1,26 +1,26 @@
 extends ActionScript
 
+func _initialize() -> void:
+	requires_file = true
+
 func _run_action() -> void:
-	if Global.get_editor().delimiter_comments.size() == 0: return
-	var caret_pos: PackedVector2Array = []
-	for i in Global.get_editor().get_caret_count():
-		caret_pos.append(Vector2i(Global.get_editor().get_caret_line(i), Global.get_editor().get_caret_column(i)))
+	Global.get_editor().begin_complex_operation()
+	Global.get_editor().begin_multicaret_edit()
+
+	if Global.get_editor().delimiter_comments.size() == 0:
+		Global.send_notification(Global.Notification.ERROR, "There is now comment delimiter!", "Please select a mode with comment delimiter.")
+		return
+
+	var text = Global.get_editor_text().split("\n")
+
 	for caret in Global.get_editor().get_caret_count():
 		for line in range(Global.get_editor().get_selection_from_line(caret), Global.get_editor().get_selection_to_line(caret) + 1):
 			if Global.get_editor().is_in_comment(line) != -1:
-				var text = Global.get_editor_text()
-				var lines = text.split("\n")
-				lines[line] = lines.get(line).erase(0, Global.get_editor().get_comment_delimiters()[0].length())
-				text = "\n".join(lines)
-				Global.set_editor_text(text)
+				text[line] = text.get(line).erase(Global.get_editor().is_in_comment(line), Global.get_editor().get_comment_delimiters()[0].length())
 			else:
-				var text = Global.get_editor_text()
-				var lines = text.split("\n")
-				lines[line] = Global.get_editor().get_comment_delimiters()[0] + lines.get(line)
-				text = "\n".join(lines)
-				Global.set_editor_text(text)
-	@warning_ignore_start("narrowing_conversion")
-	for j in caret_pos.size() - 1:
-		Global.get_editor().add_caret(caret_pos[j].x, caret_pos[j].y)
-	Global.get_editor().set_caret_line(caret_pos[0].x)
-	Global.get_editor().set_caret_column(caret_pos[0].y)
+				text[line] = Global.get_editor().get_comment_delimiters()[0] + text.get(line)
+
+	Global.set_editor_text("\n".join(text))
+	Global.get_editor().end_multicaret_edit()
+	Global.get_editor().end_complex_operation()
+	Global.get_editor().text_changed.emit()

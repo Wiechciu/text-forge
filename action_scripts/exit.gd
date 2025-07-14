@@ -3,6 +3,8 @@ extends ActionScript
 func _initialize() -> void:
 	get_window().close_requested.connect(func():_close())
 
+
+# To send signal to whole editor
 func _run_action() -> void:
 	get_window().close_requested.emit()
 

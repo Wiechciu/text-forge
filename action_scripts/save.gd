@@ -2,9 +2,8 @@ extends ActionScript
 
 var callback: int = -1
 
-func _ready() -> void:
-	need_file = true
-	_load_shortcut()
+func _initialize() -> void:
+	requires_file = true
 
 func _run_action() -> void:
 	if Global.get_file_path() == "Unsaved":

@@ -5,4 +5,4 @@ func _run_action():
 		Signals.save_request.emit(id)
 		return
 	SLib.os_open(OS.get_executable_path())
-	SLib.exit()
+	get_window().close_requested.emit()
