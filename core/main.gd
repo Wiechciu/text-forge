@@ -201,7 +201,7 @@ func _load_scripts() -> void:
 			var script = load(script_path).new()
 
 			# for MultiActionScripts (submenu roots)
-			if item.get("type", 0) == 1:
+			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SUBMENU:
 				Signals.run_subscript.connect(script.run)
 			# for ActionScripts (regular, checkbox, radio checkbox)
 			else:
