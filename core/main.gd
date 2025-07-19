@@ -155,7 +155,7 @@ func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file
 			for template: String in DirAccess.get_files_at(FileDatabase.FOLDER_TEMPLATES):
 				submenu.add_item(template)
 
-		"Extensions": # needs load from another script
+		"By Extensions": # needs load from another script
 			pass
 
 		_: # just load items to another popup menu for other submenus
