@@ -2,19 +2,18 @@ name: Automated Tests
 on: [push, pull_request]
 
 jobs:
-  first-test:
+  formatting-gdunit:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Import Godot Assets
+        run: godot --headless --editor --quit
       - name: Test with GDUnit4
         uses: MikeSchulze/gdunit4-action@v1
         with:
           godot-version: '4.4.1'
           paths: 'res://tests'
-  format-code:
-    runs-on: ubuntu-latest
-    steps:
       - name: Format GDScript Code
         uses: quantum-defence/gdformatter@v0.1.5
         with:
@@ -23,12 +22,9 @@ jobs:
           labels: auto-format
           assignees: mkh-user
           reviewers: mkh-user
-  second-test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
+      - name: Checkout - Again
         uses: actions/checkout@v4
-      - name: Test with GDUnit4
+      - name: Test with GDUnit4 - Again
         uses: MikeSchulze/gdunit4-action@v1
         with:
           godot-version: '4.4.1'
