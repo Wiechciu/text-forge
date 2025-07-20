@@ -1,0 +1,36 @@
+name: Automated Tests
+on: [push, pull_request]
+
+jobs:
+  first-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test with GDUnit4
+        uses: MikeSchulze/gdunit4-action@v1
+        with:
+          godot-version: '4.4.1'
+          paths: 'res://tests'
+  format-code:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Format GDScript Code
+        uses: quantum-defence/gdformatter@v0.1.5
+        with:
+          committer: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+          labels: auto-format
+          assignees: mkh-user
+          reviewers: mkh-user
+  second-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test with GDUnit4
+        uses: MikeSchulze/gdunit4-action@v1
+        with:
+          godot-version: '4.4.1'
+          paths: 'res://tests'
+                
