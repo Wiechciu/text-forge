@@ -8,10 +8,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Godot
-        uses: vitorgus/setup-godot@v1.1.1
+        uses: lihop/godot-setup@v2.1.3
         with:
-          godot-version: 4.4.1
-          download-templates: false
+          version: 4.4.1
       - name: Import Godot Assets
         run: godot --headless --editor --quit
       - name: Test with GDUnit4
