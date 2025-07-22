@@ -156,7 +156,9 @@ func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file
 				submenu.add_item(template)
 
 		"By Extensions": # needs load from another script
-			pass
+			Extensions.menu = submenu
+			submenu.id_pressed.connect(Extensions._menu_id_pressed)
+			Extensions.setup_extensions()
 
 		_: # just load items to another popup menu for other submenus
 			for submenu_item: Dictionary in config_file.get_value(DATA_SECTION, root_option.get("text", "").to_snake_case() + SUBMENU_SUFFIX):
