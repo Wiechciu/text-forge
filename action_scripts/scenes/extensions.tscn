@@ -10,10 +10,10 @@ size = Vector2i(600, 400)
 popup_window = true
 min_size = Vector2i(400, 300)
 script = ExtResource("1_sqje5")
-tree = NodePath("MarginContainer/HSplitContainer/Tree")
-tabs = NodePath("MarginContainer/HSplitContainer/TabContainer")
+tree = NodePath("MarginContainer/VBoxContainer/HSplitContainer/Tree")
+tabs = NodePath("MarginContainer/VBoxContainer/HSplitContainer/TabContainer")
 item = NodePath("PanelContainer")
-extensions_list = NodePath("MarginContainer/HSplitContainer/TabContainer/Extension Manager/ScrollContainer/HFlowContainer")
+extensions_list = NodePath("MarginContainer/VBoxContainer/HSplitContainer/TabContainer/Extension Manager/ScrollContainer/HFlowContainer")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -30,11 +30,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Install" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Install Extension"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 split_offset = 150
 
-[node name="Tree" type="Tree" parent="MarginContainer/HSplitContainer"]
+[node name="Tree" type="Tree" parent="MarginContainer/VBoxContainer/HSplitContainer"]
 visible = false
 layout_mode = 2
 allow_reselect = true
@@ -42,20 +53,20 @@ hide_folding = true
 hide_root = true
 select_mode = 1
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer/HSplitContainer"]
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 current_tab = 0
 tabs_visible = false
 
-[node name="Extension Manager" type="MarginContainer" parent="MarginContainer/HSplitContainer/TabContainer"]
+[node name="Extension Manager" type="MarginContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HSplitContainer/TabContainer/Extension Manager"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/TabContainer/Extension Manager"]
 layout_mode = 2
 
-[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/HSplitContainer/TabContainer/Extension Manager/ScrollContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/TabContainer/Extension Manager/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -86,13 +97,19 @@ alignment = 1
 
 [node name="CheckBox" type="CheckBox" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "Disabled"
+text = "Disabled "
+
+[node name="Export" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Export"
 
 [node name="Button" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Uninstall"
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="item_selected" from="MarginContainer/HSplitContainer/Tree" to="." method="_on_tree_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Install" to="." method="_on_install_pressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/HSplitContainer/Tree" to="." method="_on_tree_item_selected"]
 [connection signal="toggled" from="PanelContainer/VBoxContainer/HBoxContainer/CheckBox" to="PanelContainer" method="_on_check_box_toggled"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/Export" to="PanelContainer" method="_on_export_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/Button" to="PanelContainer" method="_on_button_pressed"]

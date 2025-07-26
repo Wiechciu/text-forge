@@ -27,6 +27,8 @@ extends Node
 ## change it. Each extension have a ID and this ID is name of extension folder.[br]
 ## [b]Note:[/b] Extension entries will load as childern of [code]/root/Extensions[/code].
 
+signal extensions_loaded
+
 ## Keeps [PopupMenu] for extensions in main menus. Will seted by [Core].
 var menu: PopupMenu
 ## Keeps a dictionary of all extensions by IDs (folder names).
@@ -64,6 +66,8 @@ func setup_extensions() -> void:
 		add_child(entry)
 		entry.call(extensions[xtn]["on_activate"])
 
+	extensions_loaded.emit()
+
 
 ## Cleanups all extensions with calling [code]on_deactivate[/code] for each enabled extension and
 ## free entry of all extensions after a process frame. Nothing happens if there is no connected
@@ -84,17 +88,19 @@ func set_extension_enabled(id: String, enabled: bool = true) -> void:
 	if not id in extensions:
 		return
 
-	if enabled_extensions.has(id):
-		enabled_extensions.erase(id)
-		get_node(id).call(extensions[id]["on_deactivate"])
-		await get_tree().process_frame
-		get_node(id).queue_free()
+	if not enabled:
+		if enabled_extensions.has(id):
+			enabled_extensions.erase(id)
+			get_node(id).call(extensions[id]["on_deactivate"])
+			await get_tree().process_frame
+			get_node(id).queue_free()
 	else:
-		enabled_extensions.append(id)
-		var entry = load(FileDatabase.FOLDER_EXTENSIONS.path_join(id).path_join(extensions[id]["entry"])).new()
-		entry.name = id
-		add_child(entry)
-		entry.call(extensions[id]["on_activate"])
+		if not enabled_extensions.has(id):
+			enabled_extensions.append(id)
+			var entry = load(FileDatabase.FOLDER_EXTENSIONS.path_join(id).path_join(extensions[id]["entry"])).new()
+			entry.name = id
+			add_child(entry)
+			entry.call(extensions[id]["on_activate"])
 
 	Settings.write_data("extensions", "enabled", enabled_extensions)
 
@@ -117,7 +123,11 @@ func uninstall_extension(id: String) -> void:
 		set_extension_enabled(id, false)
 		await get_tree().process_frame
 
-	get_node(id).call(extensions[id]["uninstall"])
+	if has_node(id):
+		get_node(id).call(extensions[id]["uninstall"])
+	else:
+		load(FileDatabase.FOLDER_EXTENSIONS.path_join(id).path_join(extensions[id]["entry"])).new().call(extensions[id]["uninstall"])
+
 	await get_tree().process_frame
 	OS.move_to_trash(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS.path_join(id)))
 
@@ -129,12 +139,14 @@ func _menu_id_pressed(id: int) -> void:
 
 ## Loads list of enabled extensions.
 func _load_enabled_list() -> void:
-	Settings.read_data("extensions", "enabled", [])
+	enabled_extensions = Settings.read_data("extensions", "enabled", [])
 
 
 ## Loads extensions from [constant FileDatabase.FOLDER_EXTENSIONS], each extension is a folder and
 ## must have a [code]extension.cfg[/code].
 func _load_extensions() -> void:
+	extensions = {}
+
 	if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS)):
 		DirAccess.make_dir_absolute(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS))
 
