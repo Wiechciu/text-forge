@@ -29,7 +29,7 @@ func _update_menu() -> void:
 	get_popup().add_item("Reload")
 	get_popup().add_separator()
 	for section in modules_list:
-		get_popup().add_submenu_node_item(section + str(" ({0})").format([_get_nodes_count(modules_list[section]) - 1]), _node_to_popup_menu_tree(modules_list[section]))
+		get_popup().add_submenu_node_item(section, _node_to_popup_menu_tree(modules_list[section]))
 
 
 func _node_to_popup_menu_tree(node: Node) -> PopupMenu:
@@ -41,16 +41,6 @@ func _node_to_popup_menu_tree(node: Node) -> PopupMenu:
 			popup.add_item(child.name)
 		count += 1
 	return popup
-
-
-func _get_nodes_count(node: Node) -> int:
-	var n_nodes = 1
-	for child in node.get_children():
-		if child.get_child_count():
-			n_nodes += _get_nodes_count(node)
-		else:
-			n_nodes += 1
-	return n_nodes
 
 
 func _update_count() -> void:
