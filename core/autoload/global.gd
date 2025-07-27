@@ -102,6 +102,8 @@ func is_editor_disabled() -> bool:
 
 ## Returns [Core] node, this is root of main scene in main window. See [Core] for more information.
 func get_core() -> Core:
+	if not is_inside_tree():
+		return
 	return get_node("/root/Main")
 
 
