@@ -147,4 +147,4 @@ func get_command_list() -> Dictionary:
 ## Returns [code]true[/code] if there is unsaved change, when opened file have unsaved change a star
 ## ([code]*[/code]) will append to its name. (See also [method get_file_name])
 func has_unsaved_change() -> bool:
-	return Global.get_file_name().ends_with("*")
+	return get_file_name().ends_with("*")
