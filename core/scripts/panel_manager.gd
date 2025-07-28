@@ -98,7 +98,7 @@ func _ready() -> void:
 
 ## Add given [param panel] in [param location] with [param icon], it means new icon in [param location]
 ## side and new panel in [member panels].
-func add_panel(location: Panels, panel: Control, icon: Texture2D) -> void:
+func add_panel(location: Panels, panel: TextForgePanel, icon: Texture2D) -> void:
 	var current_tab
 	var current_panel
 	match location:
