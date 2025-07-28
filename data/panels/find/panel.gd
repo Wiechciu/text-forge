@@ -1,4 +1,4 @@
-extends Control
+extends TextForgePanel
 
 @export var counter: Label
 @export var match_case: CheckBox
@@ -7,8 +7,6 @@ extends Control
 @export var search: LineEdit
 @export var replace: LineEdit
 @export var list: ItemList
-
-var index: int
 
 var matches: Array[Vector2i] = []
 

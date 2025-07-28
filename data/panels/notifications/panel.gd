@@ -1,10 +1,8 @@
-extends Control
+extends TextForgePanel
 
 @export var options: Container
 @export var notifications: Container
 @export var mute_bottom: Button
-
-var index: int
 
 var mute: bool = false
 
