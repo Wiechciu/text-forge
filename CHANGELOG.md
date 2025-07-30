@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Highlight matched query segments in command palette ([#72](https://github.com/text-forge/text-forge/pull/72)
+- Refactor open file action to use NodeFactory ([#73](https://github.com/text-forge/text-forge/pull/73))
 
 ## [0.1] - 2025-7-27 (Beta)
 
