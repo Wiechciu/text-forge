@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automaticaly navigating to last opened file in "Open" file dialog ([#75](https://github.com/text-forge/text-forge/pull/75))
 - Automaticaly navigating to current saved file in "Save As" file dialog ([#75](https://github.com/text-forge/text-forge/pull/75))
 - Automaticaly load last opened file at start ([#77](https://github.com/text-forge/text-forge/pull/77))
+- Scrolling for preferences tabs ([#78](https://github.com/text-forge/text-forge/pull/78))
 
 ### Changed
 
