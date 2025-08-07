@@ -2,7 +2,7 @@ extends ActionScript
 
 func _initialize() -> void:
 	Signals.open_file.connect(_open_file)
-	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, [], _open_file, false))
+	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, [], _open_file, false, "", Global.get_last_file_path()))
 
 func _run_action() -> void:
 	if Global.get_file_name().ends_with("*"):
