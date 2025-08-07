@@ -11,6 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Highlight matched query segments in command palette ([#72](https://github.com/text-forge/text-forge/pull/72)) 
 - Refactor open file action to use NodeFactory ([#73](https://github.com/text-forge/text-forge/pull/73))
+- **API:** `Global.get_last_file_path()` ([#75](https://github.com/text-forge/text-forge/pull/75))
+- **API:** `current_dir` and `current_path` in `Factory.file_dialog()` ([#75](https://github.com/text-forge/text-forge/pull/75))
+- Default directory for export extensions (System documents directory) ([#75](https://github.com/text-forge/text-forge/pull/75))
+- Default directory for import extensions (System downloads directory) ([#75](https://github.com/text-forge/text-forge/pull/75))
+- Default directory for import modes / packages (System downloads directory) ([#75](https://github.com/text-forge/text-forge/pull/75))
+- Default directory for export modes / packages (System documents directory) ([#75](https://github.com/text-forge/text-forge/pull/75))
+- Automaticaly navigating to last opened file in "Open" file dialog ([#75](https://github.com/text-forge/text-forge/pull/75))
+- Automaticaly navigating to current saved file in "Save As" file dialog ([#75](https://github.com/text-forge/text-forge/pull/75))
+
+## Fixed
+
+- Wrong `queue_free()` call for standard file dialogs ([#75](https://github.com/text-forge/text-forge/pull/75))
 
 ## [0.1] - 2025-7-27 (Beta)
 
