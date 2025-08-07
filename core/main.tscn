@@ -103,6 +103,7 @@ split_offset = 1000
 [node name="Editor" type="CodeEdit" parent="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter"]
 layout_mode = 2
 editable = false
+deselect_on_focus_loss_enabled = false
 scroll_smooth = true
 symbol_lookup_on_click = true
 symbol_tooltip_on_hover = true
