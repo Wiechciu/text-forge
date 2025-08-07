@@ -20,7 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automaticaly navigating to last opened file in "Open" file dialog ([#75](https://github.com/text-forge/text-forge/pull/75))
 - Automaticaly navigating to current saved file in "Save As" file dialog ([#75](https://github.com/text-forge/text-forge/pull/75))
 
-## Fixed
+### Changed
+
+- ~Editor / Auto Indention~ to ~Edit / Auto Indention~ in settings ([#76](https://github.com/text-forge/text-forge/pull/76))
+
+### Fixed
 
 - Wrong `queue_free()` call for standard file dialogs ([#75](https://github.com/text-forge/text-forge/pull/75))
 
