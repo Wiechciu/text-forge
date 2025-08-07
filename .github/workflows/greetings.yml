@@ -5,13 +5,13 @@ on: [pull_request_target, issues]
 
 jobs:
   greeting:
+    if: github.actor != 'mkh-user'
     runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: write
     steps:
     - uses: actions/first-interaction@v1
-      if: github.actor != 'mkh-user'
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-message: "👋 Hello and welcome, Forge-touched explorer!\n\nThank you for opening your first issue on Text Forge! Your insight helps shape this tool into something truly empowering and universal. Feel free to elaborate, share ideas, or ask questions—this space is yours too. 🔧✨\n\nLooking forward to building something great together!"
