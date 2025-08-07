@@ -82,8 +82,7 @@ func file_dialog(
 	dialog.dir_selected.connect(callback)
 	dialog.file_selected.connect(callback)
 	dialog.files_selected.connect(callback)
-	@warning_ignore("standalone_expression")
-	dialog.visibility_changed.connect(func(): if not dialog.visible: dialog.queue_free)
+	dialog.visibility_changed.connect(func(): if not dialog.visible: dialog.queue_free())
 	if current_path:
 		dialog.current_path = current_path
 	elif current_dir:
