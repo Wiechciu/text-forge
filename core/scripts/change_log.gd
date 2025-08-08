@@ -2,25 +2,25 @@ extends Node
 
 
 func _ready() -> void:
-	var raw_markdown: String = FileAccess.get_file_as_string("res://CHANGELOG.md")
-	var text_converted_to_bbcode: String = markdown_to_bbcode(raw_markdown)
-	$Text.text = text_converted_to_bbcode
+	var text_markdown: String = FileAccess.get_file_as_string("res://CHANGELOG.md")
+	var text_bbcode: String = _convert_text_from_markdown_to_bbcode_style(text_markdown)
+	$Text.text = text_bbcode
 
 
-func markdown_to_bbcode(markdown_text: String) -> String:
+func _convert_text_from_markdown_to_bbcode_style(markdown_text: String) -> String:
 	var text: String = markdown_text
 	
-	# H1 headers: # Something -> [font_size=24][b][u]Something[/u][/b][/font_size]
+	# H1 headers: # Header1 -> [font_size=24][b][u]Header1[/u][/b][/font_size]
 	var h1_regex: RegEx = RegEx.new()
 	h1_regex.compile(r"(?m)^# (.+)$")
 	text = h1_regex.sub(text, "[font_size=24][b][u]$1[/u][/b][/font_size]", true)
 	
-	# H2 headers: ## Something -> [font_size=20][b][u]Something[/u][/b][/font_size]
+	# H2 headers: ## Header2 -> [font_size=20][b][u]Header2[/u][/b][/font_size]
 	var h2_regex: RegEx = RegEx.new()
 	h2_regex.compile(r"(?m)^## (.+)$")
 	text = h2_regex.sub(text, "[font_size=20][b][u]$1[/u][/b][/font_size]", true)
 	
-	# H3 headers: ### Something -> [font_size=16][b]Something[/b][/font_size]
+	# H3 headers: ### Header3 -> [font_size=16][b]Header3[/b][/font_size]
 	var h3_regex: RegEx = RegEx.new()
 	h3_regex.compile(r"(?m)^### (.+)$")
 	text = h3_regex.sub(text, "[font_size=16][b]$1[/b][/font_size]", true)
