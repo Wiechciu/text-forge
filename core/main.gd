@@ -1,6 +1,6 @@
 class_name Core
 extends Control
-# official repo: https://text-forge/text-forge
+# official repo: https://github.com/text-forge/text-forge
 ## Root node of main window.
 
 ## Available option types in menus.
