@@ -2,9 +2,9 @@ extends Node
 
 
 func _ready() -> void:
-	var text_markdown: String = FileAccess.get_file_as_string("res://CHANGELOG.md")
-	var text_bbcode: String = _convert_text_from_markdown_to_bbcode_style(text_markdown)
-	$Text.text = text_bbcode
+	var markdown_text: String = FileAccess.get_file_as_string("res://CHANGELOG.md")
+	var bbcode_text: String = _convert_text_from_markdown_to_bbcode_style(markdown_text)
+	$Text.text = bbcode_text
 
 
 func _convert_text_from_markdown_to_bbcode_style(markdown_text: String) -> String:
