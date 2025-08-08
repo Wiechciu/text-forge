@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Missing `queue_free()` call for standard file dialogs ([#75](https://github.com/text-forge/text-forge/pull/75), ([#80](https://github.com/text-forge/text-forge/pull/80)))
 - **Action Script:** Safer disabling for View > Show Fold Gutter ([#79](https://github.com/text-forge/text-forge/pull/79))
+- Wrong value for left panel node ([#81](https://github.com/text-forge/text-forge/pull/81))
 
 ## [0.1] - 2025-7-27 (Beta)
 
