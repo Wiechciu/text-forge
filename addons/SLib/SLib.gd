@@ -152,7 +152,6 @@ func globalize_path(path: String) -> String:
 		if OS.has_feature("editor"):
 			path = ProjectSettings.globalize_path(path)
 		else:
-			path = path.erase(0,6)
 			path = OS.get_executable_path().get_base_dir().path_join(path)
 		return path
 

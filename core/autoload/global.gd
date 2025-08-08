@@ -59,6 +59,9 @@ func set_file_name(file_name: String) -> void:
 	get_core().file_label.text = file_name
 
 
+func has_file() -> bool:
+	return get_file_path().is_absolute_path()
+
 ## Returns editor node, it's accessable with [member Core.editor] too.
 func get_editor() -> Editor:
 	return get_core().editor

@@ -50,6 +50,9 @@ var main_menu_data: Dictionary
 
 # This is start point of Text Forge
 func _ready() -> void:
+	print("Running at: %s" % OS.get_executable_path())
+
+
 	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Open file with drag and drop feature
 	get_window().files_dropped.connect(func(files): Signals.open_file.emit(files[0]))
@@ -67,6 +70,8 @@ func _ready() -> void:
 	_load_main_menu()
 	# Load action scripts
 	_load_scripts()
+
+	_handle_cmdline_arguments()
 
 	_handle_load_last_file()
 
@@ -94,7 +99,24 @@ func show_about() -> void:
 	about.show()
 
 
+func _handle_cmdline_arguments() -> void:
+	var args := OS.get_cmdline_args()
+	args.append_array(OS.get_cmdline_user_args())
+	if args.is_empty():
+		return
+
+	for arg in args:
+		var file_path := arg
+		if file_path.begins_with("uid://"):
+			continue
+		if file_path.is_relative_path():
+			file_path = SLib.globalize_path(arg)
+		Signals.open_file.emit(file_path)
+
+
 func _handle_load_last_file() -> void:
+	if Global.has_file():
+		return
 	if not(Settings.get_setting("files", "load_last_file_at_start") and Global.get_last_file_path()):
 		return
 
