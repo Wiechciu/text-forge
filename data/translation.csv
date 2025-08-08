@@ -42,7 +42,7 @@ menu.edit.line.select_whole,Select Whole Line,انتخاب کل خط,Zaznacz ca�
 menu.edit.line.select_paragraph,Select Paragraph,انتخاب بند,Zaznacz paragraf
 menu.edit.line.join,Join Lines,ادغام خطوط,Połącz linie
 menu.edit.line.move_to_new_file,Move To New File,انتقال به فایل جدید,Przenieś do nowego pliku
-menu.edit.completion_query,Completion Query,درخواست تکمیل,
+menu.edit.completion_query,Completion Query,درخواست تکمیل,Uzupełnij
 menu.edit.indention,Indention,فرورفتگی,Akapit
 menu.edit.indention.auto_indent,Auto Indent,تورفتگی خودکار,Automatyczne wcięcie
 menu.edit.indention.to_spaces,Convert Indent To Spaces,تبدیل فرورفتگی به فاصله,Zmień wcięcie na spacje
@@ -51,9 +51,9 @@ menu.edit.convert_case,Convert Case,تبدیل حروف,Zmień wielkość liter
 menu.edit.convert_case.upper,UPPER,UPPER,DUŻE
 menu.edit.convert_case.lower,lower,lower,małe
 menu.edit.convert_case.capitalize,Capitalize,Capitalize,Pierwsza Litera Duża
-menu.edit.convert_case.camel,camelCase,camelCase,
-menu.edit.convert_case.pascal,PascalCase,PascalCase,
-menu.edit.convert_case.snake,snake_case,snake_case,
+menu.edit.convert_case.camel,camelCase,camelCase,camelCase
+menu.edit.convert_case.pascal,PascalCase,PascalCase,PascalCase
+menu.edit.convert_case.snake,snake_case,snake_case,snake_case
 menu.search,Search,جستجو,Szukaj
 menu.search.find_and_replace,Find and Replace...,یافتن و جایگزینی...,Znajdź i zamień...
 menu.search.find_next,Find Next,یافته بعدی,Znajdź następny...
