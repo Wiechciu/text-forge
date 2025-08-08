@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dx1alvj3tjt16"]
+[gd_scene load_steps=9 format=3 uid="uid://dx1alvj3tjt16"]
 
 [ext_resource type="Script" uid="uid://byayvu15ojy1j" path="res://core/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dfy2sbtb4i0ht" path="res://core/scripts/panel_manager.gd" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://5cin2ow0mkq0" path="res://core/scripts/module_profiler.gd" id="5_xa854"]
+[ext_resource type="Script" uid="uid://dg7rms2cwflkl" path="res://core/scripts/change_log.gd" id="6_kagtj"]
 [ext_resource type="Script" uid="uid://d0j1s4uv04c3w" path="res://core/scripts/editor_api.gd" id="6_tefeu"]
 [ext_resource type="Script" uid="uid://dtusvq1vqt0ul" path="res://core/scripts/editor.gd" id="7_tipki"]
 
@@ -262,6 +263,16 @@ text = "[b]Icons:[/b]
 		Main UI: MIT 2025 by Mahan Khalili
 
 [i]See [code]\"root/modes/\"[/code], [code]\"root/scripts/\"[/code], [code]\"userdata/extensions\"[/code] for other licenses. Modes, scripts and extensions without LICENSE file are onder Text Forge license."
+
+[node name="Change Log" type="MarginContainer" parent="About/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+script = ExtResource("6_kagtj")
+metadata/_tab_index = 4
+
+[node name="Text" type="RichTextLabel" parent="About/MarginContainer/TabContainer/Change Log"]
+layout_mode = 2
+bbcode_enabled = true
 
 [connection signal="text_changed" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="." method="_on_editor_text_changed"]
 [connection signal="timeout" from="Margin/Sections/HBoxContainer/ModuleProfiler/Timer" to="Margin/Sections/HBoxContainer/ModuleProfiler" method="_refresh"]
