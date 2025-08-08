@@ -10,7 +10,7 @@ func _ready() -> void:
 func markdown_to_bbcode(markdown_text: String) -> String:
 	var text: String = markdown_text
 	
-	# H1 headers: ## Something -> [font_size=24][b][u]Something[/u][/b]
+	# H1 headers: # Something -> [font_size=24][b][u]Something[/u][/b]
 	var h1_regex: RegEx = RegEx.new()
 	h1_regex.compile(r"(?m)^# (.+)$")
 	text = h1_regex.sub(text, "[font_size=24][b][u]$1[/u][/b][/font_size]", true)
