@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automaticaly navigating to current saved file in "Save As" file dialog ([#75](https://github.com/text-forge/text-forge/pull/75))
 - Automaticaly load last opened file at start ([#77](https://github.com/text-forge/text-forge/pull/77))
 - Scrolling for preferences tabs ([#78](https://github.com/text-forge/text-forge/pull/78))
+- polski translation `PL` ([#84](https://github.com/text-forge/text-forge/pull/84))
 
 ### Changed
 
@@ -84,7 +85,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **API:** `Editor.is_selection_in_line()` ([8a3cee0]())
 - **Action Script:** Format > Auto Indention ([b721689]())
 
-## Changed
+### Changed
 
 - **API:** ~`Signals.script_run`~ to `Signals.run_script` ([2d83e19]())
 - **API:** ~`Global.get_main_node()`~ to `Global.get_core()` ([66d94cf]())
