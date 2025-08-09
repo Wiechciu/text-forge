@@ -1,13 +1,14 @@
 <!--Provide a succinct and descriptive title for the pull request, e.g., "Improve caching mechanism for API calls"-->
 
 ## Type of Change
-- [ ] New feature
-- [ ] Bug fix
-- [ ] Documentation update
-- [ ] Refactoring
-- [ ] Hotfix
-- [ ] Security patch
-- [ ] UI/UX improvement
+<!--Remove unrelated items-->
+- New feature
+- Bug fix
+- Documentation update
+- Refactoring
+- Hotfix
+- Security patch
+- UI/UX improvement
 
 ## Description
 <!--Provide a detailed explanation of the changes you have made. Include the reasons behind these changes and any relevant context. Link any related issues.-->
