@@ -14,6 +14,7 @@ func get_char_index(line: int, column: int) -> int:
 	return before.length() + column
 
 
+## Returns [code]true[/code] if this line in in a selection.
 func is_selection_in_line(line: int) -> bool:
 	for caret in get_caret_count():
 		var selection = [get_selection_origin_line(caret), get_caret_line(caret)]

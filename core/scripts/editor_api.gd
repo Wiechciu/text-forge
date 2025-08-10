@@ -4,203 +4,250 @@ extends Control
 ##
 ## This node is first child of [Editor] and designed to manage modes. Access way: [code]Global.get_editor_api()[/code]
 
-## List of all loaded modes.
-var modes: Array = []
-## Selected mode index.
-var selected_mode_index: int
-## Currently in use mode.
-var current_mode: Dictionary
+signal mode_selected(index: int)
+
+var mode_list: Array[Dictionary] = []
+var current_mode: Dictionary = {}
+var _temp_mode_index: int = 0
 
 func _ready() -> void:
 	child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
-	# Defines comment delimiter
-	# TODO: Handle this with modes.
-	Global.get_editor().add_comment_delimiter("#", "", true)
 
-	Settings.define_preset("edit", "indent_with_space", false)
-	Settings.define_preset("edit", "indent_size", 4)
+	mode_selected.connect(func(index): _temp_mode_index = index - 1)
 
-	Signals.mode_selected.connect(func(index): selected_mode_index = index - 1)
-	Signals.settings_changed.connect(_load_configs)
-
-	_load_modes()
-	_load_configs()
+	_load_mode_list()
 
 
-## Will send auto format command to correct mode. Pushs error if there is no compatible mode, uses
-## current mode if is compatible, otherwise creates [PopupMenu] to choose correct mode.
-func auto_format() -> void:
-	var path = Global.get_file_path()
-	if path == "Unsaved":
-		Global.send_notification(Global.Notification.ERROR, "Please save file before auto formatting.", "File extension for auto format is required.")
-		return
+func _load_mode_list() -> void:
+	var damaged_modes: Array[String] = []
 
-	var available_modes := _get_available_modes(path.get_extension())
-	if available_modes.size() == 0:
-		Global.send_notification(Global.Notification.ERROR, "Can't find any mode for auto format this file!", "You can find more modes in Help > Mode Library")
-		current_mode = {}
-		return
+	for mode_folder: String in DirAccess.get_directories_at(FileDatabase.FOLDER_MODES):
+		if not (FileAccess.file_exists(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder]))
+		and FileAccess.file_exists(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder]))):
+			damaged_modes.append(mode_folder)
+			continue
 
-	# format with current mode if mode is compatible
-	if current_mode in available_modes:
-		_auto_format(current_mode.script)
-
-	# format with available mode when there is just one complatible
-	elif available_modes.size() == 1:
-		_auto_format(available_modes[0].script)
-
-	# select mode
-	else:
-		var select_menu := PopupMenu.new()
-		select_menu.add_separator("Select a mode to auto format")
-		for mode in available_modes:
-			select_menu.add_item(mode.name)
-		select_menu.index_pressed.connect(func(index): Signals.mode_selected.emit(index))
-		add_child(select_menu)
-		select_menu.size = Vector2(400, 0)
-		select_menu.popup_centered()
-		await Signals.mode_selected
-
-		select_menu.queue_free()
-		_auto_format(available_modes[selected_mode_index].script)
-
-
-## Will send save command to correct mode. Pushs error if there is no compatible mode, uses
-## current mode if is compatible, otherwise creates [PopupMenu] to choose correct mode.
-func save_file(path: String) -> void:
-	var available_modes := _get_available_modes(path.get_extension())
-	if available_modes.size() == 0:
-		Global.send_notification(Global.Notification.WARNING, "Can't find any mode to save this file", "save file using UTF-8...")
-		current_mode = {}
-		var file = FileAccess.open(path, FileAccess.WRITE)
-		file.store_string(Global.get_editor_text())
-		file.close()
-		return
-
-	# save with current mode if mode is compatible
-	if current_mode in available_modes:
-		_save_file(current_mode.script, path)
-
-	# save with available mode when there is just one complatible
-	elif available_modes.size() == 1:
-		_save_file(available_modes[0].script, path)
-
-	# select mode
-	else:
-		var select_menu := PopupMenu.new()
-		select_menu.add_separator("Select a mode to save file")
-		for mode in available_modes:
-			select_menu.add_item(mode.name)
-		select_menu.index_pressed.connect(func(index): Signals.mode_selected.emit(index))
-		add_child(select_menu)
-		select_menu.size = Vector2(400, 0)
-		select_menu.popup_centered()
-		await Signals.mode_selected
-
-		select_menu.queue_free()
-		_save_file(available_modes[selected_mode_index].script, path)
-
-
-## Will send load command to correct mode and activates highlighter. Pushs error if there is no
-## compatible mode, uses current mode if is compatible, otherwise creates [PopupMenu] to choose
-## correct mode.
-func load_file(path: String) -> void:
-	var available_modes := _get_available_modes(path.get_extension())
-	if available_modes.size() == 0:
-		Global.send_notification(Global.Notification.WARNING, "Can't find any mode to open this file", "loading file using UTF-8...")
-		current_mode = {}
-		var file = FileAccess.open(path, FileAccess.READ)
-		Global.set_editor_disabled(false)
-		Global.set_editor_text(file.get_as_text())
-		file.close()
-		# clear syntax highlighter
-		get_parent().syntax_highlighter = SyntaxHighlighter.new()
-		return
-
-	if available_modes.size() > 1:
-		var select_menu := PopupMenu.new()
-		select_menu.add_separator("Select a mode to open file")
-		for mode in available_modes:
-			select_menu.add_item(mode.name)
-		select_menu.index_pressed.connect(func(index): Signals.mode_selected.emit(index))
-		add_child(select_menu)
-		select_menu.size = Vector2(400, 0)
-		select_menu.popup_centered()
-		await Signals.mode_selected
-		select_menu.queue_free()
-	else:
-		selected_mode_index = 0
-
-	current_mode = available_modes[selected_mode_index]
-	_load_highlighter(current_mode.highlighter)
-	_load_file(current_mode.script, path)
-
-
-func _load_configs() -> void:
-	Global.get_editor().indent_use_spaces = Settings.get_setting("edit", "indent_with_space")
-	Global.get_editor().indent_size = Settings.get_setting("edit", "indent_size")
-
-
-func _auto_format(script: GDScript) -> void:
-	script.new().auto_format()
-
-
-func _save_file(saver: GDScript, path: String) -> void:
-	saver.new().save_file(path)
-	Signals.check_options.emit()
-
-
-func _load_file(loader: GDScript, path: String) -> void:
-	Global.set_editor_text(loader.new().load_file(path))
-	Global.set_editor_disabled(false)
-	Signals.check_options.emit()
-
-
-func _load_highlighter(source: Dictionary) -> void:
-	var code_highlighter = CodeHighlighter.new()
-	code_highlighter.number_color = source.number_color
-	code_highlighter.symbol_color = source.symbol_color
-	code_highlighter.function_color = source.function_color
-	code_highlighter.member_variable_color = source.member_variable_color
-	for color in source.keyword_colors:
-		for keyword in source.keyword_colors[color]:
-			code_highlighter.add_keyword_color(keyword, color)
-	for color in source.member_keyword_colors:
-		for keyword in source.member_keyword_colors[color]:
-			code_highlighter.add_member_keyword_color(keyword, color)
-	for color in source.code_regions:
-		code_highlighter.add_color_region(source.code_regions[color][0], source.code_regions[color][1], color, true if source.code_regions[color][2] == "y" else false)
-	get_parent().syntax_highlighter = code_highlighter
-
-
-func _get_available_modes(extension: String) -> Array[Dictionary]:
-	var available_modes: Array[Dictionary] = []
-	for mode in modes:
-		if extension in mode.extensions:
-			available_modes.append(mode)
-	return available_modes
-
-
-func _load_modes() -> void:
-	var mode_folders = DirAccess.get_directories_at(FileDatabase.FOLDER_MODES)
-	for mode_dir in mode_folders:
-		if not FileAccess.file_exists(FileDatabase.FOLDER_MODES.path_join(mode_dir).path_join("mode.cfg")): continue
-		var mode: Dictionary = {}
 		var config = ConfigFile.new()
-		config.load(FileDatabase.FOLDER_MODES.path_join(mode_dir).path_join("mode.cfg"))
-		mode.name = config.get_value("mode", "name")
-		mode.description = config.get_value("mode", "description")
-		mode.author = config.get_value("mode", "author")
-		mode.version = config.get_value("mode", "version")
-		mode.extensions = config.get_value("mode", "extensions")
-		mode.highlighter = {}
-		for key in config.get_section_keys("highlighter"):
-			mode.highlighter[key] = config.get_value("highlighter", key)
-		mode.script = load(FileDatabase.FOLDER_MODES.path_join(mode_dir).path_join("mode.gd"))
-		modes.append(mode)
+		var err := config.load(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder]))
+
+		if err:
+			damaged_modes.append(mode_folder)
+			continue
+		if Array(config.get_sections()) != ["mode"]:
+			damaged_modes.append(mode_folder)
+			continue
+		if Array(config.get_section_keys("mode")) != ["name", "description", "author", "version", "extensions"]:
+			damaged_modes.append(mode_folder)
+			continue
+		if not is_instance_of(load(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])), TextForgeMode):
+			damaged_modes.append(mode_folder)
+			continue
+
+		var mode: Dictionary[String, Variant] = {"id": mode_folder}
+		for key: String in config.get_section_keys("mode"):
+			mode[key] = config.get_value("mode", key)
+
+		mode_list.append(current_mode)
+
+	if damaged_modes:
+		var damaged_modes_string: String = ", ".join(damaged_modes)
+		Global.send_notification(Global.Notification.ERROR, "Failed to load some modes!", "Damaged modes: " + damaged_modes_string)
 
 
-## Reloads modes, it's useful for mode managers to avoid restart.
 func reload_modes() -> void:
-	modes = []
-	_load_modes()
+	mode_list = []
+	_load_mode_list()
+
+
+func save_file(file_path: String) -> void:
+	var mode := current_mode
+
+	if not _is_mode_compatible(current_mode, file_path):
+		var compatible_modes := mode_list.filter(func(m): return _is_mode_compatible(m, file_path))
+
+		match compatible_modes.size():
+			0:
+				Global.send_notification(Global.Notification.WARNING, "Can't find any mode to save this file.", "Save file using UTF-8...")
+				_unload_current_mode()
+
+				var file = FileAccess.open(file_path, FileAccess.WRITE)
+				if FileAccess.get_open_error():
+					Global.send_notification(Global.Notification.ERROR, "Failed to open file!", "Save in {0} failed with error code {1}".format([file_path, FileAccess.get_open_error()]))
+					return
+				file.store_string(Global.get_editor_text())
+				file.close()
+
+				Signals.check_options.emit()
+				return
+			1:
+				mode = compatible_modes[0]
+			_:
+				var select_menu := PopupMenu.new()
+				select_menu.add_separator("Select a mode to save file")
+				for m in compatible_modes:
+					select_menu.add_item(m["name"])
+				select_menu.index_pressed.connect(func(index): mode_selected.emit(index))
+				select_menu.size = Vector2(400, 0)
+				select_menu.popup_centered()
+
+				await mode_selected
+
+				select_menu.queue_free()
+				mode = compatible_modes[_temp_mode_index]
+				_temp_mode_index = 0
+
+	if _change_mode_to(mode) == OK:
+		_handle_save_file(file_path)
+	else:
+		Global.send_notification(Global.Notification.ERROR, "Failed to initialize mode {0} for save!".format([mode["name"]]))
+
+
+func load_file(file_path: String) -> void:
+	var mode := current_mode
+
+	if not _is_mode_compatible(current_mode, file_path):
+		var compatible_modes := mode_list.filter(func(m): return _is_mode_compatible(m, file_path))
+
+		match compatible_modes.size():
+			0:
+				Global.send_notification(Global.Notification.WARNING, "Can't find any mode to open this file.", "Load file using UTF-8...")
+				_unload_current_mode()
+
+				var file = FileAccess.open(file_path, FileAccess.READ)
+				if FileAccess.get_open_error():
+					Global.send_notification(Global.Notification.ERROR, "Failed to open file!", "Load from {0} failed with error code {1}".format([file_path, FileAccess.get_open_error()]))
+					return
+				file.store_string(Global.get_editor_text())
+				file.close()
+
+				Signals.check_options.emit()
+				return
+			1:
+				mode = compatible_modes[0]
+			_:
+				var select_menu := PopupMenu.new()
+				select_menu.add_separator("Select a mode to open file")
+				for m in compatible_modes:
+					select_menu.add_item(m["name"])
+				select_menu.index_pressed.connect(func(index): mode_selected.emit(index))
+				select_menu.size = Vector2(400, 0)
+				select_menu.popup_centered()
+
+				await mode_selected
+
+				select_menu.queue_free()
+				mode = compatible_modes[_temp_mode_index]
+				_temp_mode_index = 0
+
+	if _change_mode_to(mode) == OK:
+		_handle_load_file(file_path)
+	else:
+		Global.send_notification(Global.Notification.ERROR, "Failed to initialize mode {0} for load!".format([mode["name"]]))
+
+
+func auto_format() -> void:
+	var mode_script: TextForgeMode = get_child(0)
+	if not mode_script:
+		return
+	if not mode_script.features["auto_format"]:
+		return
+
+	Global.set_editor_text(mode_script._auto_format(Global.get_editor_text()))
+
+
+func auto_indent() -> void:
+	var mode_script: TextForgeMode = get_child(0)
+	if not mode_script:
+		return
+	if not mode_script.features["auto_indent"]:
+		return
+
+	Global.set_editor_text(mode_script._auto_indent(Global.get_editor_text()))
+
+
+func _unload_current_mode() -> void:
+	if current_mode == {}:
+		return
+
+	var current_mode_script: TextForgeMode = get_child(0)
+	current_mode_script.queue_free()
+
+
+func _change_mode_to(mode: Dictionary) -> Error:
+	if mode == current_mode:
+		return OK
+
+	var new_mode_script: TextForgeMode = load(FileDatabase.TEMPLATE_MODE_SCRIPT.format(mode["id"])).new() as TextForgeMode
+	if not new_mode_script:
+		return ERR_INVALID_DATA
+
+	# Catch current mode script for fallback
+	if get_child_count():
+		var current_mode_script: TextForgeMode = get_child(0)
+		self.remove_child(current_mode_script)
+		Global.add_child(current_mode_script)
+		Global.temprory_children["current_mode_script"] = current_mode_script
+
+	add_child(new_mode_script)
+	var initialize_error := new_mode_script._initialize_mode()
+
+	if initialize_error:
+		self.remove_child(new_mode_script)
+
+	if Global.temprory_children.has("current_mode_script"):
+		# Remove catched mode script
+		if initialize_error == OK:
+			Global.temprory_children["current_mode_script"].queue_free()
+		# Restore catched mode script
+		else:
+			var current_mode_script: TextForgeMode = Global.temprory_children["current_mode_script"]
+			Global.remove_child(current_mode_script)
+			self.add_child(current_mode_script)
+		Global.temprory_children.erase("current_mode_script")
+
+	if initialize_error == OK:
+		current_mode = mode
+
+	return initialize_error
+
+
+func _handle_save_file(file_path: String) -> void:
+	var mode_script: TextForgeMode = get_child(0) as TextForgeMode
+	if not mode_script:
+		Global.send_notification(Global.Notification.ERROR, "Can't find mode script!", "Saving failed.")
+		return
+
+	DirAccess.make_dir_recursive_absolute(SLib.globalize_path(file_path.get_base_dir()))
+	var file := FileAccess.open(file_path, FileAccess.WRITE)
+
+	if FileAccess.get_open_error():
+		Global.send_notification(Global.Notification.ERROR, "Failed to open file!", "Save in {0} failed with error code {1}".format([file_path, FileAccess.get_open_error()]))
+		return
+
+	file.store_buffer(mode_script._string_to_buffer(Global.get_editor_text()))
+	file.close()
+	Signals.check_options.emit()
+
+
+func _handle_load_file(file_path: String) -> void:
+	var mode_script: TextForgeMode = get_child(0) as TextForgeMode
+	if not mode_script:
+		Global.send_notification(Global.Notification.ERROR, "Can't find mode script!", "Loading failed.")
+		return
+
+	DirAccess.make_dir_recursive_absolute(SLib.globalize_path(file_path.get_base_dir()))
+	var buffer := FileAccess.get_file_as_bytes(file_path)
+
+	if FileAccess.get_open_error():
+		Global.send_notification(Global.Notification.ERROR, "Failed to open file!", "Load from {0} failed with error code {1}".format([file_path, FileAccess.get_open_error()]))
+		return
+
+	Global.set_editor_text(mode_script._buffer_to_string(buffer))
+	Signals.check_options.emit()
+
+
+func _is_mode_compatible(mode: Dictionary, file_path: String) -> bool:
+	if mode == {}:
+		return false
+
+	return file_path.get_extension() in mode["extensions"]

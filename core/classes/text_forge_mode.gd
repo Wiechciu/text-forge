@@ -24,7 +24,8 @@ var comment_delimiters: Array[Dictionary] = []
 var panel: TextForgePanel
 ## Specifies whether this mode has a panel or not.
 var has_panel: bool = false
-## Reperesents features of this mode, to set, call [method _set_features] in [method _initialize_mode].
+## Reperesents features of this mode, to set, call [code]_enable_..._feature()[/code] methods in
+## [method _initialize_mode].
 var features: Dictionary[String, bool] = {
 	"auto_format": false,
 	"auto_indent": false,
@@ -33,25 +34,38 @@ var features: Dictionary[String, bool] = {
 
 ## Override this method to initialize mode and set properties. If this function return an error code
 ## instead of [constant OK], [EditorAPI] will show that error and will try to use another mode.[br]
-## Call [method _set_feature] with features of your mode here.
+## Call [code]_enable_..._feature()[/code] methods (e.g. [method _enable_auto_format_feature]) here for your mode features.
 func _initialize_mode() -> Error:
 	return OK
 
 
-## Call this function to set [member features] values, DON'T override this!
-func _set_features(auto_format: bool = false, auto_indent: bool = false) -> void:
-	features["auto_format"] = auto_format
-	features["auto_indent"] = auto_indent
+## Call this function in [method _initialize_mode] to enable auto format feature, DON'T override this!
+func _enable_auto_format_feature() -> void:
+	features["auto_format"] = true
 
 
-## Override this method to add auto format feature.
-func _auto_format() -> void:
-	pass
+## Call this function in [method _initialize_mode] to enable auto indent feature, DON'T override this!
+func _enable_auto_indent_feature() -> void:
+	features["auto_indent"] = true
 
 
-## Override this method to add auto indent feature.
-func _auto_indent() -> void:
-	pass
+## Override this method to add auto format feature if your mode supports it.[br][br]
+## [b]Important:[/b] Your mode should only format the selected lines and return the rest of the
+## lines as they are! Use [method Editor.is_selection_in_line] for each line to handle this.[br]
+## [b]Note:[/b] See [method _enable_auto_format_feature] before override.[br]
+func _auto_format(text: String) -> String:
+	return text
+
+
+## Override this method to add auto format feature if your mode supports it. Auto indent just
+## includes automatic indention, not other formattings! To add other formatting features use
+## [method _auto_format] function.[br][br]
+## [b]Important:[/b] Your mode should only change indention of the selected lines and return the
+## rest of the lines as they are! Use [method Editor.is_selection_in_line] for each line to handle
+## this.[br]
+## [b]Note:[/b] See [method _enable_auto_indent_feature] before override.[br]
+func _auto_indent(text: String) -> String:
+	return text
 
 
 ## Override this method to handle convert [String] (in editor) to [PackedByteArray] (for files),
@@ -66,6 +80,7 @@ func _buffer_to_string(buffer: PackedByteArray) -> String:
 	return String()
 
 
-## Returns [member syntax_highlighter]. Setup this member in [method _initialize_mode].
+## Returns [member syntax_highlighter]. Setup syntax highlighter in [method _initialize_mode] and
+## DON'T override this function.
 func get_syntax_highlighter() -> SyntaxHighlighter:
 	return syntax_highlighter

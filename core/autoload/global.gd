@@ -23,6 +23,7 @@ var window_manager := WindowManager.new()
 var _commands: Dictionary[String, Array] = {}:
 	get = get_command_list
 
+var temprory_children: Dictionary[String, Node] = {}
 
 # Initializing function
 func _ready() -> void:
