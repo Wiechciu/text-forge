@@ -83,9 +83,8 @@ func _buffer_to_string(buffer: PackedByteArray) -> String:
 ## Override this method to handle code completion feature, [param text] is the full editor text with
 ## char [code]0xFFFF[/code] at the caret location. Use [method CodeEdit.add_code_completion_option]
 ## and [method CodeEdit.update_code_completion_options] for this task.
-## [/codeblock]
 func _update_code_completion_options(text: String) -> void:
-	return Array()
+	return
 
 
 ## Returns [member syntax_highlighter]. Setup syntax highlighter in [method _initialize_mode] and
