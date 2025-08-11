@@ -115,14 +115,32 @@ func add_panel(location: Panels, panel: TextForgePanel, icon: Texture2D) -> void
 	panel.index = index
 	if index != current_panel.get_child_count():
 		current_tab.remove_item(index)
-		Global.send_notification(Global.Notification.ERROR, "There is a bug in left panel", "")
+		Global.send_notification(Global.Notification.ERROR, "There is a bug in panel management", "")
 		return
 	current_panel.add_child(panel)
 	data[location]["panels"][index] = panel
 
 
+func remove_panel(location: Panels, index: int) -> void:
+	var current_tab: ItemList
+	var current_panel: TabContainer
+	match location:
+		Panels.LEFT:
+			current_tab = tab_left
+			current_panel = panel_left
+		Panels.RIGHT:
+			current_tab = tab_right
+			current_panel = panel_right
+		Panels.BOTTOM:
+			current_tab = tab_bottom
+			current_panel = panel_bottom
+	current_tab.remove_item(index)
+	current_panel.remove_child(current_panel.get_child(index))
+	data[location]["panels"].erase(index)
+
+
 ## Changes icon of given panel with [param icon].
-func change_panel_icon(location: int, index: int, icon: Texture2D) -> void:
+func change_panel_icon(location: Panels, index: int, icon: Texture2D) -> void:
 	var current_tab: ItemList
 	match location:
 		Panels.LEFT:
@@ -135,7 +153,7 @@ func change_panel_icon(location: int, index: int, icon: Texture2D) -> void:
 
 
 ## Shows given panel (using [method _handle_panel] and virtualize click).
-func show_panel(location: int, index: int) -> void:
+func show_panel(location: Panels, index: int) -> void:
 	if data[location]["closed"] or data[location]["last_tab"] != index:
 		_handle_panel(index, location)
 

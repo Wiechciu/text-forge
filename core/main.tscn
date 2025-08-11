@@ -263,6 +263,8 @@ text = "[b]Icons:[/b]
 
 [i]See [code]\"root/modes/\"[/code], [code]\"root/scripts/\"[/code], [code]\"userdata/extensions\"[/code] for other licenses. Modes, scripts and extensions without LICENSE file are onder Text Forge license."
 
+[connection signal="code_completion_requested" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor/API" method="_on_editor_code_completion_requested"]
 [connection signal="text_changed" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="." method="_on_editor_text_changed"]
+[connection signal="text_changed" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" method="_on_text_changed"]
 [connection signal="timeout" from="Margin/Sections/HBoxContainer/ModuleProfiler/Timer" to="Margin/Sections/HBoxContainer/ModuleProfiler" method="_refresh"]
 [connection signal="close_requested" from="About" to="About" method="hide"]

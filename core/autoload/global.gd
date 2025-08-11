@@ -14,6 +14,7 @@ enum Notification {
 
 ## Main window manager with restore window state. See [WindowManager] for more information.
 var window_manager := WindowManager.new()
+var damaged_modes: Array[String] = []
 ## Dictionary of all commands. example item:
 ## [codeblock]
 ## # Command Name (String): [Shortcut as Text (String), Command Action (Callable)]

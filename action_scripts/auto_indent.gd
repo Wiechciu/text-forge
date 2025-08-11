@@ -6,9 +6,9 @@ func _initialize() -> void:
 
 
 func _check_option_extra() -> bool:
-	return Global.get_editor_api().is_auto_format_available()
+	return Global.get_editor_api().is_auto_indent_available()
 
 
 func _run_action() -> void:
-	Global.get_editor_api().auto_format()
+	Global.get_editor_api().auto_indent()
 	Global.get_editor().text_changed.emit()

@@ -11,7 +11,7 @@ extends Node
 ## property, this method is advanced way. Otherwise, you can use [CodeHighlighter] and its functions
 ## to create simple highlighters.
 var syntax_highlighter: SyntaxHighlighter = SyntaxHighlighter.new()
-## [Array] of comment delimiters, each item must be in this pattern:
+## [Array] of comment delimiters, each item must be in this pattern (and this order):
 ## [codeblock]
 ## {
 ##     "start_key": String,
@@ -80,7 +80,21 @@ func _buffer_to_string(buffer: PackedByteArray) -> String:
 	return String()
 
 
+## Override this method to handle code completion feature, [param text] is the full editor text with
+## char [code]0xFFFF[/code] at the caret location. Use [method CodeEdit.add_code_completion_option]
+## and [method CodeEdit.update_code_completion_options] for this task.
+## [/codeblock]
+func _update_code_completion_options(text: String) -> void:
+	return Array()
+
+
 ## Returns [member syntax_highlighter]. Setup syntax highlighter in [method _initialize_mode] and
 ## DON'T override this function.
 func get_syntax_highlighter() -> SyntaxHighlighter:
 	return syntax_highlighter
+
+
+## Shows [member panel] in editor if has panel. DON'T override this function.
+func show_panel() -> void:
+	if panel:
+		Global.get_panel_manager().show_panel(PanelManager.Panels.LEFT, panel.index)

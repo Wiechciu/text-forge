@@ -50,13 +50,19 @@ func _initialize() -> void:
 
 
 ## Sets linked item enabled/disabled based on current situation.[br][br]
-## [b]Note:[/b] This function is not intended to be overriden, if you override it the automatic
-## status checking based on [member requires_file] and [member requires_save_file] will be lost!
+## [b]Note:[/b] Use [method _check_option_extra] for customizing.
 func _check_option() -> void:
 	var has_file := Global.get_file_path() != "" if requires_file else true
 	var has_saved_file := Global.get_file_path().is_absolute_path() if requires_saved_file else true
-	enable = has_file and has_saved_file
+	enable = has_file and has_saved_file and _check_option_extra()
 	menu.set_item_disabled(index, not enable)
+
+
+## Override this function to add more check for option state. When returns [code]false[/code] option
+## will be disable, but when returns [code]true[/code] it depends on internal [method _check_option]
+## logic. (see also [member requires_file] and [member requires_saved_file].)
+func _check_option_extra() -> bool:
+	return true
 
 
 ## Returns [code]true[/code] if this action script is enable.
