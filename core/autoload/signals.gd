@@ -34,10 +34,6 @@ signal open_find_panel
 signal shift_find_result(next: bool)
 ## Requests replace all find results.
 signal replace_all
-## Emits when user selects a caret (for multi caret edits that have caret selection support).
-signal caret_selected(index: int)
-## Emits when user selects a mode.
-signal mode_selected(index: int)
 ## Emits when one or more setting option changed with centalized preferences editor. Connect your
 ## modules to this to reload related settings after change and apply them.
 signal settings_changed
