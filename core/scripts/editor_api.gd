@@ -186,7 +186,7 @@ func auto_indent() -> void:
 
 func _load_mode_features() -> void:
 	_load_syntax_highlighter()
-	_load_comment_delimiters()
+	_load_delimiters()
 	_load_mode_panel()
 	_update_preview()
 
@@ -215,17 +215,23 @@ func _load_mode_panel() -> void:
 		)
 
 
-func _load_comment_delimiters() -> void:
+func _load_delimiters() -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
 		Global.get_editor().syntax_highlighter = null
 		return
 
 	Global.get_editor().clear_comment_delimiters()
+	Global.get_editor().clear_string_delimiters()
+
 	for d in mode_script.comment_delimiters:
 		if d.keys() != ["start_key", "end_key", "line_only"]:
 			continue
 		Global.get_editor().add_comment_delimiter(d["start_key"], d["end_key"], d["line_only"])
+	for d in mode_script.string_delimiters:
+		if d.keys() != ["start_key", "end_key", "line_only"]:
+			continue
+		Global.get_editor().add_string_delimiter(d["start_key"], d["end_key"], d["line_only"])
 
 
 func _load_syntax_highlighter() -> void:
@@ -241,8 +247,11 @@ func _unload_current_mode() -> void:
 	if current_mode == {}:
 		return
 
-	var current_mode_script: TextForgeMode = get_child(0)
-	current_mode_script.queue_free()
+	var current_mode_script := _get_mode_script()
+	if current_mode_script:
+		current_mode_script.queue_free()
+	if mode_panel:
+		Global.get_panel_manager().remove_panel(PanelManager.Panels.LEFT, mode_panel.index)
 
 
 func _change_mode_to(mode: Dictionary) -> Error:
@@ -261,6 +270,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 		Global.temprory_children["current_mode_script"] = current_mode_script
 
 	add_child(new_mode_script)
+	new_mode_script.name = mode["id"]
 	var initialize_error := new_mode_script._initialize_mode()
 
 	if initialize_error:

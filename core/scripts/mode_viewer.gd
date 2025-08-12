@@ -1,7 +1,7 @@
 extends MenuButton
 
 func _ready() -> void:
-	Global.get_editor_api().child_order_changed.connect(_update_mode)
+	Signals.mode_changed.connect(_update_mode.unbind(1))
 	_update_mode()
 
 

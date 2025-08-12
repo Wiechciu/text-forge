@@ -20,6 +20,8 @@ var syntax_highlighter: SyntaxHighlighter = SyntaxHighlighter.new()
 ## }
 ## [/codeblock]
 var comment_delimiters: Array[Dictionary] = []
+## [Array] of string delimiters, with same structure as [member comment_delimiters].
+var string_delimiters: Array[Dictionary] = []
 ## Optional panel to load in left side of editor.
 var panel: TextForgePanel
 ## Specifies whether this mode has a panel or not.

@@ -13,12 +13,22 @@ func _initialize_mode() -> Error:
 		"end_key": "",
 		"line_only": true,
 	})
+	string_delimiters.append({
+		"start_key": "\"",
+		"end_key": "\"",
+		"line_only": false,
+	})
+	string_delimiters.append({
+		"start_key": "\'",
+		"end_key": "\'",
+		"line_only": false,
+	})
 	panel = TextForgePanel.new()
+	panel.custom_minimum_size = Vector2(200, 0)
 	panel.add_child(Label.new())
 	panel.get_child(0).text = "Test INI Mode"
 	has_panel = true
 	_enable_auto_format_feature()
-	print("Finished!")
 	return OK
 
 
