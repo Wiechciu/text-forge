@@ -34,6 +34,7 @@ SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
 Global="*res://core/autoload/global.gd"
 Factory="*res://core/autoload/factory.gd"
 Extensions="*res://core/extensions/extensions.gd"
+CsvToPotConverter="*res://data/translation/csv_to_pot_converter.tscn"
 
 [debug]
 
@@ -73,3 +74,7 @@ func before() -> void:
 [gui]
 
 theme/custom="uid://dnvygvv1c55qb"
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://data/translation/en.po", "res://data/translation/fa.po", "res://data/translation/pl.po")

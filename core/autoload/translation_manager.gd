@@ -62,6 +62,7 @@ func set_language(language_code: String = "default", fallback_code: String = "de
 ##  - [param key] does not exist: [code]Invalid translation key![/code] error, returns [param key].[br][br]
 ## [b]Note:[/b] If [param source_file] is [code]"default"[/code], will use [constant FileDatabase.TRANSLATION_FILE].
 func get_text(key: String, source_file: String = "default") -> String:
+	return key
 	if source_file == "default":
 		source_file = FileDatabase.TRANSLATION_FILE
 

@@ -1,0 +1,445 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"POT-Creation-Date: "
+"PO-Revision-Date: "
+"Last-Translator: "
+"Language-Team: "
+"MIME-Version: 1.0"
+"Content-Type: text/plain; charset=UTF-8"
+"Content-Transfer-Encoding: 8bit"
+"X-Generator: Poedit 3.4.2"
+
+msgid "menu.file"
+msgstr "فایل"
+
+msgid "menu.file.new"
+msgstr "جدید"
+
+msgid "menu.file.new_window"
+msgstr "پنجره جدید"
+
+msgid "menu.file.new_with_template"
+msgstr "جدید با قابل"
+
+msgid "menu.file.open"
+msgstr "بازکردن..."
+
+msgid "menu.file.recent_files"
+msgstr "فایل های اخیر"
+
+msgid "menu.file.save"
+msgstr "ذخیره"
+
+msgid "menu.file.save_as"
+msgstr "ذخیره به عنوان..."
+
+msgid "menu.file.reload"
+msgstr "بارگذاری مجدد"
+
+msgid "menu.file.close"
+msgstr "بستن"
+
+msgid "menu.file.backup_create"
+msgstr "ایجاد پشتیبان..."
+
+msgid "menu.file.backup_load"
+msgstr "بارگذاری از پشتیبان..."
+
+msgid "menu.file.copy_path"
+msgstr "رونوشت مسیر"
+
+msgid "menu.file.show_in_filesystem"
+msgstr "نمایش در فایل ها"
+
+msgid "menu.file.version_history"
+msgstr "تاریخچه نسخه..."
+
+msgid "menu.file.merge_with"
+msgstr "ادغام با..."
+
+msgid "menu.file.compare_with"
+msgstr "مقایسه با..."
+
+msgid "menu.file.storage_management"
+msgstr "مدیریت فضای ذخیره سازی..."
+
+msgid "menu.file.secure_delete"
+msgstr "حذف امن"
+
+msgid "menu.file.restart"
+msgstr "راه اندازی دوباره"
+
+msgid "menu.file.exit"
+msgstr "خروج"
+
+msgid "menu.edit"
+msgstr "ویرایش"
+
+msgid "menu.edit.undo"
+msgstr "لغو عمل"
+
+msgid "menu.edit.redo"
+msgstr "بازگردادن عمل"
+
+msgid "menu.edit.cut"
+msgstr "برش"
+
+msgid "menu.edit.copy"
+msgstr "رونوشت"
+
+msgid "menu.edit.paste"
+msgstr "جایگذاری"
+
+msgid "menu.edit.delete"
+msgstr "حذف"
+
+msgid "menu.edit.select_all"
+msgstr "انتخاب همه"
+
+msgid "menu.edit.duplicate_selection"
+msgstr "تکثیر انتخاب شده"
+
+msgid "menu.edit.evulate_selection"
+msgstr "محاسبه انتخاب شده"
+
+msgid "menu.edit.line"
+msgstr "خط"
+
+msgid "menu.edit.line.move_up"
+msgstr "انتقال به بالا"
+
+msgid "menu.edit.line.move_down"
+msgstr "انتقال به پایین"
+
+msgid "menu.edit.line.indent"
+msgstr "ایجاد فرورفتگی"
+
+msgid "menu.edit.line.unindent"
+msgstr "حذف فرورفتگی"
+
+msgid "menu.edit.line.delete"
+msgstr "حذف خطوط"
+
+msgid "menu.edit.line.toggle_comment"
+msgstr "تغییر کامنت گذاری"
+
+msgid "menu.edit.line.duplicate"
+msgstr "تکثیر خطوط"
+
+msgid "menu.edit.line.select_whole"
+msgstr "انتخاب کل خط"
+
+msgid "menu.edit.line.select_paragraph"
+msgstr "انتخاب بند"
+
+msgid "menu.edit.line.join"
+msgstr "ادغام خطوط"
+
+msgid "menu.edit.line.move_to_new_file"
+msgstr "انتقال به فایل جدید"
+
+msgid "menu.edit.completion_query"
+msgstr "درخواست تکمیل"
+
+msgid "menu.edit.indention"
+msgstr "فرورفتگی"
+
+msgid "menu.edit.indention.auto_indent"
+msgstr "تورفتگی خودکار"
+
+msgid "menu.edit.indention.to_spaces"
+msgstr "تبدیل فرورفتگی به فاصله"
+
+msgid "menu.edit.indention.to_tabs"
+msgstr "تبدیل فرورفتگی به تب"
+
+msgid "menu.edit.convert_case"
+msgstr "تبدیل حروف"
+
+msgid "menu.edit.convert_case.upper"
+msgstr "UPPER"
+
+msgid "menu.edit.convert_case.lower"
+msgstr "lower"
+
+msgid "menu.edit.convert_case.capitalize"
+msgstr "Capitalize"
+
+msgid "menu.edit.convert_case.camel"
+msgstr "camelCase"
+
+msgid "menu.edit.convert_case.pascal"
+msgstr "PascalCase"
+
+msgid "menu.edit.convert_case.snake"
+msgstr "snake_case"
+
+msgid "menu.search"
+msgstr "جستجو"
+
+msgid "menu.search.find_and_replace"
+msgstr "یافتن و جایگزینی..."
+
+msgid "menu.search.find_next"
+msgstr "یافته بعدی"
+
+msgid "menu.search.find_prev"
+msgstr "یافته قبلی"
+
+msgid "menu.search.replace_all"
+msgstr "چایگزینی همه"
+
+msgid "menu.go_to"
+msgstr "انتقال"
+
+msgid "menu.go_to.line"
+msgstr "برو به خط..."
+
+msgid "menu.go_to.code_regions"
+msgstr "محدوده کد ها..."
+
+msgid "menu.go_to.insert_nav_mark"
+msgstr "افزودن علامت ناوبری"
+
+msgid "menu.go_to.nav_marks"
+msgstr "علائم ناوبری..."
+
+msgid "menu.go_to.table_of_contents"
+msgstr "لیست محتوا..."
+
+msgid "menu.go_to.bookmarks"
+msgstr "نشانک ها..."
+
+msgid "menu.go_to.toggle_bookmark"
+msgstr "نشانک گذاری"
+
+msgid "menu.go_to.remove_all_bookmarks"
+msgstr "حذف همه نشانک ها"
+
+msgid "menu.go_to.breakpoints"
+msgstr "نقاط توقف..."
+
+msgid "menu.go_to.toggle_breakpoint"
+msgstr "نقطه توقف"
+
+msgid "menu.go_to.remove_all_breakpoints"
+msgstr "حذف همه نقاط توقف"
+
+msgid "menu.command"
+msgstr "دستور"
+
+msgid "menu.command.palette"
+msgstr "پالت فرمان..."
+
+msgid "menu.format"
+msgstr "قالب"
+
+msgid "menu.format.auto_format"
+msgstr "قالب بندی خودکار"
+
+msgid "menu.format.auto_indention"
+msgstr "تورفتگی خودکار"
+
+msgid "menu.format.remove_all_indents"
+msgstr "حذف همه تورفتگی ها"
+
+msgid "menu.format.save_as_template"
+msgstr "ذخیره به عنوان قالب..."
+
+msgid "menu.format.templates"
+msgstr "قالب ها..."
+
+msgid "menu.insert"
+msgstr "درج"
+
+msgid "menu.insert.bookmark"
+msgstr "نشانک"
+
+msgid "menu.insert.breakpoint"
+msgstr "نقطه توقف"
+
+msgid "menu.insert.change_log"
+msgstr "گزارش تغییر"
+
+msgid "menu.insert.license"
+msgstr "مجوز"
+
+msgid "menu.insert.footnote"
+msgstr "پانویس"
+
+msgid "menu.insert.header"
+msgstr "سربرگ"
+
+msgid "menu.insert.code_region"
+msgstr "محدوده کد"
+
+msgid "menu.insert.time"
+msgstr "زمان"
+
+msgid "menu.insert.date"
+msgstr "تاریخ"
+
+msgid "menu.insert.signature"
+msgstr "امضا"
+
+msgid "menu.view"
+msgstr "نمایش"
+
+msgid "menu.view.increase_font"
+msgstr "افزایش اندازه قلم"
+
+msgid "menu.view.reduce_font"
+msgstr "کاهش اندازه قلم"
+
+msgid "menu.view.reset_font"
+msgstr "بازنشانی اندازه قلم"
+
+msgid "menu.view.toggle_dark_mode"
+msgstr "تغییر حالت تاریک"
+
+msgid "menu.view.focus_editor"
+msgstr "تمرکز روی ویرایشگر"
+
+msgid "menu.view.notes_panel"
+msgstr "پنل یادداشت"
+
+msgid "menu.view.changelog_panel"
+msgstr "پنل گزارش تعییرات"
+
+msgid "menu.view.line_length_guides"
+msgstr "خطوط راهنما..."
+
+msgid "menu.view.show_bookmarks"
+msgstr "نمایش نشانک ها"
+
+msgid "menu.view.show_line_numbers"
+msgstr "نمایش شماره خط"
+
+msgid "menu.view.show_fold_gutter"
+msgstr "نمایش نگهدارنده خط"
+
+msgid "menu.view.show_minimap"
+msgstr "نمایش نمای کوچک"
+
+msgid "menu.view.block_caret"
+msgstr "نشانگر بلوکی"
+
+msgid "menu.view.highlight_occurrences"
+msgstr "برجسته کردن موادر مشابه"
+
+msgid "menu.view.highlight_current_line"
+msgstr "برجسته کردن خط فعلی"
+
+msgid "menu.view.show_control_chars"
+msgstr "نمایش کاراکتر های کنترل"
+
+msgid "menu.view.show_tabs"
+msgstr "نمایش تب ها"
+
+msgid "menu.view.show_spaces"
+msgstr "نمایش فاصله ها"
+
+msgid "menu.view.normal_view"
+msgstr "نمای عادی"
+
+msgid "menu.view.presentation_view"
+msgstr "نمای ارائه"
+
+msgid "menu.view.reading_view"
+msgstr "نمای مطالعه"
+
+msgid "menu.view.full_screen"
+msgstr "تمام صفحه"
+
+msgid "menu.tools"
+msgstr "ابزار ها"
+
+msgid "menu.tools.spell_check"
+msgstr "بررسی املا"
+
+msgid "menu.tools.color_picker"
+msgstr "انتخابگر رنگ"
+
+msgid "menu.tools.security"
+msgstr "امنیت..."
+
+msgid "menu.tools.counter"
+msgstr "شماشگر..."
+
+msgid "menu.tools.translation"
+msgstr "ترجمه..."
+
+msgid "menu.tools.clipboard_history"
+msgstr "تاریخچه بریده دان"
+
+msgid "menu.tools.function_creator"
+msgstr "تابع ساز..."
+
+msgid "menu.tools.documentation"
+msgstr "سند نویسی..."
+
+msgid "menu.tools.auto_completion"
+msgstr "تکمیل خودکار..."
+
+msgid "menu.tools.time_management"
+msgstr "مدیریت زمان..."
+
+msgid "menu.tools.calendar"
+msgstr "تقویم"
+
+msgid "menu.tools.by_extensions"
+msgstr "توسط افزونه ها"
+
+msgid "menu.tools.signature"
+msgstr "امضا..."
+
+msgid "menu.tools.date_time"
+msgstr "تاریخ و زمان..."
+
+msgid "menu.tools.macros"
+msgstr "ماکرو ها..."
+
+msgid "menu.tools.auto_backup"
+msgstr "پشتیبان گیری خودکار..."
+
+msgid "menu.settings"
+msgstr "تنظیمات"
+
+msgid "menu.settings.preferences"
+msgstr "ترجیحات..."
+
+msgid "menu.settings.mode_manager"
+msgstr "مدیریت مود ها..."
+
+msgid "menu.settings.extensions"
+msgstr "افزونه ها..."
+
+msgid "menu.settings.open_data_folder"
+msgstr "بازکردن پوشه داده"
+
+msgid "menu.help"
+msgstr "کمک"
+
+msgid "menu.help.github"
+msgstr "مخزن گیت هاب"
+
+msgid "menu.help.mode_library"
+msgstr "کتابخانه مود"
+
+msgid "menu.help.forum"
+msgstr "انجمن"
+
+msgid "menu.help.feedback"
+msgstr "ارسال بازخورد"
+
+msgid "menu.help.submit_issue"
+msgstr "ثبت اشکال"
+
+msgid "menu.help.docs"
+msgstr "اسناد آنلاین"
+
+msgid "menu.help.about"
+msgstr "درباره"
+

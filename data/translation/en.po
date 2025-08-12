@@ -1,0 +1,445 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: "
+"POT-Creation-Date: "
+"PO-Revision-Date: "
+"Last-Translator: "
+"Language-Team: "
+"MIME-Version: 1.0"
+"Content-Type: text/plain; charset=UTF-8"
+"Content-Transfer-Encoding: 8bit"
+"X-Generator: Poedit 3.4.2"
+
+msgid "menu.file"
+msgstr "File"
+
+msgid "menu.file.new"
+msgstr "New"
+
+msgid "menu.file.new_window"
+msgstr "New Window"
+
+msgid "menu.file.new_with_template"
+msgstr "New With Template"
+
+msgid "menu.file.open"
+msgstr "Open..."
+
+msgid "menu.file.recent_files"
+msgstr "Recent Files"
+
+msgid "menu.file.save"
+msgstr "Save"
+
+msgid "menu.file.save_as"
+msgstr "Save As..."
+
+msgid "menu.file.reload"
+msgstr "Reload"
+
+msgid "menu.file.close"
+msgstr "Close"
+
+msgid "menu.file.backup_create"
+msgstr "Create Backup..."
+
+msgid "menu.file.backup_load"
+msgstr "Load From Backup..."
+
+msgid "menu.file.copy_path"
+msgstr "Copy Path"
+
+msgid "menu.file.show_in_filesystem"
+msgstr "Show In FileSystem"
+
+msgid "menu.file.version_history"
+msgstr "Version History..."
+
+msgid "menu.file.merge_with"
+msgstr "Merge With..."
+
+msgid "menu.file.compare_with"
+msgstr "Compare With..."
+
+msgid "menu.file.storage_management"
+msgstr "Storage Management..."
+
+msgid "menu.file.secure_delete"
+msgstr "Secure Delete"
+
+msgid "menu.file.restart"
+msgstr "Restart"
+
+msgid "menu.file.exit"
+msgstr "Exit"
+
+msgid "menu.edit"
+msgstr "Edit"
+
+msgid "menu.edit.undo"
+msgstr "Undo"
+
+msgid "menu.edit.redo"
+msgstr "Redo"
+
+msgid "menu.edit.cut"
+msgstr "Cut"
+
+msgid "menu.edit.copy"
+msgstr "Copy"
+
+msgid "menu.edit.paste"
+msgstr "Paste"
+
+msgid "menu.edit.delete"
+msgstr "Delete"
+
+msgid "menu.edit.select_all"
+msgstr "Select All"
+
+msgid "menu.edit.duplicate_selection"
+msgstr "Duplicate Selection"
+
+msgid "menu.edit.evulate_selection"
+msgstr "Evaluate Selection"
+
+msgid "menu.edit.line"
+msgstr "Line"
+
+msgid "menu.edit.line.move_up"
+msgstr "Move Lines Up"
+
+msgid "menu.edit.line.move_down"
+msgstr "Move Lines Down"
+
+msgid "menu.edit.line.indent"
+msgstr "Indent"
+
+msgid "menu.edit.line.unindent"
+msgstr "Unindent"
+
+msgid "menu.edit.line.delete"
+msgstr "Delete Lines"
+
+msgid "menu.edit.line.toggle_comment"
+msgstr "Toggle Comment"
+
+msgid "menu.edit.line.duplicate"
+msgstr "Duplicate Lines"
+
+msgid "menu.edit.line.select_whole"
+msgstr "Select Whole Line"
+
+msgid "menu.edit.line.select_paragraph"
+msgstr "Select Paragraph"
+
+msgid "menu.edit.line.join"
+msgstr "Join Lines"
+
+msgid "menu.edit.line.move_to_new_file"
+msgstr "Move To New File"
+
+msgid "menu.edit.completion_query"
+msgstr "Completion Query"
+
+msgid "menu.edit.indention"
+msgstr "Indention"
+
+msgid "menu.edit.indention.auto_indent"
+msgstr "Auto Indent"
+
+msgid "menu.edit.indention.to_spaces"
+msgstr "Convert Indent To Spaces"
+
+msgid "menu.edit.indention.to_tabs"
+msgstr "Convert Indent To Tabs"
+
+msgid "menu.edit.convert_case"
+msgstr "Convert Case"
+
+msgid "menu.edit.convert_case.upper"
+msgstr "UPPER"
+
+msgid "menu.edit.convert_case.lower"
+msgstr "lower"
+
+msgid "menu.edit.convert_case.capitalize"
+msgstr "Capitalize"
+
+msgid "menu.edit.convert_case.camel"
+msgstr "camelCase"
+
+msgid "menu.edit.convert_case.pascal"
+msgstr "PascalCase"
+
+msgid "menu.edit.convert_case.snake"
+msgstr "snake_case"
+
+msgid "menu.search"
+msgstr "Search"
+
+msgid "menu.search.find_and_replace"
+msgstr "Find and Replace..."
+
+msgid "menu.search.find_next"
+msgstr "Find Next"
+
+msgid "menu.search.find_prev"
+msgstr "Find Previous"
+
+msgid "menu.search.replace_all"
+msgstr "Replace All"
+
+msgid "menu.go_to"
+msgstr "Go To"
+
+msgid "menu.go_to.line"
+msgstr "Go To Line..."
+
+msgid "menu.go_to.code_regions"
+msgstr "Code Regions..."
+
+msgid "menu.go_to.insert_nav_mark"
+msgstr "Insert Navigation Mark"
+
+msgid "menu.go_to.nav_marks"
+msgstr "Navigation Marks..."
+
+msgid "menu.go_to.table_of_contents"
+msgstr "Table Of Contents..."
+
+msgid "menu.go_to.bookmarks"
+msgstr "Bookmarks..."
+
+msgid "menu.go_to.toggle_bookmark"
+msgstr "Toggle Bookmark"
+
+msgid "menu.go_to.remove_all_bookmarks"
+msgstr "Remove All Bookmarks"
+
+msgid "menu.go_to.breakpoints"
+msgstr "Breakpoints..."
+
+msgid "menu.go_to.toggle_breakpoint"
+msgstr "Toggle Breakpoint"
+
+msgid "menu.go_to.remove_all_breakpoints"
+msgstr "Remove All Breakpoints"
+
+msgid "menu.command"
+msgstr "Command"
+
+msgid "menu.command.palette"
+msgstr "Command Palette..."
+
+msgid "menu.format"
+msgstr "Format"
+
+msgid "menu.format.auto_format"
+msgstr "Auto Format"
+
+msgid "menu.format.auto_indention"
+msgstr "Auto Indention"
+
+msgid "menu.format.remove_all_indents"
+msgstr "Remove All Indents"
+
+msgid "menu.format.save_as_template"
+msgstr "Save As Template..."
+
+msgid "menu.format.templates"
+msgstr "Templates..."
+
+msgid "menu.insert"
+msgstr "Insert"
+
+msgid "menu.insert.bookmark"
+msgstr "Bookmark"
+
+msgid "menu.insert.breakpoint"
+msgstr "Breakpoint"
+
+msgid "menu.insert.change_log"
+msgstr "Change Log"
+
+msgid "menu.insert.license"
+msgstr "License"
+
+msgid "menu.insert.footnote"
+msgstr "Footnote"
+
+msgid "menu.insert.header"
+msgstr "Header"
+
+msgid "menu.insert.code_region"
+msgstr "Code Region"
+
+msgid "menu.insert.time"
+msgstr "Time"
+
+msgid "menu.insert.date"
+msgstr "Date"
+
+msgid "menu.insert.signature"
+msgstr "Signature"
+
+msgid "menu.view"
+msgstr "View"
+
+msgid "menu.view.increase_font"
+msgstr "Increase Font Size"
+
+msgid "menu.view.reduce_font"
+msgstr "Reduce Font Size"
+
+msgid "menu.view.reset_font"
+msgstr "Reset Font Size"
+
+msgid "menu.view.toggle_dark_mode"
+msgstr "Toggle Dark Mode"
+
+msgid "menu.view.focus_editor"
+msgstr "Focus On Editor"
+
+msgid "menu.view.notes_panel"
+msgstr "Notes Panel"
+
+msgid "menu.view.changelog_panel"
+msgstr "Change Log Panel"
+
+msgid "menu.view.line_length_guides"
+msgstr "Line Length Guides..."
+
+msgid "menu.view.show_bookmarks"
+msgstr "Show Bookmarks"
+
+msgid "menu.view.show_line_numbers"
+msgstr "Show Line Numbers"
+
+msgid "menu.view.show_fold_gutter"
+msgstr "Show Fold Gutter"
+
+msgid "menu.view.show_minimap"
+msgstr "Show Minimap"
+
+msgid "menu.view.block_caret"
+msgstr "Block Type Caret"
+
+msgid "menu.view.highlight_occurrences"
+msgstr "Highlight All Occurrences"
+
+msgid "menu.view.highlight_current_line"
+msgstr "Highlight Current Line"
+
+msgid "menu.view.show_control_chars"
+msgstr "Show Control Characters"
+
+msgid "menu.view.show_tabs"
+msgstr "Show Tabs"
+
+msgid "menu.view.show_spaces"
+msgstr "Show Spaces"
+
+msgid "menu.view.normal_view"
+msgstr "Normal View"
+
+msgid "menu.view.presentation_view"
+msgstr "Presentation View"
+
+msgid "menu.view.reading_view"
+msgstr "Reading View"
+
+msgid "menu.view.full_screen"
+msgstr "Full Screen"
+
+msgid "menu.tools"
+msgstr "Tools"
+
+msgid "menu.tools.spell_check"
+msgstr "Spell Check"
+
+msgid "menu.tools.color_picker"
+msgstr "Color Picker"
+
+msgid "menu.tools.security"
+msgstr "Security..."
+
+msgid "menu.tools.counter"
+msgstr "Counter..."
+
+msgid "menu.tools.translation"
+msgstr "Translation..."
+
+msgid "menu.tools.clipboard_history"
+msgstr "Clipboard History"
+
+msgid "menu.tools.function_creator"
+msgstr "Function Creator..."
+
+msgid "menu.tools.documentation"
+msgstr "Documentation..."
+
+msgid "menu.tools.auto_completion"
+msgstr "Auto Completion..."
+
+msgid "menu.tools.time_management"
+msgstr "Time Management..."
+
+msgid "menu.tools.calendar"
+msgstr "Calendar"
+
+msgid "menu.tools.by_extensions"
+msgstr "By Extensions"
+
+msgid "menu.tools.signature"
+msgstr "Signature..."
+
+msgid "menu.tools.date_time"
+msgstr "Date & Time..."
+
+msgid "menu.tools.macros"
+msgstr "Macros..."
+
+msgid "menu.tools.auto_backup"
+msgstr "Auto Backup..."
+
+msgid "menu.settings"
+msgstr "Settings"
+
+msgid "menu.settings.preferences"
+msgstr "Preferences..."
+
+msgid "menu.settings.mode_manager"
+msgstr "Mode Manager..."
+
+msgid "menu.settings.extensions"
+msgstr "Extensions..."
+
+msgid "menu.settings.open_data_folder"
+msgstr "Open Data Folder"
+
+msgid "menu.help"
+msgstr "Help"
+
+msgid "menu.help.github"
+msgstr "GitHub Repository"
+
+msgid "menu.help.mode_library"
+msgstr "Mode Library"
+
+msgid "menu.help.forum"
+msgstr "Forum"
+
+msgid "menu.help.feedback"
+msgstr "Share Feedback"
+
+msgid "menu.help.submit_issue"
+msgstr "Submit Issue"
+
+msgid "menu.help.docs"
+msgstr "Online Docs"
+
+msgid "menu.help.about"
+msgstr "About"
+
