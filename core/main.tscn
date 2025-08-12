@@ -264,10 +264,11 @@ text = "[b]Icons:[/b]
 
 [i]See [code]\"root/modes/\"[/code], [code]\"root/scripts/\"[/code], [code]\"userdata/extensions\"[/code] for other licenses. Modes, scripts and extensions without LICENSE file are onder Text Forge license."
 
-[node name="Change Log" type="MarginContainer" parent="About/MarginContainer/TabContainer"]
+[node name="Change Log" type="MarginContainer" parent="About/MarginContainer/TabContainer" node_paths=PackedStringArray("label")]
 visible = false
 layout_mode = 2
 script = ExtResource("6_kagtj")
+label = NodePath("Text")
 metadata/_tab_index = 4
 
 [node name="Text" type="RichTextLabel" parent="About/MarginContainer/TabContainer/Change Log"]
