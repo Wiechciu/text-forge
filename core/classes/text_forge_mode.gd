@@ -50,8 +50,6 @@ func _enable_auto_indent_feature() -> void:
 
 
 ## Override this method to add auto format feature if your mode supports it.[br][br]
-## [b]Important:[/b] Your mode should only format the selected lines and return the rest of the
-## lines as they are! Use [method Editor.is_selection_in_line] for each line to handle this.[br]
 ## [b]Note:[/b] See [method _enable_auto_format_feature] before override.[br]
 func _auto_format(text: String) -> String:
 	return text
@@ -60,9 +58,6 @@ func _auto_format(text: String) -> String:
 ## Override this method to add auto format feature if your mode supports it. Auto indent just
 ## includes automatic indention, not other formattings! To add other formatting features use
 ## [method _auto_format] function.[br][br]
-## [b]Important:[/b] Your mode should only change indention of the selected lines and return the
-## rest of the lines as they are! Use [method Editor.is_selection_in_line] for each line to handle
-## this.[br]
 ## [b]Note:[/b] See [method _enable_auto_indent_feature] before override.[br]
 func _auto_indent(text: String) -> String:
 	return text
@@ -84,7 +79,13 @@ func _buffer_to_string(buffer: PackedByteArray) -> String:
 ## char [code]0xFFFF[/code] at the caret location. Use [method CodeEdit.add_code_completion_option]
 ## and [method CodeEdit.update_code_completion_options] for this task.
 func _update_code_completion_options(text: String) -> void:
-	return
+	pass
+
+
+## Override this method to handle preview feature, [param text] is the full editor text and this
+## method should return preview as string. (you can use BBCode for formatting)
+func _generate_preview(text: String) -> String:
+	return String()
 
 
 ## Returns [member syntax_highlighter]. Setup syntax highlighter in [method _initialize_mode] and

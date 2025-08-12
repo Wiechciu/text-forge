@@ -41,6 +41,12 @@ signal settings_changed
 signal reload_recent_files
 ## Requests refresh module list from module profiler.
 signal module_profiler_refresh
+## Emits when new preview is available.
+signal preview_updated(new: String)
+## Emits when preview isn't available.
+signal preview_unavailable
+## Emits when current mode changes.
+signal mode_changed(mode: Dictionary)
 
 @warning_ignore_restore("unused_signal")
 

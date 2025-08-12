@@ -13,48 +13,50 @@ var _temp_mode_index: int = 0
 
 func _ready() -> void:
 	child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
-
 	mode_selected.connect(func(index): _temp_mode_index = index - 1)
+	Global.get_editor().text_changed.connect(_update_preview)
 
 	_load_mode_list()
 
 
 func _load_mode_list() -> void:
-	var damaged_modes: Array[String] = []
+	var damaged_modes: Dictionary[String, String] = {}
 
 	for mode_folder: String in DirAccess.get_directories_at(FileDatabase.FOLDER_MODES):
 		if not (FileAccess.file_exists(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder]))
 		and FileAccess.file_exists(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder]))
 		and FileAccess.file_exists(FileDatabase.TEMPLATE_MODE_ICON.format([mode_folder]))):
-			damaged_modes.append(mode_folder)
+			damaged_modes[mode_folder] = "Missing files"
 			continue
 
 		var config = ConfigFile.new()
 		var err := config.load(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder]))
 
 		if err:
-			damaged_modes.append(mode_folder)
+			damaged_modes[mode_folder] = "Load config failed"
 			continue
 		if Array(config.get_sections()) != ["mode"]:
-			damaged_modes.append(mode_folder)
+			damaged_modes[mode_folder] = "Invalid sections"
 			continue
 		if Array(config.get_section_keys("mode")) != ["name", "description", "author", "version", "extensions"]:
-			damaged_modes.append(mode_folder)
+			damaged_modes[mode_folder] = "Invalid keys"
 			continue
-		if not is_instance_of(load(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])), TextForgeMode):
-			damaged_modes.append(mode_folder)
+		if not is_instance_of(load(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])).new(), TextForgeMode):
+			damaged_modes[mode_folder] = "Invalid script"
 			continue
 
 		var mode: Dictionary[String, Variant] = {"id": mode_folder}
 		for key: String in config.get_section_keys("mode"):
 			mode[key] = config.get_value("mode", key)
 
-		mode_list.append(current_mode)
+		mode_list.append(mode)
 
 	Global.damaged_modes = damaged_modes
 	if damaged_modes:
-		var damaged_modes_string: String = ", ".join(damaged_modes)
-		Global.send_notification(Global.Notification.ERROR, "Failed to load some modes!", "Damaged modes: " + damaged_modes_string)
+		var damaged_modes_pairs: Array[String] = []
+		for mode in damaged_modes:
+			damaged_modes_pairs.append(mode + ": " + damaged_modes[mode])
+		Global.send_notification(Global.Notification.ERROR, "Failed to load some modes!", "\n".join(damaged_modes_pairs))
 
 
 func reload_modes() -> void:
@@ -186,6 +188,16 @@ func _load_mode_features() -> void:
 	_load_syntax_highlighter()
 	_load_comment_delimiters()
 	_load_mode_panel()
+	_update_preview()
+
+
+func _update_preview() -> void:
+	var mode_script := _get_mode_script()
+	if not mode_script:
+		Signals.preview_unavailable.emit()
+		return
+
+	Signals.preview_updated.emit(mode_script._generate_preview(Global.get_editor_text()))
 
 
 func _load_mode_panel() -> void:
@@ -199,7 +211,7 @@ func _load_mode_panel() -> void:
 	if mode_script.panel:
 		mode_panel = mode_script.panel
 		Global.get_panel_manager().add_panel(PanelManager.Panels.LEFT, mode_script.panel,
-				load(FileDatabase.TEMPLATE_MODE_ICON.format([current_mode["id"]]))
+				ImageTexture.create_from_image(Image.load_from_file(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_ICON.format([current_mode["id"]]))))
 		)
 
 
@@ -222,7 +234,7 @@ func _load_syntax_highlighter() -> void:
 		Global.get_editor().syntax_highlighter = null
 		return
 
-	Global.get_editor().syntax_highlighter = mode_script.syntax_highlighter.duplicate(true)
+	Global.get_editor().syntax_highlighter = mode_script.syntax_highlighter
 
 
 func _unload_current_mode() -> void:
@@ -237,7 +249,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 	if mode == current_mode:
 		return OK
 
-	var new_mode_script: TextForgeMode = load(FileDatabase.TEMPLATE_MODE_SCRIPT.format(mode["id"])).new() as TextForgeMode
+	var new_mode_script: TextForgeMode = load(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
 	if not new_mode_script:
 		return ERR_INVALID_DATA
 
@@ -267,6 +279,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 
 	if initialize_error == OK:
 		current_mode = mode
+		Signals.mode_changed.emit(current_mode)
 
 	return initialize_error
 
