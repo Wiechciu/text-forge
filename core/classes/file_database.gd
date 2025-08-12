@@ -12,7 +12,7 @@ const MENU_BUTTON_SCENE: String = "res://core/prebuilds/menu_button.tscn"
 ## Path to UI configurations.
 const MAIN_UI_DATA: String = "res://data/main_ui.ini"
 ## Path to main translation source.
-const TRANSLATION_FILE: String = "res://data/translation.csv"
+const TRANSLATION_FILE: String = "res://data/translation/translation.csv"
 ## Saved recent files list.
 const RECENT_FILES_DATA: String = "user://recent_files.txt"
 ## Root folder for saved templates.
