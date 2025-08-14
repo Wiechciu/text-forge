@@ -90,6 +90,51 @@ func _generate_preview(text: String) -> String:
 	return String()
 
 
+## Override this method to handle outline feature, [param text] is the full editor text and this
+## method should return a nested array as table of content / symbols in this strcuture:
+## [codeblock]
+## [ # Highest array is root of file, don't add text and line number here
+##     [
+##         "Heading 1", # text of current section
+##         0, # line of section from 0
+##         [ # define optional sub-sections as arrays after text and line number
+##             "Heading 2 (1)",
+##             10,
+##         ],
+##         [ # another sub-section
+##             "Heading 2 (2)",
+##             14,
+##             [ # each section can have zero or more sub-sections
+##                 "Heading 3",
+##                 16,
+##             ],
+##         ],
+##     ],
+## ]
+## [/codeblock]
+## Above structure is for a file like this (markdown example):
+## [codeblock lang=text]
+## # Heading 1
+## ...
+## ## Heading 2 (1)
+## ...
+## ## Heading 2 (2)
+## ...
+## ### Heading 3
+## ...
+## [/codeblock]
+## And will be shown as:
+## [codeblock lang=text]
+## Heading 1/
+##     Heading 2 (1)
+##     Heading 2 (2)/
+##         Heading 3
+## [/codeblock]
+## [b]Note:[/b] Highest array is root of file, this array allows you to have more than one first-class section.
+func _generate_outline(text: String) -> Array:
+	return Array()
+
+
 ## Override this method to handle linting, [param text] is the full editor text and this method
 ## should return an array of problems in this strcuture:
 ## [codeblock]

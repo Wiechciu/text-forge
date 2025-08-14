@@ -49,6 +49,8 @@ signal preview_unavailable
 signal mode_changed(mode: Dictionary)
 ## Shares problems list.
 signal problems_updated(problems: Array[Dictionary])
+## Shares file outline.
+signal outline_updated(outline: Array)
 
 @warning_ignore_restore("unused_signal")
 

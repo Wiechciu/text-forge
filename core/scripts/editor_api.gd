@@ -15,6 +15,7 @@ func _ready() -> void:
 	child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	mode_selected.connect(func(index): _temp_mode_index = index - 1)
 	Global.get_editor().type_timer_timeout.connect(_update_preview)
+	Global.get_editor().type_timer_timeout.connect(_update_outline)
 	Global.get_editor().type_timer_timeout.connect(_lint_content)
 
 	_load_mode_list()
@@ -191,6 +192,16 @@ func _load_mode_features() -> void:
 	_load_mode_panel()
 	_update_preview()
 	_lint_content()
+	_update_outline()
+
+
+func _update_outline() -> void:
+	var mode_script := _get_mode_script()
+	if not mode_script:
+		Signals.outline_updated.emit(Array())
+		return
+
+	Signals.outline_updated.emit(mode_script._generate_outline(Global.get_editor_text()))
 
 
 func _lint_content() -> void:
