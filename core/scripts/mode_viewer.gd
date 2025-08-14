@@ -12,9 +12,11 @@ func _update_mode() -> void:
 		text = "Current Mode: None"
 	else:
 		text = "Current Mode: " + current_mode["name"]
-	get_popup().add_item("Modes count:" + str(Global.get_editor_api().mode_list.size()))
-	var submenu := PopupMenu.new()
+	var modes := PopupMenu.new()
+	var extensions := PopupMenu.new()
 	for m in Global.get_editor_api().mode_list:
+		modes.add_item("{0} ({1})".format([m["name"], m["id"]]))
 		for e in m["extensions"]:
-			submenu.add_item(e)
-	get_popup().add_submenu_node_item("Available extensions", submenu)
+			extensions.add_item(e)
+	get_popup().add_submenu_node_item("Modes ({0})".format([Global.get_editor_api().mode_list.size()]), modes)
+	get_popup().add_submenu_node_item("Available extensions", extensions)
