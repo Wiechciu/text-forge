@@ -2,6 +2,8 @@ class_name Editor
 extends CodeEdit
 ## Main editor node.
 
+signal type_timer_timeout
+
 var code_completion_timer := Timer.new()
 
 func _ready() -> void:
@@ -36,3 +38,4 @@ func _on_text_changed() -> void:
 	code_completion_timer.start()
 	await code_completion_timer.timeout
 	code_completion_requested.emit()
+	type_timer_timeout.emit()

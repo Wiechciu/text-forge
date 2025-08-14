@@ -15,6 +15,7 @@ func _ready() -> void:
 	child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	mode_selected.connect(func(index): _temp_mode_index = index - 1)
 	Global.get_editor().text_changed.connect(_update_preview)
+	Global.get_editor().type_timer_timeout.connect(_lint_content)
 
 	_load_mode_list()
 
@@ -56,7 +57,7 @@ func _load_mode_list() -> void:
 		var damaged_modes_pairs: Array[String] = []
 		for mode in damaged_modes:
 			damaged_modes_pairs.append(mode + ": " + damaged_modes[mode])
-		Global.send_notification(Global.Notification.ERROR, "Failed to load some modes!", "\n".join(damaged_modes_pairs))
+		Global.send_notification(Global.Notification.ERROR, "Failed to load some modes!", ", ".join(damaged_modes_pairs))
 
 
 func reload_modes() -> void:
@@ -189,6 +190,16 @@ func _load_mode_features() -> void:
 	_load_delimiters()
 	_load_mode_panel()
 	_update_preview()
+	_lint_content()
+
+
+func _lint_content() -> void:
+	var mode_script := _get_mode_script()
+	if not mode_script:
+		Signals.problems_updated.emit(Array([], TYPE_DICTIONARY, "", null))
+		return
+
+	Signals.problems_updated.emit(mode_script._lint_file(Global.get_editor_text()))
 
 
 func _update_preview() -> void:
@@ -235,7 +246,7 @@ func _load_delimiters() -> void:
 
 
 func _load_syntax_highlighter() -> void:
-	var mode_script: TextForgeMode = get_child(0)
+	var mode_script := _get_mode_script()
 	if not mode_script:
 		Global.get_editor().syntax_highlighter = null
 		return
@@ -252,6 +263,10 @@ func _unload_current_mode() -> void:
 		current_mode_script.queue_free()
 	if mode_panel:
 		Global.get_panel_manager().remove_panel(PanelManager.Panels.LEFT, mode_panel.index)
+		mode_panel = null
+	Global.get_editor().syntax_highlighter = null
+	Signals.problems_updated.emit(Array([], TYPE_DICTIONARY, "", null))
+	current_mode = {}
 
 
 func _change_mode_to(mode: Dictionary) -> Error:
@@ -315,6 +330,7 @@ func _handle_save_file(file_path: String) -> void:
 func _handle_load_file(file_path: String) -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
+		push_error("Load error")
 		Global.send_notification(Global.Notification.ERROR, "Can't find mode script!", "Loading failed.")
 		return
 

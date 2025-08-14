@@ -47,6 +47,8 @@ signal preview_updated(new: String)
 signal preview_unavailable
 ## Emits when current mode changes.
 signal mode_changed(mode: Dictionary)
+## Shares problems list.
+signal problems_updated(problems: Array[Dictionary])
 
 @warning_ignore_restore("unused_signal")
 

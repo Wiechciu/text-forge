@@ -90,6 +90,21 @@ func _generate_preview(text: String) -> String:
 	return String()
 
 
+## Override this method to handle linting, [param text] is the full editor text and this method
+## should return an array of problems in this strcuture:
+## [codeblock]
+## {
+##     "line": int, # from 0
+##     "column": int, # from 0, -1 for all of line
+##     "error": bool, # false for warnings, true for errors
+##     "title": String,
+##     "details": String,
+## }
+## [/codebloc]
+func _lint_file(text: String) -> Array[Dictionary]:
+	return Array([], TYPE_DICTIONARY, "", null)
+
+
 ## Returns [member syntax_highlighter]. Setup syntax highlighter in [method _initialize_mode] and
 ## DON'T override this function.
 func get_syntax_highlighter() -> SyntaxHighlighter:

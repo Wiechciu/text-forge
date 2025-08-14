@@ -12,7 +12,7 @@ func _update_mode() -> void:
 		text = "Current Mode: None"
 	else:
 		text = "Current Mode: " + current_mode["name"]
-	get_popup().add_item("Modes ount:" + str(Global.get_editor_api().mode_list.size()))
+	get_popup().add_item("Modes count:" + str(Global.get_editor_api().mode_list.size()))
 	var submenu := PopupMenu.new()
 	for m in Global.get_editor_api().mode_list:
 		for e in m["extensions"]:
