@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automaticaly load last opened file at start ([#77](https://github.com/text-forge/text-forge/pull/77))
 - Scrolling for preferences tabs ([#78](https://github.com/text-forge/text-forge/pull/78))
 - polski translation `PL` ([#84](https://github.com/text-forge/text-forge/pull/84))
+- Added Change Log tab to About panel ([#83](https://github.com/text-forge/text-forge/pull/83))
 
 ### Changed
 
