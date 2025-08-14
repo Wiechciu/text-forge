@@ -14,7 +14,7 @@ var _temp_mode_index: int = 0
 func _ready() -> void:
 	child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	mode_selected.connect(func(index): _temp_mode_index = index - 1)
-	Global.get_editor().text_changed.connect(_update_preview)
+	Global.get_editor().type_timer_timeout.connect(_update_preview)
 	Global.get_editor().type_timer_timeout.connect(_lint_content)
 
 	_load_mode_list()
