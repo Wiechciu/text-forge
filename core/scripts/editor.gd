@@ -11,6 +11,8 @@ func _ready() -> void:
 	type_timer.wait_time = 0.3
 	type_timer.one_shot = true
 
+	type_timer_timeout.connect(func(): code_completion_requested.emit())
+
 ## Returns char index in [param line] and [param column], useful for use original [LineEdit]
 ## functions with [String] options.
 func get_char_index(line: int, column: int) -> int:
@@ -37,5 +39,4 @@ func is_selection_in_line(line: int) -> bool:
 func _on_text_changed() -> void:
 	type_timer.start()
 	await type_timer.timeout
-	code_completion_requested.emit()
 	type_timer_timeout.emit()
