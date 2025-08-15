@@ -10,6 +10,7 @@ func _ready() -> void:
 	add_child(type_timer, false, Node.INTERNAL_MODE_FRONT)
 	type_timer.wait_time = 0.3
 	type_timer.one_shot = true
+	type_timer.timeout.connect(func(): type_timer_timeout.emit())
 
 	type_timer_timeout.connect(func(): code_completion_requested.emit())
 
@@ -38,5 +39,3 @@ func is_selection_in_line(line: int) -> bool:
 
 func _on_text_changed() -> void:
 	type_timer.start()
-	await type_timer.timeout
-	type_timer_timeout.emit()
