@@ -2,6 +2,7 @@
 Extensible and modular code editor with Godot 4.4
 
 ![GitHub Release](https://img.shields.io/github/v/release/Text-forge/Text-forge)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Text-Forge/Text-Forge/update-docs.yml?label=docs%20update)
 
 ---
 
