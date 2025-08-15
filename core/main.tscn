@@ -236,6 +236,8 @@ vertical_alignment = 1
 [node name="ModeViewer" type="MenuButton" parent="Margin/Sections/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+tooltip_text = "Mode Viewer
+Currently in use mode. Click to see more details."
 text = "Current Mode: None"
 script = ExtResource("5_kagtj")
 
@@ -243,7 +245,7 @@ script = ExtResource("5_kagtj")
 layout_mode = 2
 size_flags_horizontal = 8
 tooltip_text = "Module Profiler
-Number of currently connected modules"
+Number of currently connected modules. Click to see more details."
 text = "11 Modules"
 switch_on_hover = true
 item_count = 1
