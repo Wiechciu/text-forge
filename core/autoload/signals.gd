@@ -41,10 +41,10 @@ signal settings_changed
 signal reload_recent_files
 ## Requests refresh module list from module profiler.
 signal module_profiler_refresh
-## Emits when new preview is available.
-signal preview_updated(new: String)
 ## Emits when current mode changes.
 signal mode_changed(mode: Dictionary)
+## Emits when new preview is available.
+signal preview_updated(new: String)
 ## Shares problems list.
 signal problems_updated(problems: Array[Dictionary])
 ## Shares file outline.
