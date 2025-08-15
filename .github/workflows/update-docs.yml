@@ -1,6 +1,7 @@
 name: Sync Docs to text-forge/docs
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - Main
