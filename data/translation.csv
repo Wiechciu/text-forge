@@ -79,17 +79,6 @@ menu.format.auto_indention,Auto Indention,تورفتگی خودکار,Automatycz
 menu.format.remove_all_indents,Remove All Indents,حذف همه تورفتگی ها,Usuń wszystkie akapity
 menu.format.save_as_template,Save As Template...,ذخیره به عنوان قالب...,Zapisz jako szablon...
 menu.format.templates,Templates...,قالب ها...,Szablony...
-menu.insert,Insert,درج,Wstaw
-menu.insert.bookmark,Bookmark,نشانک,Zakładkę
-menu.insert.breakpoint,Breakpoint,نقطه توقف,Punkt stop
-menu.insert.change_log,Change Log,گزارش تغییر,Lista zmian
-menu.insert.license,License,مجوز,Licencja
-menu.insert.footnote,Footnote,پانویس,Notatka
-menu.insert.header,Header,سربرگ,Nagłówek
-menu.insert.code_region,Code Region,محدوده کد,Region kodu
-menu.insert.time,Time,زمان,Czas
-menu.insert.date,Date,تاریخ,Data
-menu.insert.signature,Signature,امضا,Podpis
 menu.view,View,نمایش,Widok
 menu.view.increase_font,Increase Font Size,افزایش اندازه قلم,Zwiększ rozmiar czcionki
 menu.view.reduce_font,Reduce Font Size,کاهش اندازه قلم,Zmniejsz rozmiar czcionki
