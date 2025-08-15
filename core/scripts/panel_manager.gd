@@ -113,6 +113,7 @@ func add_panel(location: Panels, panel: TextForgePanel, icon: Texture2D) -> void
 			current_panel = panel_bottom
 	var index = current_tab.add_icon_item(icon)
 	panel.index = index
+	panel.place = location
 	if index != current_panel.get_child_count():
 		current_tab.remove_item(index)
 		Global.send_notification(Global.Notification.ERROR, "There is a bug in panel management", "")
