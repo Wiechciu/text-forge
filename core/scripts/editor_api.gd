@@ -4,11 +4,17 @@ extends Control
 ##
 ## This node is first child of [Editor] and designed to manage modes. Access way: [code]Global.get_editor_api()[/code]
 
+## Emits when a mode selected from available modes, this is a delay system and restore choice when
+## there is more than one mode for current file.
 signal mode_selected(index: int)
 
+## Keeps list of all modes informations without damaged modes.
 var mode_list: Array[Dictionary] = []
+## Keeps information of current mode from [member mode_list].
 var current_mode: Dictionary = {}
+## Keeps panel of currently in use mode.
 var mode_panel: TextForgePanel
+# Keeps temprory index of selected mode.
 var _temp_mode_index: int = 0
 
 func _ready() -> void:
@@ -21,6 +27,10 @@ func _ready() -> void:
 	_load_mode_list()
 
 
+## Loads [member mode_list], will fill [member GlobalAccess.damaged_modes] with failed modes.
+## This function have file existence check, [ConfigFile] error handling, config section and key
+## validation, and script class check. This function will add modes folder name to mode information
+## dictionary and [code]"id"[/code].
 func _load_mode_list() -> void:
 	var damaged_modes: Dictionary[String, String] = {}
 
@@ -68,11 +78,23 @@ func _load_mode_list() -> void:
 		Global.send_notification(Global.Notification.ERROR, "Failed to load some modes!", damaged_modes_string)
 
 
+## Reload all modes with [method _load_mode_list].
 func reload_modes() -> void:
 	mode_list = []
 	_load_mode_list()
 
 
+## Handle file saving from mode selection to correct mode encode system and then to targe file.
+## Will use current mode if is compatible (based on [method _is_mode_compatible]), otherwise will
+## use [method _is_mode_compatible] to filter modes and select one of them. Three situation can heppend:[br]
+## - [b]There is no compatible mode:[/b] Will [method _unload_current_mode] and use
+## [method FileAccess.store_string].[br]
+## - [b]There is one compatible mode:[/b] Will [method _change_mode_to] and use
+## [method _handle_save_file] and [method _load_mode_features].[br]
+## - [b]There is more than one compatible mode:[/b] Will show popup menu for select mode then use
+## [method _change_mode_to] and [method _handle_save_file] and [method _load_mode_features].[br][br]
+## If there is any error in [method _change_mode_to] (see [method TextForgeMode._initialize_mode])
+## will fail with [i]Failed to initialize mode for save[/i].
 func save_file(file_path: String) -> void:
 	var mode := current_mode
 
@@ -117,6 +139,8 @@ func save_file(file_path: String) -> void:
 		Global.send_notification(Global.Notification.ERROR, "Failed to initialize mode {0} for save!".format([mode["name"]]))
 
 
+## Handle file loading from mode selection to targe file and then to correct mode decode system and editor.
+## This method have same logic as [method save_file].
 func load_file(file_path: String) -> void:
 	var mode := current_mode
 
@@ -159,20 +183,7 @@ func load_file(file_path: String) -> void:
 		Global.send_notification(Global.Notification.ERROR, "Failed to initialize mode {0} for load!".format([mode["name"]]))
 
 
-func is_auto_format_available() -> bool:
-	var mode_script := _get_mode_script()
-	if not mode_script:
-		return false
-	return mode_script.features["auto_format"]
-
-
-func is_auto_indent_available() -> bool:
-	var mode_script := _get_mode_script()
-	if not mode_script:
-		return false
-	return mode_script.features["auto_indent"]
-
-
+## Handle auto format request to mode and then back result to editor.
 func auto_format() -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
@@ -183,6 +194,7 @@ func auto_format() -> void:
 	Global.set_editor_text(mode_script._auto_format(Global.get_editor_text()))
 
 
+## Handle auto indent request to mode and then back result to editor.
 func auto_indent() -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
@@ -193,6 +205,39 @@ func auto_indent() -> void:
 	Global.set_editor_text(mode_script._auto_indent(Global.get_editor_text()))
 
 
+## Returns [code]true[/code] if current mode supports auto format.
+func is_auto_format_available() -> bool:
+	var mode_script := _get_mode_script()
+	if not mode_script:
+		return false
+	return mode_script.features["auto_format"]
+
+
+## Returns [code]true[/code] if current mode supports auto indent.
+func is_auto_indent_available() -> bool:
+	var mode_script := _get_mode_script()
+	if not mode_script:
+		return false
+	return mode_script.features["auto_indent"]
+
+
+## Connected to editor's [code]code_completion_requested[/code] signal and will uandle code completion.
+func _on_editor_code_completion_requested() -> void:
+	var mode_script := _get_mode_script()
+	if not mode_script:
+		return
+
+	mode_script._update_code_completion_options(Global.get_editor().get_text_for_code_completion())
+
+
+## Loads mode features, including:[br]
+## • Syntax highlighter[br]
+## • Comment delimiters[br]
+## • String delimiters[br]
+## • Mode panel[br]
+## • Preview[br]
+## • Linting[br]
+## • Outline
 func _load_mode_features() -> void:
 	_load_syntax_highlighter()
 	_load_delimiters()
@@ -202,6 +247,7 @@ func _load_mode_features() -> void:
 	_update_outline()
 
 
+## Updates file outline. Result will send to [signal SignalBus.outline_updated].
 func _update_outline() -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
@@ -211,6 +257,7 @@ func _update_outline() -> void:
 	Signals.outline_updated.emit(mode_script._generate_outline(Global.get_editor_text()))
 
 
+## Updates problem list. Result will send to [signal SignalBus.problems_updated].
 func _lint_content() -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
@@ -220,15 +267,17 @@ func _lint_content() -> void:
 	Signals.problems_updated.emit(mode_script._lint_file(Global.get_editor_text()))
 
 
+## Updates preview. Result will send to [signal SignalBus.preview_updated].
 func _update_preview() -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
-		Signals.preview_unavailable.emit()
+		Signals.preview_updated.emit("")
 		return
 
 	Signals.preview_updated.emit(mode_script._generate_preview(Global.get_editor_text()))
 
 
+## Unloads old mode panel and loads new panel.
 func _load_mode_panel() -> void:
 	if mode_panel:
 		Global.get_panel_manager().remove_panel(PanelManager.Panels.LEFT, mode_panel.index)
@@ -244,6 +293,8 @@ func _load_mode_panel() -> void:
 		)
 
 
+## Loads string and comment delimiters. Uses [member TextForgeMode.comment_delimiters] and
+## [member TextForgeMode.string_delimiters] and will skip items with invalid pattern.
 func _load_delimiters() -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
@@ -263,6 +314,7 @@ func _load_delimiters() -> void:
 		Global.get_editor().add_string_delimiter(d["start_key"], d["end_key"], d["line_only"])
 
 
+## Loads syntax highlighter to editor, will NOT duplicate it.
 func _load_syntax_highlighter() -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
@@ -272,6 +324,7 @@ func _load_syntax_highlighter() -> void:
 	Global.get_editor().syntax_highlighter = mode_script.syntax_highlighter
 
 
+## Unloads current mode script, panel, highlighter, linting, preview, outline, and delimiters.
 func _unload_current_mode() -> void:
 	if current_mode == {}:
 		return
@@ -280,13 +333,19 @@ func _unload_current_mode() -> void:
 	if current_mode_script:
 		current_mode_script.queue_free()
 	if mode_panel:
-		Global.get_panel_manager().remove_panel(PanelManager.Panels.LEFT, mode_panel.index)
+		Global.get_panel_manager().remove_panel(mode_panel.place, mode_panel.index)
 		mode_panel = null
 	Global.get_editor().syntax_highlighter = null
 	Signals.problems_updated.emit(Array([], TYPE_DICTIONARY, "", null))
+	Signals.outline_updated.emit([])
+	Signals.preview_updated.emit("")
+	Global.get_editor().clear_comment_delimiters()
+	Global.get_editor().clear_string_delimiters()
 	current_mode = {}
 
 
+## Changes mode to given [param mode]. Will load script, catchs current script, try to initialize
+## new script and handle errors.
 func _change_mode_to(mode: Dictionary) -> Error:
 	if mode == current_mode:
 		return OK
@@ -327,6 +386,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 	return initialize_error
 
 
+## Handles save file with current mode. Makes base directory recursive.
 func _handle_save_file(file_path: String) -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
@@ -345,6 +405,7 @@ func _handle_save_file(file_path: String) -> void:
 	Signals.check_options.emit()
 
 
+## Handles load file with current mode. Makes base directory recursive.
 func _handle_load_file(file_path: String) -> void:
 	var mode_script := _get_mode_script()
 	if not mode_script:
@@ -364,6 +425,7 @@ func _handle_load_file(file_path: String) -> void:
 	Signals.check_options.emit()
 
 
+## Returns [code]true[/code] if [param file_path] extension is in [param mode] extensions.
 func _is_mode_compatible(mode: Dictionary, file_path: String) -> bool:
 	if mode == {}:
 		return false
@@ -371,14 +433,7 @@ func _is_mode_compatible(mode: Dictionary, file_path: String) -> bool:
 	return file_path.get_extension() in mode["extensions"]
 
 
-func _on_editor_code_completion_requested() -> void:
-	var mode_script := _get_mode_script()
-	if not mode_script:
-		return
-
-	mode_script._update_code_completion_options(Global.get_editor().get_text_for_code_completion())
-
-
+## Returns current loaded mode script or [code]null[/code].
 func _get_mode_script() -> TextForgeMode:
 	var mode_script: TextForgeMode
 	if get_child_count() == 0:
