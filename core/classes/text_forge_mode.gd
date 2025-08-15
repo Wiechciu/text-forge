@@ -64,15 +64,17 @@ func _auto_indent(text: String) -> String:
 
 
 ## Override this method to handle convert [String] (in editor) to [PackedByteArray] (for files),
-## this is file saving section of your mode.
+## this is file saving section of your mode. Default method uses UTF-8 with [method String.to_utf8_buffer],
+## so if your mode uses UFT-8 encoding you can use default function.
 func _string_to_buffer(string: String) -> PackedByteArray:
-	return PackedByteArray()
+	return string.to_utf8_buffer()
 
 
 ## Override this method to load a [PackedByteArray] (stored in a file) to [String] (for editor),
-## this is file loading section of your mode.
+## this is file loading section of your mode. Default method uses UTF-8 with [method PackedPyteArray.get_string_from_utf8],
+## so if your mode uses UFT-8 encoding you can use default function.
 func _buffer_to_string(buffer: PackedByteArray) -> String:
-	return String()
+	return buffer.get_string_from_utf8()
 
 
 ## Override this method to handle code completion feature, [param text] is the full editor text with
