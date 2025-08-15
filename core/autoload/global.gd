@@ -14,6 +14,7 @@ enum Notification {
 
 ## Main window manager with restore window state. See [WindowManager] for more information.
 var window_manager := WindowManager.new()
+## Keeps list of damaged mode IDs and reasons.
 var damaged_modes: Dictionary[String, String] = {}
 ## Dictionary of all commands. example item:
 ## [codeblock]
