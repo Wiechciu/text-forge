@@ -13,10 +13,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pj7jf")
-outline_tree = NodePath("MarginContainer/Tree")
-message = NodePath("Label")
+outline_tree = NodePath("Margin/OutlineTree")
+message = NodePath("Message")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,14 +24,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Tree" type="Tree" parent="MarginContainer"]
+[node name="OutlineTree" type="Tree" parent="Margin"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_pj7jf")
 allow_reselect = true
 allow_rmb_select = true
 hide_root = true
 
-[node name="Label" type="Label" parent="."]
+[node name="Message" type="Label" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -44,4 +44,4 @@ horizontal_alignment = 1
 vertical_alignment = 1
 text_overrun_behavior = 3
 
-[connection signal="item_selected" from="MarginContainer/Tree" to="." method="_on_tree_item_selected"]
+[connection signal="item_selected" from="Margin/OutlineTree" to="." method="_on_tree_item_selected"]

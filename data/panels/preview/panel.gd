@@ -1,17 +1,21 @@
+class_name TFP_Preview
 extends TextForgePanel
+## A standard panel that receive preview and show it.
+##
+## This panel is connected to SignalBus.preview_updated and refresh problem list with this signal.
 
+## Message label.
 @export var message: Label
+## Preview [RichTextLabel] with BBCode support.
 @export var preview: RichTextLabel
 
 func _ready() -> void:
-	Signals.preview_unavailable.connect(_set_preview_enabled.bind(false))
-	Signals.preview_updated.connect(_set_preview_enabled.bind(true).unbind(1))
 	Signals.preview_updated.connect(_update_preview)
 
 
 func _update_preview(text: String) -> void:
 	if text == "":
-		Signals.preview_unavailable.emit()
+		_set_preview_enabled(false)
 		return
 	_set_preview_enabled(true)
 	preview.text = text
@@ -19,9 +23,7 @@ func _update_preview(text: String) -> void:
 
 func _set_preview_enabled(enabled: bool) -> void:
 	if enabled:
-		if message.visible:
-			message.hide()
+		message.hide()
 	else:
-		if not message.visible:
-			message.show()
-			preview.text = ""
+		message.show()
+		preview.text = ""

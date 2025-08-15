@@ -43,8 +43,6 @@ signal reload_recent_files
 signal module_profiler_refresh
 ## Emits when new preview is available.
 signal preview_updated(new: String)
-## Emits when preview isn't available.
-signal preview_unavailable
 ## Emits when current mode changes.
 signal mode_changed(mode: Dictionary)
 ## Shares problems list.
