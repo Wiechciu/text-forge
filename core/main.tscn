@@ -1,15 +1,30 @@
-[gd_scene load_steps=10 format=3 uid="uid://dx1alvj3tjt16"]
+[gd_scene load_steps=15 format=3 uid="uid://dx1alvj3tjt16"]
 
 [ext_resource type="Script" uid="uid://byayvu15ojy1j" path="res://core/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dfy2sbtb4i0ht" path="res://core/scripts/panel_manager.gd" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://bxrwoyafmhny4" path="res://core/scripts/mode_viewer.gd" id="5_kagtj"]
 [ext_resource type="Script" uid="uid://5cin2ow0mkq0" path="res://core/scripts/module_profiler.gd" id="5_xa854"]
+[ext_resource type="Script" uid="uid://bqinywvcdcdqp" path="res://core/scripts/problem_counter.gd" id="5_xhu5d"]
 [ext_resource type="Script" uid="uid://dg7rms2cwflkl" path="res://core/scripts/change_log.gd" id="6_kagtj"]
+[ext_resource type="Texture2D" uid="uid://ba7m20ap277l8" path="res://data/panels/problems/error.png" id="6_rayt5"]
 [ext_resource type="Script" uid="uid://d0j1s4uv04c3w" path="res://core/scripts/editor_api.gd" id="6_tefeu"]
+[ext_resource type="Texture2D" uid="uid://dvndxigy5lpnw" path="res://data/panels/problems/warning.png" id="7_510js"]
 [ext_resource type="Script" uid="uid://dtusvq1vqt0ul" path="res://core/scripts/editor.gd" id="7_tipki"]
 
 [sub_resource type="Theme" id="Theme_csopv"]
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.607843)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ua4h"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ntwa4"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tusby"]
 bg_color = Color(0.0625005, 0.0961309, 0.129758, 1)
@@ -158,6 +173,65 @@ fixed_icon_size = Vector2i(35, 24)
 layout_mode = 2
 theme = SubResource("Theme_csopv")
 alignment = 2
+
+[node name="ProblemCounter" type="HBoxContainer" parent="Margin/Sections/HBoxContainer" node_paths=PackedStringArray("error_count", "warning_count")]
+layout_mode = 2
+size_flags_horizontal = 2
+script = ExtResource("5_xhu5d")
+error_count = NodePath("PanelContainer/HBoxContainer/Label")
+warning_count = NodePath("PanelContainer2/HBoxContainer/Label")
+
+[node name="PanelContainer" type="PanelContainer" parent="Margin/Sections/HBoxContainer/ProblemCounter"]
+visible = false
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7ua4h")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer"]
+layout_mode = 2
+tooltip_text = "Number of errors"
+
+[node name="TextureRect" type="TextureRect" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_rayt5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.898039, 0, 0, 1)
+theme_override_font_sizes/font_size = 14
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="Margin/Sections/HBoxContainer/ProblemCounter"]
+visible = false
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ntwa4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer2"]
+layout_mode = 2
+tooltip_text = "Number of warnings"
+
+[node name="TextureRect" type="TextureRect" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("7_510js")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Margin/Sections/HBoxContainer/ProblemCounter/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.909804, 0.737255, 0.0117647, 1)
+theme_override_font_sizes/font_size = 14
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ModeViewer" type="MenuButton" parent="Margin/Sections/HBoxContainer"]
 layout_mode = 2

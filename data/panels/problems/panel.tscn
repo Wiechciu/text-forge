@@ -1,35 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dw7ifqy8aum48"]
+[gd_scene load_steps=3 format=3 uid="uid://dw7ifqy8aum48"]
 
 [ext_resource type="Script" uid="uid://bx6gmc44onll" path="res://data/panels/problems/panel.gd" id="1_dsd4v"]
-[ext_resource type="Texture2D" uid="uid://ba7m20ap277l8" path="res://data/panels/problems/error.png" id="2_voa7n"]
-[ext_resource type="Texture2D" uid="uid://dvndxigy5lpnw" path="res://data/panels/problems/warning.png" id="3_met6i"]
-[ext_resource type="Texture2D" uid="uid://xw6gb4mu8b7d" path="res://data/panels/problems/reload.png" id="4_5g0ov"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_met6i"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.11834, 0.167543, 0.216756, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_voa7n"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(0.11834, 0.167543, 0.216756, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsd4v"]
 
-[node name="Panel" type="Control" node_paths=PackedStringArray("instance", "problem_list", "error_count", "warning_count")]
+[node name="Panel" type="Control" node_paths=PackedStringArray("instance", "problem_list", "message")]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 3
 anchors_preset = 15
@@ -40,8 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_dsd4v")
 instance = NodePath("PanelContainer")
 problem_list = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer")
-error_count = NodePath("MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer/Label")
-warning_count = NodePath("MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/HBoxContainer/Label")
+message = NodePath("MarginContainer/Label")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -54,68 +28,6 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(60, 30)
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
-layout_mode = 2
-tooltip_text = "Number of errors"
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("2_voa7n")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.898039, 0, 0, 1)
-theme_override_font_sizes/font_size = 14
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(60, 30)
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2"]
-layout_mode = 2
-tooltip_text = "Number of warnings"
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("3_met6i")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.909804, 0.737255, 0.0117647, 1)
-theme_override_font_sizes/font_size = 14
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(60, 30)
-layout_mode = 2
-size_flags_horizontal = 10
-tooltip_text = "Refresh problems"
-theme_override_styles/hover = SubResource("StyleBoxFlat_met6i")
-theme_override_styles/normal = SubResource("StyleBoxFlat_voa7n")
-icon = ExtResource("4_5g0ov")
-icon_alignment = 1
-expand_icon = true
-
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -124,6 +36,13 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "There is no problem"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 visible = false
@@ -159,5 +78,3 @@ autowrap_mode = 3
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_dsd4v")
 flat = true
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]

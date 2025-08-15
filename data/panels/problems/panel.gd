@@ -9,8 +9,7 @@ enum ProblemChildren {
 
 @export var instance: PanelContainer
 @export var problem_list: VBoxContainer
-@export var error_count: Label
-@export var warning_count: Label
+@export var message: Label
 
 func _ready() -> void:
 	Signals.problems_updated.connect(_update_problems)
@@ -25,9 +24,6 @@ func _update_problems(problems: Array[Dictionary]) -> void:
 		Global.get_panel_manager().change_panel_icon(PanelManager.Panels.BOTTOM, index, load("res://data/panels/problems/icon.png"))
 
 	SLib.free_all_children(problem_list)
-
-	error_count.text = str(problems.filter(func(p): return p["error"] == true).size())
-	warning_count.text = str(problems.filter(func(p): return p["error"] == false).size())
 
 	for p in problems:
 		var item: PanelContainer = instance.duplicate()
@@ -47,6 +43,8 @@ func _update_problems(problems: Array[Dictionary]) -> void:
 		_get_problem_children(ProblemChildren.BUTTON, item).pressed.connect(_move_to_problem.bind(p["line"], p["column"]))
 		item.show()
 		problem_list.add_child(item)
+
+	message.visible = problem_list.get_child_count() == 0
 
 
 func _move_to_problem(line: int, column: int) -> void:
