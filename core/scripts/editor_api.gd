@@ -55,10 +55,17 @@ func _load_mode_list() -> void:
 
 	Global.damaged_modes = damaged_modes
 	if damaged_modes:
-		var damaged_modes_pairs: Array[String] = []
+		var damaged_modes_grouped: Dictionary[String, Array] = {}
 		for mode in damaged_modes:
-			damaged_modes_pairs.append(mode + ": " + damaged_modes[mode])
-		Global.send_notification(Global.Notification.ERROR, "Failed to load some modes!", ", ".join(damaged_modes_pairs))
+			if not damaged_modes_grouped.has(damaged_modes[mode]):
+				damaged_modes_grouped[damaged_modes[mode]] = []
+			damaged_modes_grouped[damaged_modes[mode]].append(mode)
+		var damaged_modes_string: String = ""
+		for problem in damaged_modes_grouped:
+			if damaged_modes_string != "":
+				damaged_modes_string += "\n\t"
+			damaged_modes_string += "{0}: {1}".format([problem, ", ".join(damaged_modes_grouped[problem])])
+		Global.send_notification(Global.Notification.ERROR, "Failed to load some modes!", damaged_modes_string)
 
 
 func reload_modes() -> void:
