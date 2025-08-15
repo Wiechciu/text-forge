@@ -24,8 +24,6 @@ var comment_delimiters: Array[Dictionary] = []
 var string_delimiters: Array[Dictionary] = []
 ## Optional panel to load in left side of editor.
 var panel: TextForgePanel
-## Specifies whether this mode has a panel or not.
-var has_panel: bool = false
 ## Reperesents features of this mode, to set, call [code]_enable_..._feature()[/code] methods in
 ## [method _initialize_mode].
 var features: Dictionary[String, bool] = {

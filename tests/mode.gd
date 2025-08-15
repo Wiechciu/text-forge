@@ -32,7 +32,6 @@ func _initialize_mode() -> Error:
 	panel.custom_minimum_size = Vector2(200, 0)
 	panel.add_child(Label.new())
 	panel.get_child(0).text = "Test INI Mode"
-	has_panel = true
 	_enable_auto_format_feature()
 	return OK
 
