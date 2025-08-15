@@ -25,6 +25,7 @@ var damaged_modes: Dictionary[String, String] = {}
 var _commands: Dictionary[String, Array] = {}:
 	get = get_command_list
 
+## Keeps temprory nodes for catch or transfer.
 var temprory_children: Dictionary[String, Node] = {}
 
 # Initializing function
