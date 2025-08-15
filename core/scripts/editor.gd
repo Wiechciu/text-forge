@@ -2,8 +2,10 @@ class_name Editor
 extends CodeEdit
 ## Main editor node.
 
+## Emits when [member type_timer] timeout.
 signal type_timer_timeout
 
+## Internal type timer to avoid proccess file when user type text.
 var type_timer := Timer.new()
 
 func _ready() -> void:
