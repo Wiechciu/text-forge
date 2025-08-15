@@ -6,6 +6,7 @@
 name: Mark stale issues and pull requests
 
 on:
+  workflow_dispatch:
   schedule:
   - cron: '0 0 * * 6'
 
@@ -23,6 +24,4 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-label: 'no activity'
         stale-pr-label: 'no activity'
-        labels-to-remove-when-stale: 'help wanted'
         exempt-draft-pr: true
-        include-only-assigned: true
