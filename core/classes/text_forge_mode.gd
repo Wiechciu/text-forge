@@ -88,7 +88,7 @@ func _buffer_to_string(buffer: PackedByteArray) -> String:
 ## [b][color=lightblue]Virtual[/color][/b][br]
 ## Override this method to handle code completion feature, [param text] is the full editor text with
 ## char [code]0xFFFF[/code] at the caret location. Use [method CodeEdit.add_code_completion_option]
-## and [method CodeEdit.update_code_completion_options] for this task.
+## for this task.
 func _update_code_completion_options(text: String) -> void:
 	pass
 

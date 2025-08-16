@@ -228,6 +228,7 @@ func _on_editor_code_completion_requested() -> void:
 		return
 
 	mode_script._update_code_completion_options(Global.get_editor().get_text_for_code_completion())
+	Global.get_editor().update_code_completion_options(false)
 
 
 ## Loads mode features, including:[br]
