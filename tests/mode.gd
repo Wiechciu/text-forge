@@ -67,7 +67,6 @@ func _generate_outline(text: String) -> Array:
 
 		for key in config.get_section_keys(section):
 			section_array.append([key, _find_key_line(text, section, key)])
-			print(section_array[-1])
 
 		outline.append(section_array)
 	return outline
