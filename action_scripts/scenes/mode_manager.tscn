@@ -9,14 +9,14 @@ bg_color = Color(0.11834, 0.167543, 0.216756, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0d52p"]
 
-[node name="Window" type="Window" node_paths=PackedStringArray("mode_list", "about", "package_button")]
+[node name="Window" type="Window" node_paths=PackedStringArray("mode_list", "about", "mode_kit_button")]
 title = "Mode Manager"
 initial_position = 2
 size = Vector2i(600, 400)
 script = ExtResource("1_hbc7b")
 mode_list = NodePath("Margin/VBox/Modes/ModesList")
 about = NodePath("Margin/VBox/Modes/Mode Editor")
-package_button = NodePath("Margin/VBox/Buttons/CreatePackage")
+mode_kit_button = NodePath("Margin/VBox/Buttons/CreateKit")
 
 [node name="BG" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -43,7 +43,7 @@ layout_mode = 2
 layout_mode = 2
 text = "Import Mode / Mode Kit"
 
-[node name="CreatePackage" type="Button" parent="Margin/VBox/Buttons"]
+[node name="CreateKit" type="Button" parent="Margin/VBox/Buttons"]
 layout_mode = 2
 tooltip_text = "Click on this button and select all modes you need for mode kit, then click here again and save it.
 (Select multiple mode needs holding Ctrl or Shift)"
@@ -122,7 +122,7 @@ tooltip_text = "Remove this mode (move to trash)"
 text = "Remove"
 
 [connection signal="pressed" from="Margin/VBox/Buttons/Import" to="." method="_on_import_pressed"]
-[connection signal="toggled" from="Margin/VBox/Buttons/CreatePackage" to="." method="_on_create_package_toggled"]
+[connection signal="toggled" from="Margin/VBox/Buttons/CreateKit" to="." method="_on_create_kit_toggled"]
 [connection signal="text_changed" from="Margin/VBox/Modes/Mode Editor/Name" to="." method="_on_data_changed"]
 [connection signal="text_changed" from="Margin/VBox/Modes/Mode Editor/Version" to="." method="_on_data_changed"]
 [connection signal="text_changed" from="Margin/VBox/Modes/Mode Editor/Author" to="." method="_on_data_changed"]
