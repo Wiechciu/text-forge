@@ -78,6 +78,7 @@ func _on_data_changed(new_text: String) -> void:
 
 func _on_edit_script_pressed() -> void:
 	Signals.open_file.emit(SLib.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.gd")))
+	_close()
 
 
 func _on_export_pressed() -> void:
