@@ -41,14 +41,14 @@ layout_mode = 2
 
 [node name="Import" type="Button" parent="Margin/VBox/Buttons"]
 layout_mode = 2
-text = "Import Mode / Package"
+text = "Import Mode / Mode Kit"
 
 [node name="CreatePackage" type="Button" parent="Margin/VBox/Buttons"]
 layout_mode = 2
-tooltip_text = "Click on this button and select all modes you need for package, then click here again and save package.
+tooltip_text = "Click on this button and select all modes you need for mode kit, then click here again and save it.
 (Select multiple mode needs holding Ctrl or Shift)"
 toggle_mode = true
-text = "Create Package..."
+text = "Create Mode Kit..."
 
 [node name="Modes" type="HBoxContainer" parent="Margin/VBox"]
 layout_mode = 2

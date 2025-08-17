@@ -43,7 +43,7 @@ func _import_mode(path: String) -> void:
 	var reader = ZIPReader.new()
 	var err := reader.open(path)
 	if err:
-		Global.send_notification(Global.Notification.ERROR, "Can't load this file!", "Load {0} for import mode or package failed. Error code: {1}".format([path, str(err)]))
+		Global.send_notification(Global.Notification.ERROR, "Can't load this file!", "Load {0} for import mode or mode kit failed. Error code: {1}".format([path, str(err)]))
 		return
 
 	if not DirAccess.dir_exists_absolute(SLib.globalize_path("user://modes")):
@@ -63,7 +63,7 @@ func _import_mode(path: String) -> void:
 
 	Global.get_editor_api().reload_modes()
 	_load_mode_list()
-	Global.send_notification(Global.Notification.INFO, "Load mode / package completed.")
+	Global.send_notification(Global.Notification.INFO, "Load mode / mode kit completed.")
 
 func _close() -> void:
 	queue_free()
@@ -94,19 +94,18 @@ func _export_mode(path: String) -> void:
 	if err != OK:
 		Global.send_notification(Global.Notification.ERROR, "Cann't export mode!", "Error code: " + str(err))
 		return
-	writer.start_file(modes[current_mode_index].path_join("mode.cfg"))
-	var file := FileAccess.open("user://modes".path_join(modes[current_mode_index]).path_join("mode.cfg"), FileAccess.READ)
-	writer.write_file(file.get_as_text().to_utf8_buffer())
-	writer.close_file()
-	file.close()
-	writer.start_file(modes[current_mode_index].path_join("mode.gd"))
-	file = FileAccess.open("user://modes".path_join(modes[current_mode_index]).path_join("mode.gd"), FileAccess.READ)
-	writer.write_file(file.get_as_text().to_utf8_buffer())
-	writer.close_file()
-	file.close()
-
+	_add_folder_to_zip(writer, "user://modes/".path_join(modes[current_mode_index]))
 	writer.close()
 	Global.send_notification(Global.Notification.INFO, "Export mode completed.", "Exported file: " + path)
+
+
+func _add_folder_to_zip(writer: ZIPPacker, path: String) -> void:
+	for file in DirAccess.get_files_at(path):
+		writer.start_file(path.path_join(file))
+		writer.write_file(FileAccess.get_file_as_bytes(path.path_join(file)))
+		writer.close_file()
+	for dir in DirAccess.get_directories_at(path):
+		_add_folder_to_zip(writer, path.path_join(dir))
 
 
 func _on_remove_pressed() -> void:
@@ -129,34 +128,24 @@ func _save_package(path: String) -> void:
 	var writer = ZIPPacker.new()
 	var err = writer.open(path)
 	if err != OK:
-		Global.send_notification(Global.Notification.ERROR, "Cann't export package!", "Error code: " + str(err))
+		Global.send_notification(Global.Notification.ERROR, "Cann't export mode kit!", "Error code: " + str(err))
 		return
 	for index in mode_list.get_selected_items():
-		writer.start_file(modes[index].path_join("mode.cfg"))
-		var file := FileAccess.open("user://modes".path_join(modes[index]).path_join("mode.cfg"), FileAccess.READ)
-		writer.write_file(file.get_as_text().to_utf8_buffer())
-		writer.close_file()
-		file.close()
-		writer.start_file(modes[index].path_join("mode.gd"))
-		file = FileAccess.open("user://modes".path_join(modes[index]).path_join("mode.gd"), FileAccess.READ)
-		writer.write_file(file.get_as_text().to_utf8_buffer())
-		writer.close_file()
-		file.close()
-
+		_add_folder_to_zip(writer, path.path_join(modes[index]))
 	writer.close()
-	Global.send_notification(Global.Notification.INFO, "Export package completed.", "Exported file: " + path)
+	Global.send_notification(Global.Notification.INFO, "Export mode kit completed.", "Exported file: " + path)
 	mode_list.select_mode = ItemList.SELECT_SINGLE
 	mode_list.deselect_all()
 
 
 func _on_create_package_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		package_button.text = "Export Package..."
+		package_button.text = "Export Mode Kit..."
 		mode_list.select_mode = ItemList.SELECT_MULTI
 		mode_list.deselect_all()
 		about.hide()
 	else:
-		package_button.text = "Create Package..."
+		package_button.text = "Create Mode Kit..."
 		if mode_list.get_selected_items() == PackedInt32Array():
 			mode_list.select_mode = ItemList.SELECT_SINGLE
 			mode_list.deselect_all()
