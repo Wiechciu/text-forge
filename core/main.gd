@@ -70,7 +70,8 @@ func _ready() -> void:
 
 
 func _handle_settings() -> void:
-	Signals.settings_changed.connect(_handle_settings)
+	if not Signals.settings_changed.is_connected(_handle_settings):
+		Signals.settings_changed.connect(_handle_settings)
 
 	# Define presets
 
