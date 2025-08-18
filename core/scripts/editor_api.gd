@@ -134,7 +134,6 @@ func save_file(file_path: String) -> void:
 
 	if _change_mode_to(mode) == OK:
 		_handle_save_file(file_path)
-		_load_mode_features()
 	else:
 		Global.send_notification(Global.Notification.ERROR, "Failed to initialize mode {0} for save!".format([mode["name"]]))
 
@@ -178,7 +177,6 @@ func load_file(file_path: String) -> void:
 
 	if _change_mode_to(mode) == OK:
 		_handle_load_file(file_path)
-		_load_mode_features()
 	else:
 		Global.send_notification(Global.Notification.ERROR, "Failed to initialize mode {0} for load!".format([mode["name"]]))
 
@@ -382,6 +380,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 
 	if initialize_error == OK:
 		current_mode = mode
+		_load_mode_features()
 		Signals.mode_changed.emit(current_mode)
 
 	return initialize_error
