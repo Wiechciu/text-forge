@@ -56,7 +56,8 @@ This project is a part of [Text Forge Organization](https://github.com/text-forg
 
 You can get help from this list (or be one of them):
 
-- [Mahan Khalili](https://github.com/mkh-user) - Project Founder and Lead Developer
+- [Mahan Khalili](https://github.com/mkh-user) - Admin
+- [Kuba / WCHC](https://github.com/Wiechciu) - Triage
 
 ## Resources & Useful Links
 
