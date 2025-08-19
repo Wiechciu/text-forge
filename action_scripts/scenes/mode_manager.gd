@@ -98,7 +98,7 @@ func _export_mode(path: String) -> void:
 
 func _add_folder_to_zip(writer: ZIPPacker, path: String) -> void:
 	for file in DirAccess.get_files_at(path):
-		writer.start_file(path.path_join(file))
+		writer.start_file(path.erase(0, 7).path_join(file))
 		writer.write_file(FileAccess.get_file_as_bytes(path.path_join(file)))
 		writer.close_file()
 	for dir in DirAccess.get_directories_at(path):
