@@ -89,3 +89,9 @@ func file_dialog(
 	elif current_dir:
 		dialog.current_dir = current_dir
 	return dialog
+
+
+## Creates new [TextForgePanel] with a margin container as child, useful for modes and where scripts
+## create panels.
+func simple_panel() -> TextForgePanel:
+	return preload("res://core/scripts/simple_panel.tscn").instantiate()
