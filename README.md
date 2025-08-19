@@ -1,6 +1,9 @@
 # Text Forge - Simplicity to start, power to grow!
 Extensible and modular code editor with Godot 4.4
 
+![GitHub Release](https://img.shields.io/github/v/release/Text-forge/Text-forge)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Text-Forge/Text-Forge/update-docs.yml?label=docs%20update)
+
 ---
 
 Text Forge: a lightweight, extensible, mode-driven text editor. Customizable and scriptable, it handles any format/language. Its data-driven, object-oriented design allows custom code editors without source changes. Key features: lightweight, extensible, customizable, scriptable, language-agnostic, data-driven, object-oriented, plug-and-play.

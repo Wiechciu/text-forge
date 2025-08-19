@@ -320,6 +320,9 @@ bbcode_enabled = true
 text = "[b]Project Founder[/b]
 Mahan Khalili (mkh-user)
 [b]Lead Developer[/b]
+Mahan Khalili (mkh-user)
+[b]Developers[/b]
+Kuba / WCHC (Wiechciu)
 Mahan Khalili (mkh-user)"
 
 [node name="License" type="MarginContainer" parent="About/MarginContainer/TabContainer"]
