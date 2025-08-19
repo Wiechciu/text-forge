@@ -55,6 +55,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Preview panel ([#71](https://github.com/text-forge/text-forge/pull/71))
 - Problems panel ([#71](https://github.com/text-forge/text-forge/pull/71))
 - Test mode script ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Export all mode files from mode manager export option ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **Docs:** `mode_development.md` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Close mode manager after `edit script` option pressing ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `Factory.simple_panel` ([#71](https://github.com/text-forge/text-forge/pull/71))
 
 ### Changed
 
@@ -63,6 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ~File based save/load~ to Buffer based save/load ([#71](https://github.com/text-forge/text-forge/pull/71))
 - Complete refactor for **EditorAPI** ([#71](https://github.com/text-forge/text-forge/pull/71))
 - Load main editor settings in Core instead of EditorAPI ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Mode Packages renamed to Mode Kits ([#71](https://github.com/text-forge/text-forge/pull/71))
 
 ### Removed
 
