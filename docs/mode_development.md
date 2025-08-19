@@ -29,7 +29,7 @@ provide your mode logic.
 
 ## Make your first mode with template
 
-We provide a mode template to help mode developers. You can find it [here](https://github.com/text-forge/mode-template), 
+We provide a mode template to help mode developers, specially for first time testing. You can find it [here](https://github.com/text-forge/mode-template), 
 you can download, clone or fork it to have a simple initialization, you can find guides in template.
 
 ## Useful examples
