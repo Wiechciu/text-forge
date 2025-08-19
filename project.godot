@@ -69,6 +69,7 @@ var ${source_var}: ${source_class}
 
 func before() -> void:
 	${source_var} = ${source_class}.new()"
+report/godot/push_error=true
 
 [gui]
 

@@ -37,3 +37,9 @@ const TEMPLATE_PANEL_SCENE: String = "res://data/panels/{0}/panel.tscn"
 const TEMPLATE_PANEL_ICON: String = "res://data/panels/{0}/icon.png"
 ## Template file path for extension configuration file.
 const TEMPLATE_EXTENSION_CONFIG: String = "user://extensions/{0}/extension.cfg"
+## Template file path for mode information file.
+const TEMPLATE_MODE_INFO: String = "user://modes/{0}/mode.cfg"
+## Template file path for mode script.
+const TEMPLATE_MODE_SCRIPT: String = "user://modes/{0}/mode.gd"
+## Template file path for mode icon.
+const TEMPLATE_MODE_ICON: String = "user://modes/{0}/icon.png"
