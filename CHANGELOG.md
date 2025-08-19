@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file. (Notable ch
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [v0.1-rc1] - 2025-8-19
 
 ### Added
 
@@ -84,7 +84,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed size for panel icons ([#71](https://github.com/text-forge/text-forge/pull/71))
 - Missing icon changes for notification panel ([#71](https://github.com/text-forge/text-forge/pull/71))
 
-## [0.1] - 2025-7-27 (Beta)
+## [v0.1-beta] - 2025-7-27
 
 ### Added
 
@@ -162,7 +162,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Few `Signals.check_options` emissions (for update action scripts) ([761722b]())
 - `is_outside_tree` in `Global.get_core()` ([6108b64]())
 
-## [0.1 - Dev1] - 2025-06-30
+## [v0.1-dev1] - 2025-06-30
 
 ### Added
 
@@ -174,5 +174,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Docs in 4 languages (en, fa, es, zh)
 
 [unreleased]: https://github.com/text-forge/text-forge/compare/v0.1.0-beta...HEAD
-[0.1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-beta
-[0.1 - Dev1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-dev1
+[v0.1-rc1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-rc1
+[v0.1-beta]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-beta
+[v0.1-dev1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-dev1
