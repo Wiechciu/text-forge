@@ -128,7 +128,7 @@ func _save_package(path: String) -> void:
 		Global.send_notification(Global.Notification.ERROR, "Cann't export mode kit!", "Error code: " + str(err))
 		return
 	for index in mode_list.get_selected_items():
-		_add_folder_to_zip(writer, path.path_join(mode_informations[index]["id"]))
+		_add_folder_to_zip(writer, FileDatabase.FOLDER_MODES.path_join(mode_informations[index]["id"]))
 	writer.close()
 	Global.send_notification(Global.Notification.INFO, "Export mode kit completed.", "Exported file: " + path)
 	mode_list.select_mode = ItemList.SELECT_SINGLE
