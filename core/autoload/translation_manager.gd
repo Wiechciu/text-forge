@@ -39,6 +39,8 @@ func _load_config() -> void:
 	language = Settings.get_setting(CONFIG_SECTION, CONFIG_MAIN_KEY)
 	fallback = Settings.get_setting(CONFIG_SECTION, CONFIG_FALLBACK_KEY)
 
+	TranslationServer.set_locale(language)
+
 
 ## Stes [member language] and [member fallback] to [param language_code] and [param fallback_code].
 ## If a parammeter be [code]"default"[/code] will loaded from default settings.
