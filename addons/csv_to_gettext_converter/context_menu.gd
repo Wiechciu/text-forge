@@ -28,14 +28,14 @@ var created_files_string: String:
 
 
 func _popup_menu(paths: PackedStringArray) -> void:
-	if not _validate_path(paths):
-		return
-	
-	add_context_menu_item("Convert CSV to gettext", _convert_csv_to_pot, ICON)
+	if _validate_path(paths, "csv"):
+		add_context_menu_item("Convert CSV to gettext", _convert_csv_to_gettext, ICON)
+	elif _validate_path(paths, "po"):
+		add_context_menu_item("Convert PO to CSV", _convert_po_to_csv, ICON)
 
 
-func _convert_csv_to_pot(paths: Array) -> void:
-	if not _validate_path(paths):
+func _convert_csv_to_gettext(paths: Array) -> void:
+	if not _validate_path(paths, "csv"):
 		return
 	
 	created_files.clear()
@@ -46,7 +46,7 @@ func _convert_csv_to_pot(paths: Array) -> void:
 		return
 	
 	for language in dict.keys():
-		var file_content: String = _create_file_content(dict, language)
+		var file_content: String = _create_po_file_content(dict, language)
 		var file_name: String = "translation.pot" if language == "key" else "%s.po" % language
 		var full_path: String = "%s/%s" % [base_dir, file_name]
 		
@@ -59,12 +59,37 @@ func _convert_csv_to_pot(paths: Array) -> void:
 	_create_finished_dialog("Success", "Successfully finished CSV to gettext conversion:\n%s" % created_files_string)
 
 
-func _validate_path(paths: Array) -> bool:
+func _convert_po_to_csv(paths: Array) -> void:
+	if not _validate_path(paths, "po"):
+		return
+	
+	created_files.clear()
+	var path: String = paths[0]
+	var base_dir: String = path.get_base_dir()
+	var dict: Dictionary[String, Array] = _read_po_file(path)
+	if dict.is_empty():
+		return
+	
+	var file_content: String = _create_csv_file_content(dict)
+	var file_name: String = "zzz translation test.csv"
+	var full_path: String = "%s/%s" % [base_dir, file_name]
+	
+	print(file_content)
+	if FileAccess.file_exists(full_path):
+		await _create_overwrite_confirmation_dialog(full_path, file_content)
+	else:
+		_create_file(full_path, file_content)
+	
+	EditorInterface.get_resource_filesystem().scan()
+	_create_finished_dialog("Success", "Successfully finished PO to CSV conversion:\n%s" % created_files_string)
+
+
+func _validate_path(paths: Array, extension: String) -> bool:
 	if paths.size() != 1:
 		return false
 	
 	var path: String = paths[0]
-	if path.get_extension() != "csv":
+	if path.get_extension() != extension:
 		return false
 	
 	if not FileAccess.file_exists(path):
@@ -92,6 +117,33 @@ func _validate_column_names(column_names: PackedStringArray) -> bool:
 	return true
 
 
+func _read_po_file(path: String) -> Dictionary[String, Array]:
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+	var language: String = path.get_file().replace("." + path.get_extension(), "")
+	var dict: Dictionary[String, Array] = {}
+	
+	var msgid: String
+	while file.get_position() < file.get_length():
+		var line: String = file.get_line()
+		if line.begins_with("msgid"):
+			msgid = line.trim_prefix('msgid "').trim_suffix('"')
+			if msgid == "":
+				continue
+			if not dict.has("key") or dict["key"] == null:
+				dict["key"] = []
+			dict["key"].append(msgid)
+		elif line.begins_with("msgstr") and msgid != "":
+			var msgstr: String = line.trim_prefix('msgstr "').trim_suffix('"')
+			if not dict.has(language) or dict[language] == null:
+				dict[language] = []
+			dict[language].append(msgstr)
+		else:
+			continue
+	
+	file.close()
+	return dict
+
+
 func _read_csv_file(path: String) -> Dictionary[String, Array]:
 	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 	var dict: Dictionary[String, Array] = {}
@@ -110,7 +162,6 @@ func _read_csv_file(path: String) -> Dictionary[String, Array]:
 			dict[column_names[index]].append(line[index])
 	
 	file.close()
-	
 	return dict
 
 
@@ -135,7 +186,7 @@ func _create_overwrite_confirmation_dialog(full_path: String, text: String) -> v
 	confirmation_dialog.queue_free()
 
 
-func _create_file_content(dict: Dictionary, language: String) -> String:
+func _create_po_file_content(dict: Dictionary, language: String) -> String:
 	var file_content: String = HEADER.replace("Language: ", "Language: %s" % language)
 	for index in dict["key"].size():
 		file_content += 'msgid "%s"\n' % [dict["key"][index]]
@@ -143,6 +194,25 @@ func _create_file_content(dict: Dictionary, language: String) -> String:
 			file_content += 'msgstr ""\n\n'
 		else:
 			file_content += 'msgstr "%s"\n\n' % [dict[language][index]]
+	
+	return file_content
+
+
+func _create_csv_file_content(dict: Dictionary) -> String:
+	var csv_deliminator: String = ","
+	
+	var file_content: String = ""
+	for language in dict.keys():
+		file_content += language + csv_deliminator
+	
+	file_content = file_content.trim_suffix(csv_deliminator)
+	
+	for index in dict["key"].size():
+		file_content += "\n" + dict["key"][index]
+		for language in dict.keys():
+			if language == "key":
+				continue
+			file_content += csv_deliminator + dict[language][index]
 	
 	return file_content
 

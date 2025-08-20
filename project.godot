@@ -76,4 +76,4 @@ theme/custom="uid://dnvygvv1c55qb"
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://data/translation/en.po", "res://data/translation/pl.po", "res://data/translation/translation.fa.translation")
+locale/translations=PackedStringArray("res://data/translation/en.po", "res://data/translation/fa.po", "res://data/translation/pl.po")
