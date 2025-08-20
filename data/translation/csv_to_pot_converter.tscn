@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7va4cbnfhrq8"]
-
-[ext_resource type="Script" uid="uid://dhms3jwrtny84" path="res://data/translation/csv_to_pot_converter.gd" id="1_xvd0k"]
-
-[node name="CsvToPotConverter" type="Node"]
-script = ExtResource("1_xvd0k")
-csv_file = "uid://d0ykbfjdk73ls"
-final_dir = "res://data/translation"

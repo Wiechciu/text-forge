@@ -1,15 +1,16 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: "
-"POT-Creation-Date: "
-"PO-Revision-Date: "
-"Last-Translator: "
-"Language-Team: "
-"MIME-Version: 1.0"
-"Content-Type: text/plain; charset=UTF-8"
-"Content-Transfer-Encoding: 8bit"
-"X-Generator: Poedit 3.4.2"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
 
 msgid "menu.file"
 msgstr "فایل"
@@ -250,39 +251,6 @@ msgstr "ذخیره به عنوان قالب..."
 
 msgid "menu.format.templates"
 msgstr "قالب ها..."
-
-msgid "menu.insert"
-msgstr "درج"
-
-msgid "menu.insert.bookmark"
-msgstr "نشانک"
-
-msgid "menu.insert.breakpoint"
-msgstr "نقطه توقف"
-
-msgid "menu.insert.change_log"
-msgstr "گزارش تغییر"
-
-msgid "menu.insert.license"
-msgstr "مجوز"
-
-msgid "menu.insert.footnote"
-msgstr "پانویس"
-
-msgid "menu.insert.header"
-msgstr "سربرگ"
-
-msgid "menu.insert.code_region"
-msgstr "محدوده کد"
-
-msgid "menu.insert.time"
-msgstr "زمان"
-
-msgid "menu.insert.date"
-msgstr "تاریخ"
-
-msgid "menu.insert.signature"
-msgstr "امضا"
 
 msgid "menu.view"
 msgstr "نمایش"

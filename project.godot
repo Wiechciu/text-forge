@@ -34,7 +34,6 @@ SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
 Global="*res://core/autoload/global.gd"
 Factory="*res://core/autoload/factory.gd"
 Extensions="*res://core/extensions/extensions.gd"
-CsvToPotConverter="*res://data/translation/csv_to_pot_converter.tscn"
 
 [debug]
 
@@ -50,7 +49,7 @@ window/per_pixel_transparency/allowed=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SLib/plugin.cfg", "res://addons/signal_lens/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
+enabled=PackedStringArray("res://addons/SLib/plugin.cfg", "res://addons/csv_to_gettext_converter/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/signal_lens/plugin.cfg")
 
 [gdunit4]
 
@@ -77,4 +76,4 @@ theme/custom="uid://dnvygvv1c55qb"
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://data/translation/en.po", "res://data/translation/fa.po", "res://data/translation/pl.po")
+locale/translations=PackedStringArray("res://data/translation/en.po", "res://data/translation/pl.po", "res://data/translation/translation.fa.translation")

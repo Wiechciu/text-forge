@@ -1,15 +1,16 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: "
-"POT-Creation-Date: "
-"PO-Revision-Date: "
-"Last-Translator: "
-"Language-Team: "
-"MIME-Version: 1.0"
-"Content-Type: text/plain; charset=UTF-8"
-"Content-Transfer-Encoding: 8bit"
-"X-Generator: Poedit 3.4.2"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
 
 msgid "menu.file"
 msgstr "File"
@@ -250,39 +251,6 @@ msgstr "Save As Template..."
 
 msgid "menu.format.templates"
 msgstr "Templates..."
-
-msgid "menu.insert"
-msgstr "Insert"
-
-msgid "menu.insert.bookmark"
-msgstr "Bookmark"
-
-msgid "menu.insert.breakpoint"
-msgstr "Breakpoint"
-
-msgid "menu.insert.change_log"
-msgstr "Change Log"
-
-msgid "menu.insert.license"
-msgstr "License"
-
-msgid "menu.insert.footnote"
-msgstr "Footnote"
-
-msgid "menu.insert.header"
-msgstr "Header"
-
-msgid "menu.insert.code_region"
-msgstr "Code Region"
-
-msgid "menu.insert.time"
-msgstr "Time"
-
-msgid "menu.insert.date"
-msgstr "Date"
-
-msgid "menu.insert.signature"
-msgstr "Signature"
 
 msgid "menu.view"
 msgstr "View"
