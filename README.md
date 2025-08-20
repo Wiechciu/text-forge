@@ -10,8 +10,8 @@ Text Forge: a lightweight, extensible, mode-driven text editor. Customizable and
 
 Text Forge's structured core offers many ways to enhance your programming environment. Plug in desired modules to expand functionality and create a fast and complete workspace!
 
-![introduction_screenshot.png](docs/img/introduction_screenshot.png)
- ^ Text Forge screenshot: HTML mode, Find & Replace panel. Auto-formatted HTML (from [input](https://github.com/user-attachments/assets/4e3dda16-7167-428e-aae3-47cd4bd19f86)).
+![auto-formatter-after.png](docs/img/auto-formatter-after.png)
+ ^ Text Forge screenshot: HTML mode, Find & Replace panel. Auto-formatted HTML (from [input](docs/img/auto-formatter-before.png)).
 
 > [!Note]
 > This project currently is in development state, **feel free to contribute in any way you like**. Text Forge is an 
@@ -56,7 +56,8 @@ This project is a part of [Text Forge Organization](https://github.com/text-forg
 
 You can get help from this list (or be one of them):
 
-- [Mahan Khalili](https://github.com/mkh-user) - Project Founder and Lead Developer
+- [Mahan Khalili](https://github.com/mkh-user) - Admin
+- [Kuba / WCHC](https://github.com/Wiechciu) - Triage
 
 ## Resources & Useful Links
 
