@@ -3,8 +3,8 @@
 [sub_resource type="InputEventKey" id="InputEventKey_iy6wi"]
 device = -1
 ctrl_pressed = true
-keycode = 32
-unicode = 32
+keycode = 46
+unicode = 46
 
 [resource]
 events = [SubResource("InputEventKey_iy6wi")]

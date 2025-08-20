@@ -24,6 +24,8 @@ menu.edit.copy,Copy,رونوشت,Kopiuj
 menu.edit.paste,Paste,جایگذاری,Wklej
 menu.edit.delete,Delete,حذف,Usuń
 menu.edit.select_all,Select All,انتخاب همه,Zaznacz wszystko
+menu.edit.select_next_occurence,Select Next Occurence,انتخاب مشابه بعدی,Następny podobny wybór
+menu.edit.select_all_occurences,Select All Occurences,انتخاب همه مشابهات,Zaznacz wszystkie podobne
 menu.edit.duplicate_selection,Duplicate Selection,تکثیر انتخاب شده,Zduplikuj zaznaczenie
 menu.edit.evulate_selection,Evaluate Selection,محاسبه انتخاب شده,Przelicz zaznaczenie
 menu.edit.line,Line,خط,Linia

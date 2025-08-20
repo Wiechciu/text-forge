@@ -1,7 +1,8 @@
-[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://dadkkug160by1"]
+[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://b5c8ggp2s01kh"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_dc1cb"]
 device = -1
+shift_pressed = true
 ctrl_pressed = true
 keycode = 82
 
