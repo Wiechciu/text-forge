@@ -64,9 +64,6 @@ menu.go_to.table_of_contents,Table Of Contents...,لیست محتوا...,Spis tr
 menu.go_to.bookmarks,Bookmarks...,نشانک ها...,Zakładki...
 menu.go_to.toggle_bookmark,Toggle Bookmark,نشانک گذاری,Przełącz zakładki
 menu.go_to.remove_all_bookmarks,Remove All Bookmarks,حذف همه نشانک ها,Usuń wszystkie zakładki
-menu.go_to.breakpoints,Breakpoints...,نقاط توقف...,Punkt stop...
-menu.go_to.toggle_breakpoint,Toggle Breakpoint,نقطه توقف,Przełącz punkty stopu
-menu.go_to.remove_all_breakpoints,Remove All Breakpoints,حذف همه نقاط توقف,Usuń wszystkie punkty stopu
 menu.command,Command,دستور,Komendy
 menu.command.palette,Command Palette...,پالت فرمان...,Lista komend...
 menu.format,Format,قالب,Formatuj
@@ -81,8 +78,6 @@ menu.view.reduce_font,Reduce Font Size,کاهش اندازه قلم,Zmniejsz roz
 menu.view.reset_font,Reset Font Size,بازنشانی اندازه قلم,Zresetuj rozmiar czcionki
 menu.view.toggle_dark_mode,Toggle Dark Mode,تغییر حالت تاریک,Przełącz ciemny motyw
 menu.view.focus_editor,Focus On Editor,تمرکز روی ویرایشگر,Fokus na edytorze
-menu.view.notes_panel,Notes Panel,پنل یادداشت,Panel notatek
-menu.view.changelog_panel,Change Log Panel,پنل گزارش تعییرات,Panel listy zmian
 menu.view.line_length_guides,Line Length Guides...,خطوط راهنما...,Ustawienia długości linii...
 menu.view.show_bookmarks,Show Bookmarks,نمایش نشانک ها,Pokaż zakładki
 menu.view.show_line_numbers,Show Line Numbers,نمایش شماره خط,Pokaż numery linii
@@ -94,12 +89,8 @@ menu.view.highlight_current_line,Highlight Current Line,برجسته کردن خ
 menu.view.show_control_chars,Show Control Characters,نمایش کاراکتر های کنترل,Pokaż znaki kontrolne
 menu.view.show_tabs,Show Tabs,نمایش تب ها,Pokaż tabulatory
 menu.view.show_spaces,Show Spaces,نمایش فاصله ها,Pokaż spacje
-menu.view.normal_view,Normal View,نمای عادی,Widok normalny
-menu.view.presentation_view,Presentation View,نمای ارائه,Widok prezentacji
-menu.view.reading_view,Reading View,نمای مطالعه,Widok czytnika
 menu.view.full_screen,Full Screen,تمام صفحه,Pełny ekran
 menu.tools,Tools,ابزار ها,Narzędzia
-menu.tools.spell_check,Spell Check,بررسی املا,Słownik
 menu.tools.color_picker,Color Picker,انتخابگر رنگ,Wybór koloru
 menu.tools.security,Security...,امنیت...,Bezpieczeństwo...
 menu.tools.counter,Counter...,شماشگر...,Licznik...
