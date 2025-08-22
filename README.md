@@ -18,6 +18,11 @@ Text Forge's structured core offers many ways to enhance your programming enviro
 > open-source project, so you can use it **for free**,  **forever**, **for anything**, just share what you think about 
 > Text Forge with us!
 
+> [!Important]
+> Text Forge is currently receiving constant updates, most of which include minor incompatibilities with previous versions. Therefore, **it is recommended to delete the application's data folder and its installed content before updating to the new version.**
+> 
+> This will continue **until 1.0-alpha1** (the first version compatible with official versioning).
+
 ## 👀 New to Text Forge? Start from [Text Forge Introduction](https://text-forge.github.io/docs/introduction/)
 
 ## 🗺️ Want to know more? Take an [Overview of Text Forge here](https://github.com/text-forge/text-forge/wiki/Overview)
