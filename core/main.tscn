@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dx1alvj3tjt16"]
+[gd_scene load_steps=17 format=3 uid="uid://dx1alvj3tjt16"]
 
 [ext_resource type="Script" uid="uid://byayvu15ojy1j" path="res://core/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dfy2sbtb4i0ht" path="res://core/scripts/panel_manager.gd" id="2_tefeu"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://d0j1s4uv04c3w" path="res://core/scripts/editor_api.gd" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://dvndxigy5lpnw" path="res://data/panels/problems/warning.png" id="7_510js"]
 [ext_resource type="Script" uid="uid://dtusvq1vqt0ul" path="res://core/scripts/editor.gd" id="7_tipki"]
+[ext_resource type="Texture2D" uid="uid://cd6f2n7byh01c" path="res://assets/backup.png" id="8_510js"]
+[ext_resource type="Script" uid="uid://cti2u1j1m720x" path="res://core/scripts/backup_status.gd" id="9_7ua4h"]
 
 [sub_resource type="Theme" id="Theme_csopv"]
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.607843)
@@ -232,6 +234,23 @@ theme_override_font_sizes/font_size = 14
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BackupStatus" type="TextureRect" parent="Margin/Sections/HBoxContainer" node_paths=PackedStringArray("hide_timer")]
+visible = false
+custom_minimum_size = Vector2(30, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Backup Status"
+texture = ExtResource("8_510js")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("9_7ua4h")
+hide_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="Margin/Sections/HBoxContainer/BackupStatus"]
+wait_time = 5.0
+one_shot = true
 
 [node name="ModeViewer" type="MenuButton" parent="Margin/Sections/HBoxContainer"]
 layout_mode = 2
