@@ -59,6 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Docs:** `mode_development.md` ([#71](https://github.com/text-forge/text-forge/pull/71))
 - Close mode manager after `edit script` option pressing ([#71](https://github.com/text-forge/text-forge/pull/71))
 - **API:** `Factory.simple_panel` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Open with handling ([#82](https://github.com/text-forge/text-forge/pull/82))
 
 ### Changed
 
