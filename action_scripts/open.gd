@@ -2,7 +2,7 @@ extends ActionScript
 
 func _initialize() -> void:
 	Signals.open_file.connect(_open_file)
-	print("Open is ready")
+
 
 func _run_action() -> void:
 	if Global.get_file_name().ends_with("*"):
