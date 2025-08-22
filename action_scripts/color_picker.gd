@@ -1,6 +1,6 @@
 extends ActionScript
 
-var popup: Window = load("res://action_scripts/scenes/color_picker.tscn").instantiate()
+var popup: Window = Global.gload("res://action_scripts/scenes/color_picker.tscn").instantiate()
 
 func _run_action() -> void:
 	if not popup.get_parent():

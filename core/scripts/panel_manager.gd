@@ -175,7 +175,7 @@ func _load_layout() -> void:
 func _load_panels() -> void:
 	for panel in DirAccess.get_directories_at(FileDatabase.FOLDER_PANELS):
 		var config = ConfigFile.new()
-		config.load(FileDatabase.TEMPLATE_PANEL_CONFIG.format([panel]))
+		config.load(SLib.globalize_path(FileDatabase.TEMPLATE_PANEL_CONFIG.format([panel])))
 		var place = config.get_value("panel", "place")
 		var converted: int
 		if place == "R":
@@ -184,8 +184,8 @@ func _load_panels() -> void:
 			converted = Panels.BOTTOM
 		else: # Also panels with invalid place
 			converted = Panels.LEFT
-		add_panel(converted, ResourceLoader.load(FileDatabase.TEMPLATE_PANEL_SCENE.format([panel])).instantiate(),
-				ResourceLoader.load(FileDatabase.TEMPLATE_PANEL_ICON.format([panel])))
+		add_panel(converted, Global.gload(FileDatabase.TEMPLATE_PANEL_SCENE.format([panel])).instantiate(),
+				Global.gload(FileDatabase.TEMPLATE_PANEL_ICON.format([panel])))
 
 
 ## Changes current panel based on selected items. Calls [method _apply_split] if changes [member panels].

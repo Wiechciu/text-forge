@@ -94,4 +94,4 @@ func file_dialog(
 ## Creates new [TextForgePanel] with a margin container as child, useful for modes and where scripts
 ## create panels.
 func simple_panel() -> TextForgePanel:
-	return preload("res://core/classes/simple_panel.tscn").instantiate()
+	return Global.gload("res://core/classes/simple_panel.tscn").instantiate()

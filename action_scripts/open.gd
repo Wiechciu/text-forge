@@ -3,6 +3,7 @@ extends ActionScript
 func _initialize() -> void:
 	Signals.open_file.connect(_open_file)
 
+
 func _run_action() -> void:
 	if Global.get_file_name().ends_with("*"):
 		Signals.save_request.emit(id)
@@ -23,8 +24,8 @@ func _open_file(path: String) -> void:
 
 func _append_to_recent_files(path: String) -> void:
 	var file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
-	var files = file.get_as_text() if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA) else ""
-	if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA):
+	var files = file.get_as_text() if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)) else ""
+	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
 		file.close()
 	file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
 	file.store_string(path + "\n" + files)

@@ -63,6 +63,9 @@ func set_file_name(file_name: String) -> void:
 	get_core().file_label.text = file_name
 
 
+func has_file() -> bool:
+	return get_file_path().is_absolute_path()
+
 ## Returns editor node, it's accessable with [member Core.editor] too.
 func get_editor() -> Editor:
 	return get_core().editor
@@ -158,7 +161,7 @@ func has_unsaved_change() -> bool:
 func get_last_file_path() -> String:
 	var path := ""
 
-	if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA):
+	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
 		var file_access = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
 		var recent_files_list = file_access.get_as_text().split("\n", false)
 		file_access.close()
@@ -167,3 +170,7 @@ func get_last_file_path() -> String:
 			path = recent_files_list[0]
 
 	return path
+
+
+func gload(path: String) -> Resource:
+	return load(SLib.globalize_path(path))
