@@ -68,11 +68,11 @@ func get_text(key: String, source_file: String = "default") -> String:
 	if key == "":
 		return ""
 
-	if not FileAccess.file_exists(source_file):
+	if not FileAccess.file_exists(SLib.globalize_path(source_file)):
 		Signals.notification.emit(Global.Notification.ERROR, "Can't load translation data", "File {0} doesn't exitsts!".format([source_file]))
 		return key
 
-	var file := FileAccess.open(source_file, FileAccess.READ)
+	var file := FileAccess.open(SLib.globalize_path(source_file), FileAccess.READ)
 	var column_names := file.get_csv_line()
 	var lang
 	if not column_names.has(language):
@@ -97,8 +97,8 @@ func get_text(key: String, source_file: String = "default") -> String:
 	file.close()
 
 	## Remove temprory translation file
-	if FileAccess.file_exists(TEMP_TRANSLATION_SOURCE):
-		DirAccess.remove_absolute(TEMP_TRANSLATION_SOURCE)
+	if FileAccess.file_exists(SLib.globalize_path(TEMP_TRANSLATION_SOURCE)):
+		DirAccess.remove_absolute(SLib.globalize_path(TEMP_TRANSLATION_SOURCE))
 
 	return key
 

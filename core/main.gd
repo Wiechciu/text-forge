@@ -50,9 +50,6 @@ var main_menu_data: Dictionary
 
 # This is start point of Text Forge
 func _ready() -> void:
-	print("Running at: %s" % OS.get_executable_path())
-
-
 	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Open file with drag and drop feature
 	get_window().files_dropped.connect(func(files): Signals.open_file.emit(files[0]))
@@ -99,8 +96,8 @@ func _handle_settings() -> void:
 func append_to_recent_files(file_path: String) -> void:
 	var file: FileAccess
 	var files: String
-	if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA):
-		file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
+	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
+		file = FileAccess.open(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA), FileAccess.READ)
 		files = file.get_as_text()
 		file.close()
 	else:
@@ -152,7 +149,7 @@ func _load_last_file(is_automatic := true) -> void:
 ## Loads data in [member main_menu_data], uses [constant FileDatabase.MAIN_UI_DATA] and [constant DATA_SECTION].
 func _load_main_menu_data() -> void:
 	var config := ConfigFile.new()
-	config.load(FileDatabase.MAIN_UI_DATA)
+	config.load(SLib.globalize_path(FileDatabase.MAIN_UI_DATA))
 	for menu_section: String in config.get_section_keys(DATA_SECTION):
 		main_menu_data[menu_section] = config.get_value(DATA_SECTION, menu_section)
 
@@ -160,7 +157,7 @@ func _load_main_menu_data() -> void:
 ## This function will load data from UI source and generate buttons.
 func _load_main_menu() -> void:
 	var config := ConfigFile.new()
-	config.load(FileDatabase.MAIN_UI_DATA)
+	config.load(SLib.globalize_path(FileDatabase.MAIN_UI_DATA))
 
 	for menu_item: String in config.get_section_keys(DATA_SECTION):
 		if menu_item.ends_with(SUBMENU_SUFFIX):
@@ -258,13 +255,13 @@ func _load_scripts() -> void:
 
 			var script_path: String = FileDatabase.TEMPLATE_ACTION_SCRIPT.format([item.get("text", "").to_snake_case().replace(".", "")])
 
-			if not FileAccess.file_exists(script_path):
+			if not FileAccess.file_exists(SLib.globalize_path(script_path)):
 				# disable items without script (except submenu roots)
 				if item.has("popup") and item.get("type", OptionTypes.REGULAR) != OptionTypes.SUBMENU:
 					item.get("popup").set_item_disabled(item.get("popup").get_item_index(item.get("code", 0)), true)
 				continue
 
-			var script = load(script_path).new()
+			var script = Global.gload(script_path).new()
 
 			# for MultiActionScripts (submenu roots)
 			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SUBMENU:
@@ -338,7 +335,7 @@ func _reload_recent_files() -> void:
 	recent_files_submenu.clear()
 
 	# Load recent files
-	if FileAccess.file_exists(FileDatabase.RECENT_FILES_DATA):
+	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
 		var file_access = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
 		var recent_files_list = file_access.get_as_text().split("\n", false)
 		file_access.close()
@@ -348,7 +345,7 @@ func _reload_recent_files() -> void:
 		for recent in recent_files_list:
 			if recent_files_submenu.item_count == 15: # Limit list to 15 items
 				break
-			if not FileAccess.file_exists(recent): # Remove non-existent items
+			if not FileAccess.file_exists(SLib.globalize_path(recent)): # Remove non-existent items
 				continue
 
 			recent_files_submenu.add_item(recent)
