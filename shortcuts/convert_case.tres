@@ -2,8 +2,9 @@
 
 [sub_resource type="InputEventKey" id="InputEventKey_n6hrh"]
 device = -1
+shift_pressed = true
 ctrl_pressed = true
-keycode = 39
+keycode = 67
 
 [resource]
 events = [SubResource("InputEventKey_n6hrh")]

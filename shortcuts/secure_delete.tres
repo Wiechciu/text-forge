@@ -5,7 +5,8 @@ device = -1
 alt_pressed = true
 shift_pressed = true
 ctrl_pressed = true
-keycode = 4194312
+keycode = 68
+unicode = 100
 
 [resource]
 events = [SubResource("InputEventKey_ng22g")]

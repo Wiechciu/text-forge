@@ -1,10 +1,8 @@
-extends Control
+extends TextForgePanel
 
 @export var options: Container
 @export var notifications: Container
 @export var mute_bottom: Button
-
-var index: int
 
 var mute: bool = false
 
@@ -28,15 +26,15 @@ func _editor_notification(type: int, title: String, text: String) -> void:
 		notification_panel.text.hide()
 	else:
 		notification_panel.text.text = text
-	if get_parent().current_tab != index:
-		Global.get_panel_manager().change_panel_icon(PanelManager.Panels.RIGHT, index, ResourceLoader.load("res://data/panels/notifications/notification.png"))
+	if not (get_parent().current_tab == index and visible):
+		Global.get_panel_manager().change_panel_icon(place, index, ResourceLoader.load("res://data/panels/notifications/notification.png"))
 	if not mute:
-		Global.get_panel_manager().show_panel(PanelManager.Panels.RIGHT, index)
+		Global.get_panel_manager().show_panel(place, index)
 
 
-func _on_item_rect_changed() -> void:
-	if get_parent().current_tab == index:
-		Global.get_panel_manager().change_panel_icon(PanelManager.Panels.RIGHT, index, ResourceLoader.load("res://data/panels/notifications/icon.png"))
+func _on_tab_changed() -> void:
+	if get_parent().current_tab == index and visible:
+		Global.get_panel_manager().change_panel_icon(place, index, ResourceLoader.load("res://data/panels/notifications/icon.png"))
 
 
 func _on_clear_pressed() -> void:

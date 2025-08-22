@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=37 format=3 uid="uid://dnvygvv1c55qb"]
+[gd_resource type="Theme" load_steps=41 format=3 uid="uid://dnvygvv1c55qb"]
 
 [ext_resource type="FontFile" uid="uid://d03vkdeo2egtn" path="res://assets/JetBrainsMono-Regular.ttf" id="1_qjhx0"]
 [ext_resource type="Texture2D" uid="uid://bwarwcjjx7it3" path="res://assets/active.png" id="2_u427p"]
@@ -51,6 +51,14 @@ corner_radius_bottom_left = 5
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_amhry"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_amhry"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cuqy7"]
+bg_color = Color(0.11834, 0.167543, 0.216756, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0625005, 0.0961309, 0.129758, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tipki"]
 
@@ -174,12 +182,18 @@ border_color = Color(0.11834, 0.167543, 0.216756, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okkhu"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rga1e"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rga1e"]
 bg_color = Color(0.0625005, 0.0961309, 0.129758, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cuqy7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ptpdr"]
 
 [resource]
 AcceptDialog/colors/title_color = Color(0.358444, 0.450697, 0.542969, 1)
@@ -203,6 +217,7 @@ CodeEdit/colors/line_length_guideline_color = Color(0.116654, 0.179424, 0.242188
 CodeEdit/colors/selection_color = Color(1, 1, 1, 0.117647)
 CodeEdit/constants/caret_width = 2
 CodeEdit/fonts/font = ExtResource("1_qjhx0")
+CodeEdit/styles/completion = SubResource("StyleBoxFlat_cuqy7")
 CodeEdit/styles/focus = SubResource("StyleBoxEmpty_tipki")
 CodeEdit/styles/normal = SubResource("StyleBoxFlat_sugp2")
 CodeEdit/styles/read_only = SubResource("StyleBoxFlat_sugp2")
@@ -250,6 +265,10 @@ TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_1ojjt")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_amhry")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_1ojjt")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_okkhu")
+Tree/colors/font_color = Color(0.6, 0.6, 0.6, 1)
 Tree/colors/guide_color = Color(0.11834, 0.167543, 0.216756, 1)
 Tree/styles/focus = SubResource("StyleBoxEmpty_okkhu")
+Tree/styles/hovered = SubResource("StyleBoxEmpty_rga1e")
 Tree/styles/panel = SubResource("StyleBoxFlat_rga1e")
+Tree/styles/selected = SubResource("StyleBoxEmpty_cuqy7")
+Tree/styles/selected_focus = SubResource("StyleBoxEmpty_ptpdr")

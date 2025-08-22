@@ -14,6 +14,8 @@ enum Notification {
 
 ## Main window manager with restore window state. See [WindowManager] for more information.
 var window_manager := WindowManager.new()
+## Keeps list of damaged mode IDs and reasons.
+var damaged_modes: Dictionary[String, String] = {}
 ## Dictionary of all commands. example item:
 ## [codeblock]
 ## # Command Name (String): [Shortcut as Text (String), Command Action (Callable)]
@@ -23,6 +25,8 @@ var window_manager := WindowManager.new()
 var _commands: Dictionary[String, Array] = {}:
 	get = get_command_list
 
+## Keeps temprory nodes for catch or transfer.
+var temprory_children: Dictionary[String, Node] = {}
 
 # Initializing function
 func _ready() -> void:

@@ -58,6 +58,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[connection signal="item_rect_changed" from="." to="." method="_on_item_rect_changed"]
+[connection signal="item_rect_changed" from="." to="." method="_on_tab_changed"]
+[connection signal="visibility_changed" from="." to="." method="_on_tab_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/clear" to="." method="_on_clear_pressed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer/mute" to="." method="_on_mute_toggled"]

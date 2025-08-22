@@ -60,9 +60,7 @@ func _ready() -> void:
 	# Connect reload_recent_files request signal
 	Signals.reload_recent_files.connect(_reload_recent_files)
 
-	Settings.define_preset("files", "load_last_file_at_start", true)
-	Settings.define_preset("files", "ask_before_load_last_file_at_start", false)
-	Settings.define_preset("notifications", "automatic_load_last_file_at_start", true)
+	_handle_settings()
 
 	# load data in main_menu_data
 	_load_main_menu_data()
@@ -74,6 +72,26 @@ func _ready() -> void:
 	_handle_cmdline_arguments()
 
 	_handle_load_last_file()
+
+
+func _handle_settings() -> void:
+	if not Signals.settings_changed.is_connected(_handle_settings):
+		Signals.settings_changed.connect(_handle_settings)
+
+	# Define presets
+
+	Settings.define_preset("files", "load_last_file_at_start", true)
+	Settings.define_preset("files", "ask_before_load_last_file_at_start", false)
+
+	Settings.define_preset("notifications", "automatic_load_last_file_at_start", true)
+
+	Settings.define_preset("edit", "indent_with_space", false)
+	Settings.define_preset("edit", "indent_size", 4)
+
+	# Load settings
+
+	Global.get_editor().indent_use_spaces = Settings.get_setting("edit", "indent_with_space")
+	Global.get_editor().indent_size = Settings.get_setting("edit", "indent_size")
 
 
 ## Appends [param file_path] in [constant FileDatabase.RECENT_FILES_DATA]. New file will be in top
