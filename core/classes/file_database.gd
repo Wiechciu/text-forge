@@ -25,6 +25,8 @@ const FOLDER_ACTION_SCRIPTS: String = "res://action_scripts/"
 const FOLDER_MODES: String = "user://modes/"
 ## Root folder for panels.
 const FOLDER_PANELS: String = "res://data/panels/"
+## Root folder for backups.
+const FOLDER_BACKUPS: String = "user://backups/"
 ## Root folder for extensions.
 const FOLDER_EXTENSIONS: String = "user://extensions/"
 ## Template file path for action script shotcut files.
