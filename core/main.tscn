@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dx1alvj3tjt16"]
+[gd_scene load_steps=17 format=3 uid="uid://dx1alvj3tjt16"]
 
 [ext_resource type="Script" uid="uid://byayvu15ojy1j" path="res://core/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dfy2sbtb4i0ht" path="res://core/scripts/panel_manager.gd" id="2_tefeu"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://dtusvq1vqt0ul" path="res://core/scripts/editor.gd" id="7_tipki"]
 [ext_resource type="Texture2D" uid="uid://cd6f2n7byh01c" path="res://assets/backup.png" id="8_510js"]
 [ext_resource type="Script" uid="uid://cti2u1j1m720x" path="res://core/scripts/backup_status.gd" id="9_7ua4h"]
-[ext_resource type="Script" uid="uid://yxmjpk8yt4os" path="res://core/scripts/tests.gd" id="12_7ua4h"]
 
 [sub_resource type="Theme" id="Theme_csopv"]
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.607843)
@@ -282,9 +281,6 @@ autostart = true
 [node name="Scripts" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 0
-
-[node name="Tests" type="Node" parent="."]
-script = ExtResource("12_7ua4h")
 
 [node name="About" type="Window" parent="."]
 title = "About Text Forge"
