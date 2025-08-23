@@ -5,6 +5,7 @@ extends Node
 
 
 func _ready() -> void:
+	await get_tree().process_frame
 	var markdown_text: String = FileAccess.get_file_as_string(SLib.globalize_path("res://CHANGELOG.md"))
 	var bbcode_text: String = _convert_text_from_markdown_to_bbcode_style(markdown_text)
 	label.text = bbcode_text

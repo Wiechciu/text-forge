@@ -7,6 +7,7 @@ signal backup_saved(was_auto: bool)
 signal backup_failed(was_auto: bool)
 
 func _ready() -> void:
+	await get_tree().process_frame
 	Settings.define_preset("files", "auto_backup", true)
 	Settings.define_preset("files", "auto_backup_iterval_minutes", 1)
 	Settings.define_preset("files", "keep_backup_for_days", 10)

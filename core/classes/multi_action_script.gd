@@ -68,11 +68,9 @@ func _check_option() -> void:
 ## [MultiActionScript]s this will only show the shortcut in [member menu]. (See also
 ## [method _shortcut_input])
 func _load_shortcut() -> void:
-	var shortcut_path := FileDatabase.TEMPLATE_ACTION_SCRIPT_SHORTCUT.format([name])
-	if FileAccess.file_exists(SLib.globalize_path(shortcut_path)):
-		action_shortcut = Global.gload(shortcut_path)
-		var key := _convert_event_to_key(action_shortcut.events[0]) as Key
-		menu.set_item_accelerator(index, key)
+	action_shortcut.events.append(Global.shortcut_map.get_shortcut(name))
+	var key := _convert_event_to_key(action_shortcut.events[0]) as Key
+	menu.set_item_accelerator(index, key)
 
 
 ## Defines this action as a command for command palettes, this command will be connected to

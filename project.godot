@@ -77,3 +77,7 @@ report/godot/push_error=true
 [gui]
 
 theme/custom="uid://dnvygvv1c55qb"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.11834, 0.167543, 0.216756, 1)

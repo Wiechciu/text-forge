@@ -74,9 +74,8 @@ func is_enable() -> bool:
 ## it will call [method _run_action] when [member action_shortcut] pressed. (See
 ## [method MultiActionScript._load_shortcut] for other behavior.)
 func _load_shortcut() -> void:
-	if FileAccess.file_exists(SLib.globalize_path("res://shortcuts/{0}.tres".format([name]))):
-		action_shortcut = Global.gload("res://shortcuts/{0}.tres".format([name])).events[0]
-		menu.set_item_accelerator(menu.get_item_index(id), _convert_event_to_key(action_shortcut))
+	action_shortcut = Global.shortcut_map.get_shortcut(name)
+	menu.set_item_accelerator(menu.get_item_index(id), _convert_event_to_key(action_shortcut))
 
 
 ## Defines this action as a command for command palettes, this command will be connected to
