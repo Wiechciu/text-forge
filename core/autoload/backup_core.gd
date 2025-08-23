@@ -1,6 +1,9 @@
 extends Node
+## Backup core of Text Forge
 
+## Emits when a backup saved.
 signal backup_saved(was_auto: bool)
+## Emits when a backup failed.
 signal backup_failed(was_auto: bool)
 
 func _ready() -> void:
@@ -11,11 +14,13 @@ func _ready() -> void:
 	get_window().close_requested.connect(_cleanup_backups)
 
 
+# Cleanups backups
 func _cleanup_backups() -> void:
-	remove_old_backups()
-	remove_backups_without_refrence()
+	_remove_old_backups()
+	_remove_backups_without_refrence()
 
 
+# Starts auto backup saving timer based on settings
 func _handle_auto_save() -> void:
 	if not Settings.get_setting("files", "auto_backup"):
 		return
@@ -26,6 +31,16 @@ func _handle_auto_save() -> void:
 	add_child(timer)
 
 
+## Returns a list of all backups, in this structure:
+## [codeblock]
+## {
+##     "file_path": {
+##         "YYYY-MM-DD HH:MM:SS": "Backup code",
+##         ....
+##     },
+##     ....
+## }
+## [/codeblock]
 func get_backups_list() -> Dictionary[String, Dictionary]:
 	var config := ConfigFile.new()
 	if not FileAccess.file_exists(SLib.globalize_path(FileDatabase.BACKUP_DATABASE)):
@@ -41,6 +56,7 @@ func get_backups_list() -> Dictionary[String, Dictionary]:
 	return list
 
 
+## Restores current backup to given [param path] from given [param code] backup.
 func restore_backup(code: String, path: String) -> void:
 	var content := FileAccess.get_file_as_string(FileDatabase.TEMPLATE_BACKUP_FILE.format([code]))
 	Global.set_file_path(path)
@@ -51,7 +67,44 @@ func restore_backup(code: String, path: String) -> void:
 	Global.send_notification(Global.Notification.INFO, "Backup sucefully restored.")
 
 
-func remove_backups_without_refrence() -> void:
+## Makes a backup from current file.
+func backup_file(as_auto: bool) -> void:
+	if not Global.has_file():
+		return
+	var config := ConfigFile.new()
+	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.BACKUP_DATABASE)):
+		config.load(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
+
+	var file_backups: Dictionary = config.get_value("backups", Global.get_file_path(), {})
+	var backup_id := _generate_new_backup_id()
+	if backup_id == "":
+		backup_failed.emit(as_auto)
+		return
+	var file := FileAccess.open(SLib.globalize_path(FileDatabase.TEMPLATE_BACKUP_FILE.format([backup_id])), FileAccess.WRITE)
+	file.store_string(Global.get_editor_text())
+	file.close()
+	file_backups[Time.get_datetime_string_from_system(false, true)] = backup_id
+	config.set_value("backups", Global.get_file_path(), file_backups)
+	config.save(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
+	backup_saved.emit(as_auto)
+
+
+# Returns a new random backup id (max tries: 10^8)
+func _generate_new_backup_id() -> String:
+	var path := ""
+	for i in range(10 ** 8):
+		var codes := Array()
+		codes.resize(8)
+		codes = codes.map(func(j): return randi_range(0, 9))
+		path = SLib.globalize_path(FileDatabase.TEMPLATE_BACKUP_FILE.format(["".join(codes)]))
+		if not FileAccess.file_exists(path):
+			return "".join(codes)
+	Global.send_notification(Global.Notification.ERROR, "Failed to generate random backup ID in 10^8 tries.")
+	return ""
+
+
+# Searchs backup database for each backup file and removes backups without refrence
+func _remove_backups_without_refrence() -> void:
 	var config := ConfigFile.new()
 	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.BACKUP_DATABASE)):
 		config.load(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
@@ -68,7 +121,8 @@ func remove_backups_without_refrence() -> void:
 			dir.remove(code)
 
 
-func remove_old_backups() -> void:
+# Remove old backups from database, will do nothing with backup files
+func _remove_old_backups() -> void:
 	if Settings.get_setting("files", "keep_backup_for_days") == -1:
 		return
 	var config := ConfigFile.new()
@@ -84,13 +138,14 @@ func remove_old_backups() -> void:
 		for backup_time in file_backups:
 			if file_backups.size() <= 1:
 				break
-			if convert_to_days(backup_time) + Settings.get_setting("files", "keep_backup_for_days") < convert_to_days(Time.get_datetime_string_from_system()):
+			if _convert_to_days(backup_time) + Settings.get_setting("files", "keep_backup_for_days") < _convert_to_days(Time.get_datetime_string_from_system()):
 				file_backups.erase(backup_time)
 		config.set_value("backups", file_item, file_backups)
 	config.save(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
 
 
-func convert_to_days(date_string: String) -> int:
+# Converts given date_string to days int, supports both datetime and date formats
+func _convert_to_days(date_string: String) -> int:
 	if date_string.contains(" "):
 		date_string = date_string.get_slice(" ", 0)
 	elif date_string.contains("T"):
@@ -100,37 +155,3 @@ func convert_to_days(date_string: String) -> int:
 	days += int(date[1]) * 30
 	days += int(date[0]) * 365
 	return days
-
-
-func backup_file(as_auto: bool) -> void:
-	if not Global.has_file():
-		return
-	var config := ConfigFile.new()
-	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.BACKUP_DATABASE)):
-		config.load(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
-
-	var file_backups: Dictionary = config.get_value("backups", Global.get_file_path(), {})
-	var backup_id := generate_new_backup_id()
-	if backup_id == "":
-		backup_failed.emit(as_auto)
-		return
-	var file := FileAccess.open(SLib.globalize_path(FileDatabase.TEMPLATE_BACKUP_FILE.format([backup_id])), FileAccess.WRITE)
-	file.store_string(Global.get_editor_text())
-	file.close()
-	file_backups[Time.get_datetime_string_from_system(false, true)] = backup_id
-	config.set_value("backups", Global.get_file_path(), file_backups)
-	config.save(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
-	backup_saved.emit(as_auto)
-
-
-func generate_new_backup_id() -> String:
-	var path := ""
-	for i in range(10 ** 8):
-		var codes := Array()
-		codes.resize(8)
-		codes = codes.map(func(j): return randi_range(0, 9))
-		path = SLib.globalize_path(FileDatabase.TEMPLATE_BACKUP_FILE.format(["".join(codes)]))
-		if not FileAccess.file_exists(path):
-			return "".join(codes)
-	Global.send_notification(Global.Notification.ERROR, "Failed to generate random backup ID in 10^8 tries.")
-	return ""
