@@ -11,23 +11,17 @@ func _ready() -> void:
 func _on_backup_saved(was_auto: bool) -> void:
 	show()
 	texture = load("res://assets/backup.png")
-	var tooltip := "Backup Status"
-	if was_auto:
-		tooltip += "\nAuto backup saved: " + Time.get_datetime_string_from_system(false, true)
-	else:
-		tooltip += "\nManual backup saved: " + Time.get_datetime_string_from_system(false, true)
-	tooltip_text = tooltip
+	tooltip_text = "Backup Status\n{0} backup saved: {1}".format([
+		"Auto" if was_auto else "Manual", Time.get_datetime_string_from_system(false, true)
+	])
 	show()
 	hide_timer.start()
 
 
 func _on_backup_failed(was_auto: bool) -> void:
 	texture = load("res://assets/backup_fail.png")
-	var tooltip := "Backup Status"
-	if was_auto:
-		tooltip += "\nAuto backup failed: " + Time.get_datetime_string_from_system(false, true)
-	else:
-		tooltip += "\nManual backup failed: " + Time.get_datetime_string_from_system(false, true)
-	tooltip_text = tooltip
+	tooltip_text = "Backup Status\n{0} backup failed: {1}".format([
+		"Auto" if was_auto else "Manual", Time.get_datetime_string_from_system(false, true)
+	])
 	show()
 	hide_timer.start()
