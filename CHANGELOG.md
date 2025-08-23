@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file. (Notable ch
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+### Added
+- Open with handling ([#82](https://github.com/text-forge/text-forge/pull/82))
+- Backup system ([#92](https://github.com/text-forge/text-forge/pull/92))
+
 ## [v0.1-rc1] - 2025-8-19
 
 ### Added
@@ -59,7 +65,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Docs:** `mode_development.md` ([#71](https://github.com/text-forge/text-forge/pull/71))
 - Close mode manager after `edit script` option pressing ([#71](https://github.com/text-forge/text-forge/pull/71))
 - **API:** `Factory.simple_panel` ([#71](https://github.com/text-forge/text-forge/pull/71))
-- Open with handling ([#82](https://github.com/text-forge/text-forge/pull/82))
 
 ### Changed
 

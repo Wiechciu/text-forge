@@ -63,7 +63,7 @@ func signle_line_input(
 
 ## Creates new [FileDialog] based on parameters. If you want change default directory use
 ## [param current_dir], or use [param current_path] to select a file (or dir) as default.[br][br]
-## [b]Note:[/b] When [param current_path] is [code]true[/code], [param current_dir] has no effect.
+## [b]Note:[/b] When [param current_path] isn't [code]""[/code], [param current_dir] has no effect.
 ## Change [param current_path] will set path's parent directory as current directory.
 func file_dialog(
 		file_mode := FileDialog.FILE_MODE_SAVE_FILE, access := FileDialog.ACCESS_FILESYSTEM,

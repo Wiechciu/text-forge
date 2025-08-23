@@ -15,6 +15,8 @@ const MAIN_UI_DATA: String = "res://data/main_ui.ini"
 const TRANSLATION_FILE: String = "res://data/translation.csv"
 ## Saved recent files list.
 const RECENT_FILES_DATA: String = "user://recent_files.txt"
+## Path to backup database.
+const BACKUP_DATABASE: String = "user://backups.ini"
 ## Root folder for saved templates.
 const FOLDER_TEMPLATES: String = "user://templates/"
 ## Root folder for action scripts.
@@ -23,6 +25,8 @@ const FOLDER_ACTION_SCRIPTS: String = "res://action_scripts/"
 const FOLDER_MODES: String = "user://modes/"
 ## Root folder for panels.
 const FOLDER_PANELS: String = "res://data/panels/"
+## Root folder for backups.
+const FOLDER_BACKUPS: String = "user://backups/"
 ## Root folder for extensions.
 const FOLDER_EXTENSIONS: String = "user://extensions/"
 ## Template file path for action script shotcut files.
@@ -43,3 +47,5 @@ const TEMPLATE_MODE_INFO: String = "user://modes/{0}/mode.cfg"
 const TEMPLATE_MODE_SCRIPT: String = "user://modes/{0}/mode.gd"
 ## Template file path for mode icon.
 const TEMPLATE_MODE_ICON: String = "user://modes/{0}/icon.png"
+## Template file path for backup files.
+const TEMPLATE_BACKUP_FILE: String = "user://backups/{0}"
