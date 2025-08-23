@@ -8,8 +8,12 @@ func _ready() -> void:
 	Settings.define_preset("files", "auto_backup_iterval_minutes", 1)
 	Settings.define_preset("files", "keep_backup_for_days", 10)
 	_handle_auto_save()
+	get_window().close_requested.connect(_cleanup_backups)
+
+
+func _cleanup_backups() -> void:
 	remove_old_backups()
-	cleanup_backups()
+	remove_backups_without_refrence()
 
 
 func _handle_auto_save() -> void:
@@ -47,7 +51,7 @@ func restore_backup(code: String, path: String) -> void:
 	Global.send_notification(Global.Notification.INFO, "Backup sucefully restored.")
 
 
-func cleanup_backups() -> void:
+func remove_backups_without_refrence() -> void:
 	var config := ConfigFile.new()
 	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.BACKUP_DATABASE)):
 		config.load(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
