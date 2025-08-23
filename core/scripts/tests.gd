@@ -1,0 +1,12 @@
+extends Node
+
+const DISABLE_ALL := false
+const PERFORMANCE_TEST := true
+
+func _ready() -> void:
+	if not OS.has_feature("editor"):
+		return
+	if DISABLE_ALL:
+		return
+	if PERFORMANCE_TEST:
+		add_child(load("res://tests/performance.gd").new())
