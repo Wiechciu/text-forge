@@ -7,12 +7,11 @@ signal backup_saved(was_auto: bool)
 signal backup_failed(was_auto: bool)
 
 func _ready() -> void:
-	await get_tree().process_frame
+	get_window().close_requested.connect(_cleanup_backups)
 	Settings.define_preset("files", "auto_backup", true)
 	Settings.define_preset("files", "auto_backup_iterval_minutes", 1)
 	Settings.define_preset("files", "keep_backup_for_days", 10)
 	_handle_auto_save()
-	get_window().close_requested.connect(_cleanup_backups)
 
 
 # Cleanups backups
@@ -29,7 +28,7 @@ func _handle_auto_save() -> void:
 	timer.autostart = true
 	timer.wait_time = 60.0 * Settings.get_setting("files", "auto_backup_iterval_minutes")
 	timer.timeout.connect(backup_file.bind(true))
-	add_child(timer)
+	add_child.call_deferred(timer)
 
 
 ## Returns a list of all backups, in this structure:

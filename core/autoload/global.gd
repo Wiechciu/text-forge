@@ -187,3 +187,40 @@ func get_last_file_path() -> String:
 
 func load_resource(path: String) -> Resource:
 	return load(SLib.globalize_path(path))
+
+
+func load_resources_threaded(paths: PackedStringArray, for_each: Callable, after_all := Callable()) -> void:
+	var loader := ThreadedLoader.new()
+	add_child(loader)
+	loader.initialize(paths, for_each, after_all)
+	loader.start()
+
+
+class ThreadedLoader extends Node:
+	var _pending := PackedStringArray()
+	var _for_each: Callable
+	var _after_all: Callable
+	func initialize(paths: PackedStringArray, for_each: Callable, after_all := Callable()) -> void:
+		for p in paths:
+			_pending.append(p)
+		_for_each = for_each
+		_after_all = after_all
+
+	func start() -> void:
+		for p in _pending:
+			ResourceLoader.load_threaded_request(p)
+
+		_monitor_loading()
+
+	func _monitor_loading() -> void:
+		while _pending.size():
+			for path in _pending:
+				var status := ResourceLoader.load_threaded_get_status(path)
+				if status == ResourceLoader.THREAD_LOAD_LOADED:
+					var res := ResourceLoader.load_threaded_get(path)
+					_pending.remove_at(_pending.find(path))
+					_for_each.call(path, res)
+			await get_tree().process_frame
+		if _after_all:
+			_after_all.call()
+		queue_free()

@@ -42,7 +42,6 @@ var enable := true:
 func _enter_tree() -> void:
 	index = menu.get_item_index(id)
 	_initialize()
-	await get_tree().process_frame
 	_load_shortcut()
 	_define_action()
 

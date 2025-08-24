@@ -3,8 +3,6 @@ extends Control
 # official repo: https://github.com/text-forge/text-forge
 ## Root node of main window.
 
-signal post_initialize_finished
-
 ## Available option types in menus.
 enum OptionTypes {
 	## Separator items.
@@ -49,7 +47,6 @@ const MENU_TRANSLATION_PREFIX: String = "menu."
 var recent_files_submenu: PopupMenu
 ## Configurations loaded from [constant FileDatabase.MAIN_UI_DATA].
 var main_menu_data: Dictionary
-var thread := Thread.new()
 
 # This is start point of Text Forge
 func _ready() -> void:
@@ -59,6 +56,7 @@ func _ready() -> void:
 
 	# Connect reload_recent_files request signal
 	Signals.reload_recent_files.connect(_reload_recent_files)
+	Signals.check_options.connect(_post_initialize, CONNECT_ONE_SHOT)
 
 	_handle_settings()
 
@@ -67,17 +65,11 @@ func _ready() -> void:
 	# Load main menu items
 	_load_main_menu()
 
-	post_initialize_finished.connect(thread.wait_to_finish)
-	post_initialize_finished.connect(_finish_initialize)
-	thread.start(_post_initialize)
-
-
-func _post_initialize() -> void:
 	# Load action scripts
 	_load_scripts()
 
 
-func _finish_initialize() -> void:
+func _post_initialize() -> void:
 	_handle_cmdline_arguments()
 
 	_handle_load_last_file()
@@ -260,6 +252,7 @@ func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file
 ## This function will load script for each item in menu, if script doesn't exists will disable the item.
 ## Emits [signal SignalBus.check_option] after load.
 func _load_scripts() -> void:
+	var paths := PackedStringArray()
 	for menu: String in main_menu_data:
 		for item: Dictionary in main_menu_data[menu]:
 			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SEPARATOR: # ignore separators
@@ -273,23 +266,35 @@ func _load_scripts() -> void:
 					item.get("popup").set_item_disabled(item.get("popup").get_item_index(item.get("code", 0)), true)
 				continue
 
-			var script = Global.load_resource(script_path).new()
+			paths.append(script_path)
 
-			# for MultiActionScripts (submenu roots)
-			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SUBMENU:
-				Signals.run_subscript.connect(script.run)
-			# for ActionScripts (regular, checkbox, radio checkbox)
-			else:
-				Signals.run_script.connect(script.run)
+	Global.load_resources_threaded(paths, _connect_script, _all_scripts_loaded)
 
-			Signals.check_options.connect(script._check_option)
 
-			script.id = item.get("code", -1)
-			script.menu = item.get("popup")
-			script.name = item.get("text", "").to_snake_case().replace(".", "")
+func _connect_script(path: String, res: Resource) -> void:
+	var item: Dictionary
+	for menu: String in main_menu_data:
+		for option: Dictionary in main_menu_data[menu]:
+			if FileDatabase.TEMPLATE_ACTION_SCRIPT.format([option.get("text", "").to_snake_case().replace(".", "")]) == path:
+				item = option
+	var script = res.new()
+	# for MultiActionScripts (submenu roots)
+	if item.get("type", OptionTypes.REGULAR) == OptionTypes.SUBMENU:
+		Signals.run_subscript.connect(script.run)
+	# for ActionScripts (regular, checkbox, radio checkbox)
+	else:
+		Signals.run_script.connect(script.run)
 
-			scripts.add_child.call_deferred(script)
+	Signals.check_options.connect(script._check_option)
 
+	script.id = item.get("code", -1)
+	script.menu = item.get("popup")
+	script.name = item.get("text", "").to_snake_case().replace(".", "")
+
+	scripts.add_child.call_deferred(script)
+
+
+func _all_scripts_loaded() -> void:
 	Signals.check_options.emit() # emit signal for first option check
 
 

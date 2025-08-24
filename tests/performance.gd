@@ -11,6 +11,10 @@ func _ready() -> void:
 	Tests.open_started.connect(_monitor_open)
 	Tests.search_started.connect(_monitor_search)
 
+	await Signals.check_options
+
+	print("Action scripts loading (msec): " + str(Time.get_ticks_msec() - end_time))
+
 
 func _monitor_search() -> void:
 	var start_time := Time.get_ticks_msec()
@@ -33,14 +37,10 @@ func _monitor_open() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if not event is InputEventKey:
-		return
-	if not Global.get_editor().has_focus():
+	if not (event is InputEventKey and Global.get_editor().has_focus()):
 		return
 	event = event as InputEventKey
-	if not event.pressed:
-		return
-	if not OS.is_keycode_unicode(event.keycode):
+	if not (event.pressed and OS.is_keycode_unicode(event.keycode)):
 		return
 
 	var start_time := Time.get_ticks_usec()
