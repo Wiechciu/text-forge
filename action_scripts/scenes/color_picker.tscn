@@ -1,12 +1,16 @@
-[gd_scene format=3 uid="uid://bdmubrwerhqgi"]
+[gd_scene load_steps=2 format=3 uid="uid://bdmubrwerhqgi"]
 
-[node name="Window" type="Window"]
+[ext_resource type="Script" uid="uid://cdk5itderltnr" path="res://action_scripts/scenes/color_picker.gd" id="1_aa5xl"]
+
+[node name="Window" type="Window" node_paths=PackedStringArray("color_picker")]
 title = "Color Picker"
 initial_position = 2
 size = Vector2i(300, 600)
 always_on_top = true
 min_size = Vector2i(0, 600)
 keep_title_visible = true
+script = ExtResource("1_aa5xl")
+color_picker = NodePath("ColorPicker")
 
 [node name="ColorPicker" type="ColorPicker" parent="."]
 anchors_preset = 10
@@ -15,4 +19,4 @@ offset_bottom = 582.0
 grow_horizontal = 2
 can_add_swatches = false
 
-[connection signal="close_requested" from="." to="." method="hide"]
+[connection signal="close_requested" from="." to="." method="queue_free"]

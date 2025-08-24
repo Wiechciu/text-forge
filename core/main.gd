@@ -365,7 +365,7 @@ func _reload_recent_files() -> void:
 			if not FileAccess.file_exists(SLib.globalize_path(recent)): # Remove non-existent items
 				continue
 
-			recent_files_submenu.add_item(recent)
+			recent_files_submenu.add_item(recent.replace("\\", "/"))
 
 	# Save recent files (to remove repeated and non-existent items)
 	var recent_files := PackedStringArray()

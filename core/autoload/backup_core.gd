@@ -28,7 +28,7 @@ func _handle_auto_save() -> void:
 	timer.autostart = true
 	timer.wait_time = 60.0 * Settings.get_setting("files", "auto_backup_iterval_minutes")
 	timer.timeout.connect(backup_file.bind(true))
-	add_child.call_deferred(timer)
+	add_child(timer)
 
 
 ## Returns a list of all backups, in this structure:
