@@ -7,4 +7,4 @@ func _check_option_extra() -> bool:
 
 
 func _run_action() -> void:
-	add_child(Global.gload("res://action_scripts/scenes/backups.tscn").instantiate())
+	add_child(Global.load_resource("res://action_scripts/scenes/backups.tscn").instantiate())

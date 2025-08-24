@@ -185,8 +185,8 @@ func _load_panels() -> void:
 			converted = Panels.BOTTOM
 		else: # Also panels with invalid place
 			converted = Panels.LEFT
-		add_panel(converted, Global.gload(FileDatabase.TEMPLATE_PANEL_SCENE.format([panel])).instantiate(),
-				Global.gload(FileDatabase.TEMPLATE_PANEL_ICON.format([panel])))
+		add_panel(converted, Global.load_resource(FileDatabase.TEMPLATE_PANEL_SCENE.format([panel])).instantiate(),
+				Global.load_resource(FileDatabase.TEMPLATE_PANEL_ICON.format([panel])))
 
 
 ## Changes current panel based on selected items. Calls [method _apply_split] if changes [member panels].

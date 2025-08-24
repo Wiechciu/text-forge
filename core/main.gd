@@ -3,6 +3,8 @@ extends Control
 # official repo: https://github.com/text-forge/text-forge
 ## Root node of main window.
 
+signal post_initialize_finished
+
 ## Available option types in menus.
 enum OptionTypes {
 	## Separator items.
@@ -47,6 +49,7 @@ const MENU_TRANSLATION_PREFIX: String = "menu."
 var recent_files_submenu: PopupMenu
 ## Configurations loaded from [constant FileDatabase.MAIN_UI_DATA].
 var main_menu_data: Dictionary
+var thread := Thread.new()
 
 # This is start point of Text Forge
 func _ready() -> void:
@@ -63,9 +66,18 @@ func _ready() -> void:
 	_load_main_menu_data()
 	# Load main menu items
 	_load_main_menu()
+
+	post_initialize_finished.connect(thread.wait_to_finish)
+	post_initialize_finished.connect(_finish_initialize)
+	thread.start(_post_initialize)
+
+
+func _post_initialize() -> void:
 	# Load action scripts
 	_load_scripts()
 
+
+func _finish_initialize() -> void:
 	_handle_cmdline_arguments()
 
 	_handle_load_last_file()
@@ -261,7 +273,7 @@ func _load_scripts() -> void:
 					item.get("popup").set_item_disabled(item.get("popup").get_item_index(item.get("code", 0)), true)
 				continue
 
-			var script = Global.gload(script_path).new()
+			var script = Global.load_resource(script_path).new()
 
 			# for MultiActionScripts (submenu roots)
 			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SUBMENU:
@@ -276,7 +288,7 @@ func _load_scripts() -> void:
 			script.menu = item.get("popup")
 			script.name = item.get("text", "").to_snake_case().replace(".", "")
 
-			scripts.add_child(script)
+			scripts.add_child.call_deferred(script)
 
 	Signals.check_options.emit() # emit signal for first option check
 

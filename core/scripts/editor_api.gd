@@ -53,7 +53,7 @@ func _load_mode_list() -> void:
 		if Array(config.get_section_keys("mode")) != ["name", "description", "author", "version", "extensions"]:
 			damaged_modes[mode_folder] = "Invalid keys"
 			continue
-		if not is_instance_of(Global.gload(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])).new(), TextForgeMode):
+		if not is_instance_of(Global.load_resource(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])).new(), TextForgeMode):
 			damaged_modes[mode_folder] = "Invalid script"
 			continue
 
@@ -349,7 +349,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 	if mode == current_mode:
 		return OK
 
-	var new_mode_script: TextForgeMode = Global.gload(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
+	var new_mode_script: TextForgeMode = Global.load_resource(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
 	if not new_mode_script:
 		return ERR_INVALID_DATA
 
