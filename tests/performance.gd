@@ -20,6 +20,7 @@ func _on_first_frame():
 	var duration := end_time - start_time
 	print("Startup time (msec): ", duration)
 
+
 func _monitor_search() -> void:
 	var start := Time.get_ticks_msec()
 
