@@ -80,7 +80,7 @@ func _check_option_extra() -> bool:
 ## [method _shortcut_input])
 func _load_shortcut() -> void:
 	action_shortcut.events.append(Global.shortcut_map.get_shortcut(name))
-	var key := GlobalAccess.convert_event_to_key(action_shortcut.events[0]) as Key
+	var key: Key = action_shortcut.events[0].get_keycode_with_modifiers()
 	menu.set_item_accelerator(index, key)
 
 

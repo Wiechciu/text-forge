@@ -43,12 +43,6 @@ func _ready() -> void:
 	_file_label = _core.file_label
 
 
-## Converts given [param event] from [InputEventKey] to [enum Key].
-static func convert_event_to_key(event: InputEventKey) -> int:
-	var mask := (int(event.ctrl_pressed) * KEY_MASK_CTRL) | (int(event.alt_pressed) * KEY_MASK_ALT) | (int(event.shift_pressed) * KEY_MASK_SHIFT)
-	return mask | event.keycode
-
-
 ## Returns last window mode but [constant Window.MODE_FULLSCREEN] excluded.[br][br]
 ## [b]Note:[/b] [WindowManager] will exclude [constant Window.MODE_MINIMIZED] itself; See
 ## [WindowManager] for more information.

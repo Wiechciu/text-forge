@@ -77,7 +77,7 @@ func is_enable() -> bool:
 ## [method MultiActionScript._load_shortcut] for other behavior.)
 func _load_shortcut() -> void:
 	action_shortcut = Global.shortcut_map.get_shortcut(name)
-	menu.set_item_accelerator(index, GlobalAccess.convert_event_to_key(action_shortcut))
+	menu.set_item_accelerator(index, action_shortcut.get_keycode_with_modifiers())
 
 
 ## Defines this action as a command for command palettes, this command will be connected to
