@@ -124,10 +124,12 @@ func save_file(file_path: String) -> void:
 					select_menu.add_item(m["name"])
 				select_menu.index_pressed.connect(func(index): mode_selected.emit(index))
 				select_menu.size = Vector2(400, 0)
+				add_child(select_menu)
 				select_menu.popup_centered()
 
 				await mode_selected
 
+				remove_child(select_menu)
 				select_menu.queue_free()
 				mode = compatible_modes[_temp_mode_index]
 				_temp_mode_index = 0
@@ -167,10 +169,12 @@ func load_file(file_path: String) -> void:
 					select_menu.add_item(m["name"])
 				select_menu.index_pressed.connect(func(index): mode_selected.emit(index))
 				select_menu.size = Vector2(400, 0)
+				add_child(select_menu)
 				select_menu.popup_centered()
 
 				await mode_selected
 
+				remove_child(select_menu)
 				select_menu.queue_free()
 				mode = compatible_modes[_temp_mode_index]
 				_temp_mode_index = 0
