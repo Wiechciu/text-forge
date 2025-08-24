@@ -208,7 +208,7 @@ class ThreadedLoader extends Node:
 
 	func start() -> void:
 		for p in _pending:
-			ResourceLoader.load_threaded_request(p)
+			ResourceLoader.load_threaded_request(p, "", true)
 
 		_monitor_loading()
 

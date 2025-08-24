@@ -57,7 +57,6 @@ var data := {
 }
 
 func _ready() -> void:
-	await get_tree().process_frame
 	_load_layout()
 
 	# handle window size changing
