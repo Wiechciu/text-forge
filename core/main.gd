@@ -48,12 +48,14 @@ const MENU_TRANSLATION_PREFIX = "menu."
 var recent_files_submenu: PopupMenu
 ## Configurations loaded from [constant FileDatabase.MAIN_UI_DATA].
 var main_menu_data: Dictionary
+var _translation_data: Dictionary[String, Dictionary]
 
 # This is start point of Text Forge
 func _ready() -> void:
 	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Open file with drag and drop feature
 	get_window().files_dropped.connect(func(files: PackedStringArray): Signals.open_file.emit(files[0]))
+	_translation_data = TFT.cache_source(FileDatabase.TRANSLATION_FILE)
 
 	# Connect reload_recent_files request signal
 	Signals.reload_recent_files.connect(_reload_recent_files)
@@ -177,14 +179,14 @@ func _load_main_menu() -> void:
 		menu_name = menu_name.capitalize()
 
 		# translate name
-		new_menu_button.name = TFT.get_text(MENU_TRANSLATION_PREFIX + menu_name.to_snake_case())
+		new_menu_button.name = TFT.get_text_from_cache(MENU_TRANSLATION_PREFIX + menu_name.to_snake_case(), _translation_data)
 
 		# for each option in current menu
 		for item: Dictionary in current_menu:
 			# set item "popup", see _load_scripts for use case
 			main_menu_data[menu_item][current_menu.find(item)]["popup"] = new_menu_button
 
-			var item_text := TFT.get_text(item.get("key", ""))
+			var item_text := TFT.get_text_from_cache(item.get("key", ""), _translation_data)
 
 			match item.get("type", OptionTypes.REGULAR):
 				OptionTypes.REGULAR:
