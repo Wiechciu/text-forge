@@ -1,4 +1,4 @@
-extends ActionScript
+extends WindowActionScript
 
-func _run_action() -> void:
-	add_child(Global.gload("res://action_scripts/scenes/extensions.tscn").instantiate())
+func _initialize() -> void:
+	window_scene = "res://action_scripts/scenes/extensions.tscn"

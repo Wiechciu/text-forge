@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Open with handling ([#82](https://github.com/text-forge/text-forge/pull/82))
 - Backup system ([#92](https://github.com/text-forge/text-forge/pull/92))
+- Threaded action script loading ([#93](https://github.com/text-forge/text-forge/pull/93))
+
+### Fixed
+- Error for multiple available modes selection ([#93](https://github.com/text-forge/text-forge/pull/93))
 
 ## [v0.1-rc1] - 2025-8-19
 

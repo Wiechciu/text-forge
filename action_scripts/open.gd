@@ -12,6 +12,7 @@ func _run_action() -> void:
 
 
 func _open_file(path: String) -> void:
+	Tests.open_started.emit()
 	if not FileAccess.file_exists(path):
 		Global.send_notification(Global.Notification.ERROR, "Can't find this file!", "")
 		return

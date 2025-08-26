@@ -53,7 +53,7 @@ func _load_mode_list() -> void:
 		if Array(config.get_section_keys("mode")) != ["name", "description", "author", "version", "extensions"]:
 			damaged_modes[mode_folder] = "Invalid keys"
 			continue
-		if not is_instance_of(Global.gload(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])).new(), TextForgeMode):
+		if not is_instance_of(Global.load_resource(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])).new(), TextForgeMode):
 			damaged_modes[mode_folder] = "Invalid script"
 			continue
 
@@ -124,10 +124,12 @@ func save_file(file_path: String) -> void:
 					select_menu.add_item(m["name"])
 				select_menu.index_pressed.connect(func(index): mode_selected.emit(index))
 				select_menu.size = Vector2(400, 0)
+				add_child(select_menu)
 				select_menu.popup_centered()
 
 				await mode_selected
 
+				remove_child(select_menu)
 				select_menu.queue_free()
 				mode = compatible_modes[_temp_mode_index]
 				_temp_mode_index = 0
@@ -167,10 +169,12 @@ func load_file(file_path: String) -> void:
 					select_menu.add_item(m["name"])
 				select_menu.index_pressed.connect(func(index): mode_selected.emit(index))
 				select_menu.size = Vector2(400, 0)
+				add_child(select_menu)
 				select_menu.popup_centered()
 
 				await mode_selected
 
+				remove_child(select_menu)
 				select_menu.queue_free()
 				mode = compatible_modes[_temp_mode_index]
 				_temp_mode_index = 0
@@ -349,7 +353,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 	if mode == current_mode:
 		return OK
 
-	var new_mode_script: TextForgeMode = Global.gload(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
+	var new_mode_script: TextForgeMode = Global.load_resource(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
 	if not new_mode_script:
 		return ERR_INVALID_DATA
 

@@ -13,11 +13,11 @@ func _ready() -> void:
 	tree.create_item()
 	for section in config.get_sections():
 		var scroll := ScrollContainer.new()
-		scroll.add_theme_stylebox_override("panel", Global.gload("res://data/margin_style_box_empty.tres"))
+		scroll.add_theme_stylebox_override("panel", Global.load_resource("res://data/margin_style_box_empty.tres"))
 		var tab := VBoxContainer.new()
 		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		for item in config.get_section_keys(section):
-			var option = Global.gload("res://action_scripts/scenes/setting_option.tscn").instantiate()
+			var option = Global.load_resource("res://action_scripts/scenes/setting_option.tscn").instantiate()
 			option.section = section
 			option.key = item
 			tab.add_child(option)

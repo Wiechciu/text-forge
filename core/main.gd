@@ -16,17 +16,18 @@ enum OptionTypes {
 	## Redio checkbox items.
 	RADIO_CHECKBOX,
 }
-## Section for menu data in config file.
-const DATA_SECTION: String = "main_menu"
-## Suffix for menu keys.
-const MENU_SUFFIX: String = "_menu"
-## Suffix for submenu keys.
-const SUBMENU_SUFFIX: String = "_submenu"
-## Prefix for menu names in translation file.
-const MENU_TRANSLATION_PREFIX: String = "menu."
 
-## [Container] that will keep menu buttons. Menu buttons will be [MenuButton]s.
-@export var menu_container: Container
+## Section for menu data in config file.
+const DATA_SECTION = "main_menu"
+## Suffix for menu keys.
+const MENU_SUFFIX = "_menu"
+## Suffix for submenu keys.
+const SUBMENU_SUFFIX = "_submenu"
+## Prefix for menu names in translation file.
+const MENU_TRANSLATION_PREFIX = "menu."
+
+## [MenuBar] that will keep menu buttons. Menu buttons will be [PopupMenu]s.
+@export var menu_container: MenuBar
 ## This [Label] will be placed above [member editor], its [param text] will be file name and its
 ## [param tooltip] will be file path. See [method GlobalAccess.get_file_name],
 ## [method GlobalAccess.get_file_path], [method GlobalAccess.set_file_name],
@@ -47,15 +48,18 @@ const MENU_TRANSLATION_PREFIX: String = "menu."
 var recent_files_submenu: PopupMenu
 ## Configurations loaded from [constant FileDatabase.MAIN_UI_DATA].
 var main_menu_data: Dictionary
+var _translation_data: Dictionary[String, Dictionary]
 
 # This is start point of Text Forge
 func _ready() -> void:
 	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Open file with drag and drop feature
-	get_window().files_dropped.connect(func(files): Signals.open_file.emit(files[0]))
+	get_window().files_dropped.connect(func(files: PackedStringArray): Signals.open_file.emit(files[0]))
+	_translation_data = TFT.cache_source(FileDatabase.TRANSLATION_FILE)
 
 	# Connect reload_recent_files request signal
 	Signals.reload_recent_files.connect(_reload_recent_files)
+	Signals.check_options.connect(_post_initialize, CONNECT_ONE_SHOT)
 
 	_handle_settings()
 
@@ -63,9 +67,12 @@ func _ready() -> void:
 	_load_main_menu_data()
 	# Load main menu items
 	_load_main_menu()
+
 	# Load action scripts
 	_load_scripts()
 
+
+func _post_initialize() -> void:
 	_handle_cmdline_arguments()
 
 	_handle_load_last_file()
@@ -132,17 +139,17 @@ func _handle_cmdline_arguments() -> void:
 func _handle_load_last_file() -> void:
 	if Global.has_file():
 		return
-	if not(Settings.get_setting("files", "load_last_file_at_start") and Global.get_last_file_path()):
+	if not(Settings.get_setting_bool("files", "load_last_file_at_start") and Global.get_last_file_path() == ""):
 		return
 
-	if Settings.get_setting("files", "ask_before_load_last_file_at_start"):
+	if Settings.get_setting_bool("files", "ask_before_load_last_file_at_start"):
 		add_child(Factory.confirmation_dialog("Do you want to load your last opened file?", "Yes", "No", "Load last file", Callable(), _load_last_file.bind(false), true))
 	else:
 		_load_last_file(true)
 
 func _load_last_file(is_automatic := true) -> void:
 	Signals.open_file.emit(Global.get_last_file_path())
-	if is_automatic and Settings.get_setting("notifications", "automatic_load_last_file_at_start"):
+	if is_automatic and Settings.get_setting_bool("notifications", "automatic_load_last_file_at_start"):
 		Global.send_notification(Global.Notification.INFO, "Your last opened file was loaded!", "You can change this behavior or disable this notification in preferences.")
 
 
@@ -151,7 +158,7 @@ func _load_main_menu_data() -> void:
 	var config := ConfigFile.new()
 	config.load(SLib.globalize_path(FileDatabase.MAIN_UI_DATA))
 	for menu_section: String in config.get_section_keys(DATA_SECTION):
-		main_menu_data[menu_section] = config.get_value(DATA_SECTION, menu_section)
+		main_menu_data[menu_section] = config.get_value(DATA_SECTION, menu_section) as Array
 
 
 ## This function will load data from UI source and generate buttons.
@@ -163,45 +170,46 @@ func _load_main_menu() -> void:
 		if menu_item.ends_with(SUBMENU_SUFFIX):
 			continue # skip next steps for submenu items
 
-		var current_menu: Array = main_menu_data[menu_item]
+		var current_menu: Array = main_menu_data.get(menu_item)
 
 		# create new menu button
-		var new_menu_button := Factory.menu_button(true)
+		var new_menu_button := PopupMenu.new()
 		# english menu name, remove menu suffix and capitalize it
 		var menu_name: String = menu_item.erase(menu_item.rfind(MENU_SUFFIX), MENU_SUFFIX.length())
 		menu_name = menu_name.capitalize()
 
 		# translate name
-		new_menu_button.text = TFT.get_text(MENU_TRANSLATION_PREFIX + menu_name.to_snake_case())
+		new_menu_button.name = TFT.get_text_from_cache(MENU_TRANSLATION_PREFIX + menu_name.to_snake_case(), _translation_data)
 
 		# for each option in current menu
 		for item: Dictionary in current_menu:
 			# set item "popup", see _load_scripts for use case
-			main_menu_data[menu_item][current_menu.find(item)]["popup"] = new_menu_button.get_popup()
+			main_menu_data[menu_item][current_menu.find(item)]["popup"] = new_menu_button
 
-			var item_text := TFT.get_text(item.get("key", ""))
+			var item_text := TFT.get_text_from_cache(item.get("key", ""), _translation_data)
 
 			match item.get("type", OptionTypes.REGULAR):
 				OptionTypes.REGULAR:
-					new_menu_button.get_popup().add_item(item_text, item.get("code", -1))
+					new_menu_button.add_item(item_text, item.get("code", -1))
 				OptionTypes.SUBMENU:
 					_create_submenu(new_menu_button, item, config)
 				OptionTypes.SEPARATOR:
-					new_menu_button.get_popup().add_separator(item_text)
+					new_menu_button.add_separator(item_text)
 				OptionTypes.CHECKBOX:
-					new_menu_button.get_popup().add_check_item(item_text, item.get("code", -1))
+					new_menu_button.add_check_item(item_text, item.get("code", -1))
 				OptionTypes.RADIO_CHECKBOX:
-					new_menu_button.get_popup().add_radio_check_item(item_text, item.get("code", -1))
+					new_menu_button.add_radio_check_item(item_text, item.get("code", -1))
 
 		# connect menu to handle state function
-		new_menu_button.get_popup().id_pressed.connect(_handle_menu_option_state.bind(new_menu_button.get_popup()))
+		new_menu_button.id_pressed.connect(_handle_menu_option_state.bind(new_menu_button))
 
 		# add menu to menus
 		menu_container.add_child(new_menu_button)
+	get_window().min_size.x = menu_container.get_combined_minimum_size().x + 10
 
 
 ## Creates a submenu in [param root_menu] based on [param root_option] data and [param config_file].
-func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file: ConfigFile) -> void:
+func _create_submenu(root_menu: PopupMenu, root_option: Dictionary, config_file: ConfigFile) -> void:
 	var submenu := PopupMenu.new()
 	match root_option.get("text", ""):
 		"Recent Files": # needs special action
@@ -239,15 +247,16 @@ func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file
 	if not submenu.id_pressed.is_connected(_handle_menu_option_state):
 		submenu.id_pressed.connect(_handle_menu_option_state.bind(submenu, root_option.get("text", "")))
 	# add submenu
-	root_menu.get_popup().add_submenu_node_item(TFT.get_text(root_option.get("key", "")), submenu, root_option.get("code", -1))
+	root_menu.add_submenu_node_item(TFT.get_text(root_option.get("key", "")), submenu, root_option.get("code", -1))
 	# disable empty submenus
 	if submenu.item_count == 0:
-		root_menu.get_popup().set_item_disabled(-1, true)
+		root_menu.set_item_disabled(-1, true)
 
 
 ## This function will load script for each item in menu, if script doesn't exists will disable the item.
 ## Emits [signal SignalBus.check_option] after load.
 func _load_scripts() -> void:
+	var paths := PackedStringArray()
 	for menu: String in main_menu_data:
 		for item: Dictionary in main_menu_data[menu]:
 			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SEPARATOR: # ignore separators
@@ -261,23 +270,35 @@ func _load_scripts() -> void:
 					item.get("popup").set_item_disabled(item.get("popup").get_item_index(item.get("code", 0)), true)
 				continue
 
-			var script = Global.gload(script_path).new()
+			paths.append(script_path)
 
-			# for MultiActionScripts (submenu roots)
-			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SUBMENU:
-				Signals.run_subscript.connect(script.run)
-			# for ActionScripts (regular, checkbox, radio checkbox)
-			else:
-				Signals.run_script.connect(script.run)
+	Global.load_resources_threaded(paths, _connect_script, _all_scripts_loaded)
 
-			Signals.check_options.connect(script._check_option)
 
-			script.id = item.get("code", -1)
-			script.menu = item.get("popup")
-			script.name = item.get("text", "").to_snake_case().replace(".", "")
+func _connect_script(path: String, res: Resource) -> void:
+	var item: Dictionary
+	for menu: String in main_menu_data:
+		for option: Dictionary in main_menu_data[menu]:
+			if FileDatabase.TEMPLATE_ACTION_SCRIPT.format([option.get("text", "").to_snake_case().replace(".", "")]) == path:
+				item = option
+	var script = res.new()
+	# for MultiActionScripts (submenu roots)
+	if item.get("type", OptionTypes.REGULAR) == OptionTypes.SUBMENU:
+		Signals.run_subscript.connect(script.run)
+	# for ActionScripts (regular, checkbox, radio checkbox)
+	else:
+		Signals.run_script.connect(script.run)
 
-			scripts.add_child(script)
+	Signals.check_options.connect(script._check_option)
 
+	script.id = item.get("code", -1)
+	script.menu = item.get("popup")
+	script.name = item.get("text", "").to_snake_case().replace(".", "")
+
+	scripts.add_child.call_deferred(script)
+
+
+func _all_scripts_loaded() -> void:
 	Signals.check_options.emit() # emit signal for first option check
 
 
@@ -348,7 +369,7 @@ func _reload_recent_files() -> void:
 			if not FileAccess.file_exists(SLib.globalize_path(recent)): # Remove non-existent items
 				continue
 
-			recent_files_submenu.add_item(recent)
+			recent_files_submenu.add_item(recent.replace("\\", "/"))
 
 	# Save recent files (to remove repeated and non-existent items)
 	var recent_files := PackedStringArray()
