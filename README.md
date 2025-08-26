@@ -6,22 +6,20 @@ Extensible and modular code editor with Godot 4.4
 
 ---
 
-Text Forge is a versatile code editor designed for users who value flexibility and control. It is a lightweight application, ensuring it doesn't consume excessive system resources, while also being highly extensible, allowing users to add new functionalities and adapt it to their specific needs. The editor's mode-driven design provides a structured approach to text editing, enhancing workflow and organization. Text Forge stands out with its extensive customization options, enabling users to tailor the editor's appearance and behavior to their preferences. Scriptability is another key feature, empowering users to automate tasks and create custom workflows through highly simple GDScript scripting language. Being language-agnostic, Text Forge seamlessly handles any text format or programming language, making it a universal tool for various editing tasks. Its data-driven architecture and object-oriented design are central to its adaptability, allowing the creation of custom code editors and functionalities without requiring modifications to the core source code. The editor's key features include its lightweight nature, its extensible architecture, its customizable interface and functionality, its scriptable automation capabilities, its language-agnostic compatibility, its data-driven design principles, its object-oriented structure, and its plug-and-play component system, enabling easy integration of new features.
+## Overview
 
-Text Forge's structured core offers many ways to enhance your programming environment. Plug in desired modules to expand functionality and create a fast and complete workspace!
+**Text Forge** is a lightweight, modular code editor designed for flexibility and control. Its mode-driven design, customizable interface, and support for GDScript scripting make it easy to create a personalized editing environment.
+
+Language-agnostic and suitable for any text format, Text Forge features a data-driven, object-oriented architecture. Its plug-and-play system lets you extend functionality without touching the core.
 
 ![auto-formatter-after.png](docs/img/auto-formatter-after.png)
  ^ Text Forge screenshot: HTML mode, Find & Replace panel. Auto-formatted HTML (from [input](docs/img/auto-formatter-before.png)).
 
 > [!Note]
-> This project currently is in development state, **feel free to contribute in any way you like**. Text Forge is an 
-> open-source project, so you can use it **for free**,  **forever**, **for anything**, just share what you think about 
-> Text Forge with us!
+> This project currently is in development state, **feel free to contribute in any way you like**.
 
 > [!Important]
-> Text Forge is currently receiving constant updates, most of which include minor incompatibilities with previous versions. Therefore, **it is recommended to delete the application's data folder and its installed content before updating to the new version.**
-> 
-> This will continue **until 1.0-alpha1** (the first version compatible with official versioning).
+> Text Forge is receiving frequent updates that may break compatibility with previous versions. Until **1.0-alpha1**, it's recommended to delete the app’s data folder before updating. 
 
 ## 👀 New to Text Forge? Start from [Text Forge Introduction](https://text-forge.github.io/docs/introduction/)
 
@@ -35,7 +33,7 @@ Text Forge's structured core offers many ways to enhance your programming enviro
 
 ## 📜 The documentation is available online [here](https://text-forge.github.io/docs)
 
-> Text Forge documentation source is available in `docs/`folder in this repository.
+> Text Forge documentation source is available in the `docs/` folder in this repository.
 
 ## 🤍 Contributing
 
@@ -49,11 +47,11 @@ All contributions welcome! We have a lot of source and guides for contributing:
 
 If you are unsure about your contribution, you can always get help at [discussions](https://github.com/text-forge/text-forge/discussions)!
 
-Also, you can make modes, action scripts, themes, packages, etc. to improve and customize Text Forge without touch the core. Add `text-forge` tag to your module repo to help others find your work.
+Also, you can make modes, action scripts, themes, extensions, etc. to improve and customize Text Forge without touching the core. Add `text-forge` tag to your module repo to help others find your work.
 
 ## 🔐 License & Credit
 
-MIT 2025 Mahan Khalili and contributors. See more information in [LICENSE](https://github.com/text-forge/text-forge?tab=MIT-1-ov-file) file.
+MIT 2025 Mahan Khalili and contributors. See full details in the [LICENSE](https://github.com/text-forge/text-forge?tab=MIT-1-ov-file) file.
 
 ## Maintainers
 
@@ -67,10 +65,10 @@ You can get help from this list (or be one of them):
 ## Resources & Useful Links
 
 - [Discussions](https://github.com/text-forge/text-forge/discussions) - a place to connect with other members of our community and talk about anything
-- [Issues](https://github.com/text-forge/text-forge/issues) - share ideas, features requests, bugs and help others to develope project
+- [Issues](https://github.com/text-forge/text-forge/issues) - share ideas, features requests, bugs and help others to develop the project
 - [Online Docs](https://text-forge.github.io/docs/) - guides for anything about Text Forge
 - [Project Wiki](https://github.com/text-forge/text-forge/wiki) - practical guides, examples, and community-driven notes
-- [Mode Library](https://github.com/text-forge/mode-library) - fast & lighweight modules to work with any language
-- [Mode Support Status](https://github.com/text-forge/mode-library#mode-support-status) - find available and work in progress modes
+- [Mode Library](https://github.com/text-forge/mode-library) - fast & lightweight modules to work with any language
+- [Mode Support Status](https://github.com/text-forge/mode-library#mode-support-status) - find available and work-in-progress modes
 
 Core concept crafted by Mahan Khalili, with an eye toward modularity, control, and clarity.
