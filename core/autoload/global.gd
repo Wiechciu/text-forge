@@ -13,7 +13,7 @@ enum Notification {
 }
 
 ## Main window manager with restore window state. See [WindowManager] for more information.
-static var window_manager := WindowManager.new()
+var window_manager := WindowManager.new()
 ## Keeps list of damaged mode IDs and reasons.
 var damaged_modes: Dictionary[String, String] = {}
 ## Keeps map to shortcuts for action scripts.
@@ -26,21 +26,20 @@ var shortcut_map: ShortcutMap
 ## See [method define_command] for more information.
 var commands: Dictionary[String, Array] = {}:
 	get = get_command_list
-
 ## Keeps temprory nodes for catch or transfer.
 var temprory_children: Dictionary[String, Node] = {}
-
 var _core: Core
 var _editor: Editor
 var _file_label: Label
 
 # Initializing function
 func _ready() -> void:
-	shortcut_map = load_resource("res://data/shortcuts.tres")
+	shortcut_map = load_resource("res://data/shortcuts.tres") as ShortcutMap
 	add_child(window_manager)
-	_core = get_node("/root/Main")
-	_editor = _core.editor
-	_file_label = _core.file_label
+	if has_node("/root/Main"):
+		_core = get_node("/root/Main") as Core
+		_editor = _core.editor
+		_file_label = _core.file_label
 
 
 ## Returns last window mode but [constant Window.MODE_FULLSCREEN] excluded.[br][br]
@@ -92,7 +91,7 @@ func get_editor_text() -> String:
 ## containes line/column changing (for example line merging) you can set it to [code]false[/code]
 ## and do caret restoring yourself.
 func set_editor_text(text: String, keep_carets: bool = true) -> void:
-	var carets: Array[Array] = []
+	var carets: Array[Selection] = []
 	if keep_carets:
 		for index in _editor.get_caret_count():
 			var origin := Vector2i(_editor.get_selection_origin_line(index), _editor.get_selection_origin_column(index))
@@ -100,11 +99,11 @@ func set_editor_text(text: String, keep_carets: bool = true) -> void:
 			carets.append([origin, caret])
 	_editor.text = text
 	if keep_carets:
-		for idx in carets.size():
-			var selection: Array = carets[idx]
+		for idx: int in carets.size():
+			var selection := carets[idx] as Selection
 			if idx >= _editor.get_caret_count():
 				_editor.add_caret(0, 0)
-			_editor.select(selection[0].x, selection[0].y, selection[1].x, selection[1].y, idx)
+			_editor.select(selection.o.x, selection.o.y, selection.c.x, selection.c.y, idx)
 
 
 ## Will disable the editor if [param disabled] is [code]true[/code].
@@ -131,7 +130,7 @@ func get_scripts_node() -> Control:
 ## Returns [EditorAPI] node, this is first child of [Editor] node after internal childs. See
 ## [EditorAPI] for more information.
 func get_editor_api() -> EditorAPI:
-	return _editor.get_child(0)
+	return _editor.get_child(0) as EditorAPI
 
 
 ## Return [PanelManager] node, this is a container with all panels, tabs, and [Editor]. See
@@ -170,7 +169,7 @@ func get_last_file_path() -> String:
 	if not FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
 		return ""
 	var file_access = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
-	var recent_files_list = file_access.get_as_text().split("\n", false)
+	var recent_files_list := file_access.get_as_text().split("\n", false)
 	file_access.close()
 
 	if recent_files_list:
@@ -179,10 +178,13 @@ func get_last_file_path() -> String:
 	return ""
 
 
+## Loads a resource with globalizing [param path].
 func load_resource(path: String) -> Resource:
-	return load(SLib.globalize_path(path))
+	return ResourceLoader.load(SLib.globalize_path(path))
 
 
+## Creates a new [GlobalAccess.ThreadedLoader] node and pass arguments to it. Calls [method GlobalAccess.ThreadedLoader.initialize]
+## and [method GlobalAccess.ThreadedLoader.start] after add loader to tree.
 func load_resources_threaded(paths: PackedStringArray, for_each: Callable, after_all := Callable()) -> void:
 	var loader := ThreadedLoader.new()
 	add_child(loader)
@@ -190,10 +192,19 @@ func load_resources_threaded(paths: PackedStringArray, for_each: Callable, after
 	loader.start()
 
 
+## Threaded resource loader for multiple resources.
+##
+## This class will request threaded loading for all given resources and handle loaded resources in
+## loading order, so resource that was loaded faster will handle before others.
 class ThreadedLoader extends Node:
 	var _pending := PackedStringArray()
 	var _for_each: Callable
 	var _after_all: Callable
+	## Initializes threaded loader for given [param paths], you can do this multiple times to add
+	## all files you need, but each time will overwrite [param for_each] and [param after_all] values.[br]
+	## [param for_each]: a [Callable] wich will be called for each loader with [code]resource_path, loaded_resource[/code]
+	## parameters as [String] and [Resource]. Use this to use loaded resource.
+	## [param
 	func initialize(paths: PackedStringArray, for_each: Callable, after_all := Callable()) -> void:
 		for p in paths:
 			_pending.append(p)

@@ -257,7 +257,7 @@ theme_override_font_sizes/font_size = 14
 text = "Current Mode: None"
 script = ExtResource("5_kagtj")
 
-[node name="ModuleProfiler" type="MenuButton" parent="Margin/Sections/HBoxContainer"]
+[node name="ModuleProfiler" type="MenuButton" parent="Margin/Sections/HBoxContainer" node_paths=PackedStringArray("modulate_timer")]
 layout_mode = 2
 size_flags_horizontal = 8
 tooltip_text = "Module Profiler
@@ -269,10 +269,15 @@ item_count = 1
 popup/item_0/text = "Reload"
 popup/item_0/id = 0
 script = ExtResource("5_xa854")
+modulate_timer = NodePath("Timer2")
 
 [node name="Timer" type="Timer" parent="Margin/Sections/HBoxContainer/ModuleProfiler"]
 wait_time = 5.0
 autostart = true
+
+[node name="Timer2" type="Timer" parent="Margin/Sections/HBoxContainer/ModuleProfiler"]
+wait_time = 0.2
+one_shot = true
 
 [node name="Scripts" type="Control" parent="."]
 layout_mode = 1
@@ -377,4 +382,5 @@ bbcode_enabled = true
 [connection signal="text_changed" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="." method="_on_editor_text_changed"]
 [connection signal="text_changed" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" method="_on_text_changed"]
 [connection signal="timeout" from="Margin/Sections/HBoxContainer/ModuleProfiler/Timer" to="Margin/Sections/HBoxContainer/ModuleProfiler" method="_refresh"]
+[connection signal="timeout" from="Margin/Sections/HBoxContainer/ModuleProfiler/Timer2" to="Margin/Sections/HBoxContainer/ModuleProfiler" method="_on_timer_2_timeout"]
 [connection signal="close_requested" from="About" to="About" method="hide"]

@@ -16,14 +16,15 @@ enum OptionTypes {
 	## Redio checkbox items.
 	RADIO_CHECKBOX,
 }
+
 ## Section for menu data in config file.
-const DATA_SECTION: String = "main_menu"
+const DATA_SECTION = "main_menu"
 ## Suffix for menu keys.
-const MENU_SUFFIX: String = "_menu"
+const MENU_SUFFIX = "_menu"
 ## Suffix for submenu keys.
-const SUBMENU_SUFFIX: String = "_submenu"
+const SUBMENU_SUFFIX = "_submenu"
 ## Prefix for menu names in translation file.
-const MENU_TRANSLATION_PREFIX: String = "menu."
+const MENU_TRANSLATION_PREFIX = "menu."
 
 ## [Container] that will keep menu buttons. Menu buttons will be [MenuButton]s.
 @export var menu_container: Container
@@ -52,7 +53,7 @@ var main_menu_data: Dictionary
 func _ready() -> void:
 	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Open file with drag and drop feature
-	get_window().files_dropped.connect(func(files): Signals.open_file.emit(files[0]))
+	get_window().files_dropped.connect(func(files: PackedStringArray): Signals.open_file.emit(files[0]))
 
 	# Connect reload_recent_files request signal
 	Signals.reload_recent_files.connect(_reload_recent_files)
@@ -136,17 +137,17 @@ func _handle_cmdline_arguments() -> void:
 func _handle_load_last_file() -> void:
 	if Global.has_file():
 		return
-	if not(Settings.get_setting("files", "load_last_file_at_start") and Global.get_last_file_path()):
+	if not(Settings.get_setting_bool("files", "load_last_file_at_start") and Global.get_last_file_path() == ""):
 		return
 
-	if Settings.get_setting("files", "ask_before_load_last_file_at_start"):
+	if Settings.get_setting_bool("files", "ask_before_load_last_file_at_start"):
 		add_child(Factory.confirmation_dialog("Do you want to load your last opened file?", "Yes", "No", "Load last file", Callable(), _load_last_file.bind(false), true))
 	else:
 		_load_last_file(true)
 
 func _load_last_file(is_automatic := true) -> void:
 	Signals.open_file.emit(Global.get_last_file_path())
-	if is_automatic and Settings.get_setting("notifications", "automatic_load_last_file_at_start"):
+	if is_automatic and Settings.get_setting_bool("notifications", "automatic_load_last_file_at_start"):
 		Global.send_notification(Global.Notification.INFO, "Your last opened file was loaded!", "You can change this behavior or disable this notification in preferences.")
 
 
@@ -155,7 +156,7 @@ func _load_main_menu_data() -> void:
 	var config := ConfigFile.new()
 	config.load(SLib.globalize_path(FileDatabase.MAIN_UI_DATA))
 	for menu_section: String in config.get_section_keys(DATA_SECTION):
-		main_menu_data[menu_section] = config.get_value(DATA_SECTION, menu_section)
+		main_menu_data[menu_section] = config.get_value(DATA_SECTION, menu_section) as Array
 
 
 ## This function will load data from UI source and generate buttons.
@@ -167,7 +168,7 @@ func _load_main_menu() -> void:
 		if menu_item.ends_with(SUBMENU_SUFFIX):
 			continue # skip next steps for submenu items
 
-		var current_menu: Array = main_menu_data[menu_item]
+		var current_menu: Array = main_menu_data.get(menu_item)
 
 		# create new menu button
 		var new_menu_button := Factory.menu_button(true)

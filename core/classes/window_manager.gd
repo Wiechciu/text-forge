@@ -7,13 +7,13 @@ extends Node
 ## [url=https://gist.github.com/danijmn/75f83973315dd38fc2b288cf2ff582ea]this gist[/url].
 
 ## The section within the ConfigFile where the window settings will be saved.
-const WINDOW_SECTION_ID: String = "window"
+const WINDOW_SECTION_ID = "window"
 
-## Holds last mode except [constant Window.MODE_MINIMIZED]. This will be used for restore mode.
-var _last_mode_except_minimized: Window.Mode
 ## Holds last mode except [constant Window.MODE_FULLSCREEN]. This will be used for back from
 ## fullscreen mode.
 var last_mode_except_fullscreen: Window.Mode
+## Holds last mode except [constant Window.MODE_MINIMIZED]. This will be used for restore mode.
+var _last_mode_except_minimized: Window.Mode
 
 ## Main window root node.
 @onready var _window: Window = get_window()

@@ -63,6 +63,11 @@ func get_setting(section: String, key: String, default: Variant = null) -> Varia
 	return setting.get_value(section, key, default)
 
 
+## Same as [method get_setting] but just for [bool] values. (for static typing)
+func get_setting_bool(section: String, key: String, default: Variant = null) -> bool:
+	return bool(get_setting(section, key, default))
+
+
 ## Sets default value for given setting, see also [method get_default].
 func restore_default(section: String, key: String) -> void:
 	set_setting(section, key, get_default(section, key))
