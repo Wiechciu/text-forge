@@ -35,7 +35,8 @@ var _file_label: Label
 # Initializing function
 func _ready() -> void:
 	shortcut_map = load_resource("res://data/shortcuts.tres") as ShortcutMap
-	add_child(window_manager)
+	window_manager._window = get_window()
+	window_manager._ready()
 	if has_node("/root/Main"):
 		_core = get_node("/root/Main") as Core
 		_editor = _core.editor
@@ -94,9 +95,10 @@ func set_editor_text(text: String, keep_carets: bool = true) -> void:
 	var carets: Array[Selection] = []
 	if keep_carets:
 		for index in _editor.get_caret_count():
-			var origin := Vector2i(_editor.get_selection_origin_line(index), _editor.get_selection_origin_column(index))
-			var caret := Vector2i(_editor.get_caret_line(index), _editor.get_caret_column(index))
-			carets.append([origin, caret])
+			var selection := Selection.new()
+			selection.o = Vector2i(_editor.get_selection_origin_line(index), _editor.get_selection_origin_column(index))
+			selection.c = Vector2i(_editor.get_caret_line(index), _editor.get_caret_column(index))
+			carets.append(selection)
 	_editor.text = text
 	if keep_carets:
 		for idx: int in carets.size():
@@ -229,3 +231,92 @@ class ThreadedLoader extends Node:
 		if _after_all:
 			_after_all.call()
 		queue_free()
+
+
+class WindowManager:
+	## Window manager to restore window position, size, and mode.
+	##
+	## This is base class for instance in [member GlobalAccess.window_manager]. It can save and load
+	## last position, size and mode. inspired by:
+	## [url=https://gist.github.com/danijmn/75f83973315dd38fc2b288cf2ff582ea]this gist[/url].
+
+	## The section within the ConfigFile where the window settings will be saved.
+	const WINDOW_SECTION_ID = "window"
+
+	## Holds last mode except [constant Window.MODE_FULLSCREEN]. This will be used for back from
+	## fullscreen mode.
+	var last_mode_except_fullscreen: Window.Mode
+	## Holds last mode except [constant Window.MODE_MINIMIZED]. This will be used for restore mode.
+	var _last_mode_except_minimized: Window.Mode
+
+	## Main window root node.
+	var _window: Window
+
+	func _ready() -> void:
+		if Engine.is_embedded_in_editor():
+			return
+
+		_window.close_requested.connect(_save_window_settings)
+
+		_load_window_settings()
+		if _window.mode != Window.MODE_MINIMIZED:
+			_last_mode_except_minimized = _window.mode
+			if _window.mode != Window.MODE_FULLSCREEN:
+				last_mode_except_fullscreen = _window.mode
+
+
+	func _process(_delta: float) -> void:
+		if Engine.is_embedded_in_editor():
+			return
+
+		if _window.mode != Window.MODE_MINIMIZED:
+			_last_mode_except_minimized = _window.mode
+			if _window.mode != Window.MODE_FULLSCREEN:
+				last_mode_except_fullscreen = _window.mode
+
+
+	func _load_window_settings() -> void:
+		if Engine.is_embedded_in_editor():
+			return
+
+		if not Settings.config.has_section(WINDOW_SECTION_ID):
+			return
+
+		var screen = Settings.read_data(WINDOW_SECTION_ID, "screen", "N/A")
+		if screen is int and screen >= 0 and screen < DisplayServer.get_screen_count():
+			_window.current_screen = screen
+
+		var mode = Settings.read_data(WINDOW_SECTION_ID, "mode", "N/A")
+		if mode is Window.Mode:
+			match mode:
+				Window.MODE_MAXIMIZED, Window.MODE_FULLSCREEN, Window.MODE_EXCLUSIVE_FULLSCREEN:
+					_window.mode = mode
+				Window.MODE_WINDOWED:
+					var usable_rect: Rect2i = DisplayServer.screen_get_usable_rect(_window.current_screen)
+					var size = Settings.read_data(WINDOW_SECTION_ID, "size", "N/A")
+					if size is not Vector2i or size.x < _window.min_size.x or size.y < _window.min_size.y:
+						_window.mode = Window.MODE_WINDOWED
+					elif size.x > usable_rect.size.x and size.y > usable_rect.size.y:
+						_window.mode = Window.MODE_MAXIMIZED
+					else:
+						_window.mode = Window.MODE_WINDOWED
+						var position = Settings.read_data(WINDOW_SECTION_ID, "position", "N/A")
+						if position is Vector2i:
+							var safe_end: Vector2i = usable_rect.end.min(position + size)
+							var safe_position: Vector2i = usable_rect.position.max(safe_end - size)
+							var safe_size: Vector2i = _window.min_size.max(safe_end - safe_position)
+							_window.position = safe_position
+							_window.size = safe_size
+
+
+	func _save_window_settings() -> void:
+		if Engine.is_embedded_in_editor():
+			return
+
+		Settings.write_data(WINDOW_SECTION_ID, "screen", _window.current_screen)
+		if _window.mode != Window.MODE_MINIMIZED:
+			Settings.write_data(WINDOW_SECTION_ID, "mode", _window.mode)
+		else:
+			Settings.write_data(WINDOW_SECTION_ID, "mode", _last_mode_except_minimized)
+		Settings.write_data(WINDOW_SECTION_ID, "size", _window.size)
+		Settings.write_data(WINDOW_SECTION_ID, "position", _window.position)

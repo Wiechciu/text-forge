@@ -49,9 +49,9 @@ func _node_to_popup_menu_tree(node: Node) -> PopupMenu:
 func _update_count() -> void:
 	text = str(count) + " Module" + ("s" if count > 1 else "")
 	if _old_count > count:
-		modulate = Color.GREEN_YELLOW
+		modulate = Color.SPRING_GREEN
 	if _old_count < count:
-		modulate = Color.YELLOW
+		modulate = Color.ORANGE
 	if count != _old_count:
 		modulate_timer.start()
 

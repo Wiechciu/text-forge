@@ -26,8 +26,8 @@ const SUBMENU_SUFFIX = "_submenu"
 ## Prefix for menu names in translation file.
 const MENU_TRANSLATION_PREFIX = "menu."
 
-## [Container] that will keep menu buttons. Menu buttons will be [MenuButton]s.
-@export var menu_container: Container
+## [MenuBar] that will keep menu buttons. Menu buttons will be [PopupMenu]s.
+@export var menu_container: MenuBar
 ## This [Label] will be placed above [member editor], its [param text] will be file name and its
 ## [param tooltip] will be file path. See [method GlobalAccess.get_file_name],
 ## [method GlobalAccess.get_file_path], [method GlobalAccess.set_file_name],
@@ -171,42 +171,43 @@ func _load_main_menu() -> void:
 		var current_menu: Array = main_menu_data.get(menu_item)
 
 		# create new menu button
-		var new_menu_button := Factory.menu_button(true)
+		var new_menu_button := PopupMenu.new()
 		# english menu name, remove menu suffix and capitalize it
 		var menu_name: String = menu_item.erase(menu_item.rfind(MENU_SUFFIX), MENU_SUFFIX.length())
 		menu_name = menu_name.capitalize()
 
 		# translate name
-		new_menu_button.text = TFT.get_text(MENU_TRANSLATION_PREFIX + menu_name.to_snake_case())
+		new_menu_button.name = TFT.get_text(MENU_TRANSLATION_PREFIX + menu_name.to_snake_case())
 
 		# for each option in current menu
 		for item: Dictionary in current_menu:
 			# set item "popup", see _load_scripts for use case
-			main_menu_data[menu_item][current_menu.find(item)]["popup"] = new_menu_button.get_popup()
+			main_menu_data[menu_item][current_menu.find(item)]["popup"] = new_menu_button
 
 			var item_text := TFT.get_text(item.get("key", ""))
 
 			match item.get("type", OptionTypes.REGULAR):
 				OptionTypes.REGULAR:
-					new_menu_button.get_popup().add_item(item_text, item.get("code", -1))
+					new_menu_button.add_item(item_text, item.get("code", -1))
 				OptionTypes.SUBMENU:
 					_create_submenu(new_menu_button, item, config)
 				OptionTypes.SEPARATOR:
-					new_menu_button.get_popup().add_separator(item_text)
+					new_menu_button.add_separator(item_text)
 				OptionTypes.CHECKBOX:
-					new_menu_button.get_popup().add_check_item(item_text, item.get("code", -1))
+					new_menu_button.add_check_item(item_text, item.get("code", -1))
 				OptionTypes.RADIO_CHECKBOX:
-					new_menu_button.get_popup().add_radio_check_item(item_text, item.get("code", -1))
+					new_menu_button.add_radio_check_item(item_text, item.get("code", -1))
 
 		# connect menu to handle state function
-		new_menu_button.get_popup().id_pressed.connect(_handle_menu_option_state.bind(new_menu_button.get_popup()))
+		new_menu_button.id_pressed.connect(_handle_menu_option_state.bind(new_menu_button))
 
 		# add menu to menus
 		menu_container.add_child(new_menu_button)
+	get_window().min_size.x = menu_container.get_combined_minimum_size().x + 10
 
 
 ## Creates a submenu in [param root_menu] based on [param root_option] data and [param config_file].
-func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file: ConfigFile) -> void:
+func _create_submenu(root_menu: PopupMenu, root_option: Dictionary, config_file: ConfigFile) -> void:
 	var submenu := PopupMenu.new()
 	match root_option.get("text", ""):
 		"Recent Files": # needs special action
@@ -244,10 +245,10 @@ func _create_submenu(root_menu: MenuButton, root_option: Dictionary, config_file
 	if not submenu.id_pressed.is_connected(_handle_menu_option_state):
 		submenu.id_pressed.connect(_handle_menu_option_state.bind(submenu, root_option.get("text", "")))
 	# add submenu
-	root_menu.get_popup().add_submenu_node_item(TFT.get_text(root_option.get("key", "")), submenu, root_option.get("code", -1))
+	root_menu.add_submenu_node_item(TFT.get_text(root_option.get("key", "")), submenu, root_option.get("code", -1))
 	# disable empty submenus
 	if submenu.item_count == 0:
-		root_menu.get_popup().set_item_disabled(-1, true)
+		root_menu.set_item_disabled(-1, true)
 
 
 ## This function will load script for each item in menu, if script doesn't exists will disable the item.

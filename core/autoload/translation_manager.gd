@@ -69,7 +69,7 @@ func get_text(key: String, source_file: String = "default") -> String:
 		return ""
 
 	if not FileAccess.file_exists(SLib.globalize_path(source_file)):
-		Signals.notification.emit(Global.Notification.ERROR, "Can't load translation data", "File {0} doesn't exitsts!".format([source_file]))
+		print("Can't load translation data\nFile {0} doesn't exitsts!".format([source_file]))
 		return key
 
 	var file := FileAccess.open(SLib.globalize_path(source_file), FileAccess.READ)
@@ -77,11 +77,11 @@ func get_text(key: String, source_file: String = "default") -> String:
 	var lang
 	if not column_names.has(language):
 		if not column_names.has(fallback):
-			Signals.notification.emit(Global.Notification.ERROR, "Invalid language code!", "Language {0} doesn't exitst in {1}, usign fallback language ({2}) failed.".format([language, source_file, fallback]))
+			print("Invalid language code!\nLanguage {0} doesn't exitst in {1}, usign fallback language ({2}) failed.".format([language, source_file, fallback]))
 			file.close()
 			return key
 		else:
-			Signals.notification.emit(Global.Notification.WARNING, "Translation fallback to {0}".format([fallback]), "Can't find language {0} in translation source: {1}, using fallback language".format([language, source_file]))
+			print("Translation fallback to {0}".format([fallback]), "\n", "Can't find language {0} in translation source: {1}, using fallback language".format([language, source_file]))
 			lang = fallback
 	else:
 		lang = language
@@ -93,7 +93,7 @@ func get_text(key: String, source_file: String = "default") -> String:
 			if line.size() == 1:
 				return line[0]
 			return line[index] if line.size() > index else line[1]
-	Signals.notification.emit(Global.Notification.ERROR, "Invalid translation key!", "Can't find key \"{0}\" in translation source: {1}".format([key, source_file]))
+	print("Invalid translation key!\nCan't find key \"{0}\" in translation source: {1}".format([key, source_file]))
 	file.close()
 
 	## Remove temprory translation file
