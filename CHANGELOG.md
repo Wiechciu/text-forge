@@ -5,12 +5,13 @@ All notable changes to this project will be documented in this file. (Notable ch
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [v0.2-rc2] - 2025-8-26
 
 ### Added
 - Open with handling ([#82](https://github.com/text-forge/text-forge/pull/82))
 - Backup system ([#92](https://github.com/text-forge/text-forge/pull/92))
 - Threaded action script loading ([#93](https://github.com/text-forge/text-forge/pull/93))
+- Big performance improve ([#93](https://github.com/text-forge/text-forge/pull/93))
 
 ### Fixed
 - Error for multiple available modes selection ([#93](https://github.com/text-forge/text-forge/pull/93))
@@ -183,7 +184,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Data-driven UI.
 - Docs in 4 languages (en, fa, es, zh)
 
-[unreleased]: https://github.com/text-forge/text-forge/compare/v0.1.0-rc1...HEAD
+[unreleased]: https://github.com/text-forge/text-forge/compare/v0.1.0-rc2...HEAD
+[v0.1-rc2]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-rc2
 [v0.1-rc1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-rc1
 [v0.1-beta]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-beta
 [v0.1-dev1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-dev1
