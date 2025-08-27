@@ -79,6 +79,8 @@ func get_text_from_cache(key: String, cache: Dictionary[String, Dictionary]) -> 
 	if key == "":
 		return ""
 
+	if not cache.has(key):
+		return key
 	var map := cache.get(key, {}) as Dictionary[String, String]
 	if map.has(language):
 		return map.get(language)
