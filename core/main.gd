@@ -103,12 +103,7 @@ func _handle_settings() -> void:
 func append_to_recent_files(file_path: String) -> void:
 	var file: FileAccess
 	var files: String
-	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
-		file = FileAccess.open(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA), FileAccess.READ)
-		files = file.get_as_text()
-		file.close()
-	else:
-		files = ""
+	files = FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA)
 
 	file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
 	file.store_string(file_path + "\n" + files)
@@ -357,9 +352,7 @@ func _reload_recent_files() -> void:
 
 	# Load recent files
 	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
-		var file_access = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
-		var recent_files_list = file_access.get_as_text().split("\n", false)
-		file_access.close()
+		var recent_files_list = FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA).split("\n", false)
 
 		recent_files_list = SLib.merge_unique(recent_files_list, []) # Remove repeated items
 
