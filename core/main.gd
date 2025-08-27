@@ -354,7 +354,7 @@ func _reload_recent_files() -> void:
 	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
 		var recent_files_list = FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA).split("\n", false)
 
-		recent_files_list = SLib.merge_unique(recent_files_list, []) # Remove repeated items
+		recent_files_list = SLib.merge_unique(recent_files_list, []) # Remove duplicate items
 
 		for recent in recent_files_list:
 			if recent_files_submenu.item_count == 15: # Limit list to 15 items
@@ -364,10 +364,11 @@ func _reload_recent_files() -> void:
 
 			recent_files_submenu.add_item(recent.replace("\\", "/"))
 
-	# Save recent files (to remove repeated and non-existent items)
+	# Save recent files again (to remove repeated and non-existent items)
 	var recent_files := PackedStringArray()
 	for recent in recent_files_submenu.item_count:
 		recent_files.append(recent_files_submenu.get_item_text(recent))
-	var file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
-	file.store_string("\n".join(recent_files))
-	file.close()
+	if "\n".join(recent_files) != FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA):
+		var file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
+		file.store_string("\n".join(recent_files))
+		file.close()
