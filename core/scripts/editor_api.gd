@@ -111,6 +111,7 @@ func save_file(file_path: String) -> void:
 					Global.send_notification(Global.Notification.ERROR, "Failed to open file!", "Save in {0} failed with error code {1}".format([file_path, FileAccess.get_open_error()]))
 					return
 				file.store_string(Global.get_editor_text())
+				Global.get_core().append_to_recent_files(file_path)
 				file.close()
 
 				Signals.check_options.emit()
@@ -154,6 +155,7 @@ func load_file(file_path: String) -> void:
 				_unload_current_mode()
 
 				Global.set_editor_text(FileAccess.get_file_as_string(file_path))
+				Global.get_core().append_to_recent_files(file_path)
 				Global.set_editor_disabled(false)
 				if FileAccess.get_open_error():
 					Global.send_notification(Global.Notification.ERROR, "Error in opening file!", "Load from {0} completed with error code {1}".format([file_path, FileAccess.get_open_error()]))
@@ -408,6 +410,7 @@ func _handle_save_file(file_path: String) -> void:
 		return
 
 	file.store_buffer(mode_script._string_to_buffer(Global.get_editor_text()))
+	Global.get_core().append_to_recent_files(file_path)
 	file.close()
 	Signals.check_options.emit()
 
@@ -428,6 +431,7 @@ func _handle_load_file(file_path: String) -> void:
 		return
 
 	Global.set_editor_text(mode_script._buffer_to_string(buffer))
+	Global.get_core().append_to_recent_files(file_path)
 	Global.set_editor_disabled(false)
 	Signals.check_options.emit()
 

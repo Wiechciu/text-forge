@@ -103,12 +103,7 @@ func _handle_settings() -> void:
 func append_to_recent_files(file_path: String) -> void:
 	var file: FileAccess
 	var files: String
-	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
-		file = FileAccess.open(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA), FileAccess.READ)
-		files = file.get_as_text()
-		file.close()
-	else:
-		files = ""
+	files = FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA)
 
 	file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
 	file.store_string(file_path + "\n" + files)
@@ -357,11 +352,9 @@ func _reload_recent_files() -> void:
 
 	# Load recent files
 	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
-		var file_access = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.READ)
-		var recent_files_list = file_access.get_as_text().split("\n", false)
-		file_access.close()
+		var recent_files_list = FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA).split("\n", false)
 
-		recent_files_list = SLib.merge_unique(recent_files_list, []) # Remove repeated items
+		recent_files_list = SLib.merge_unique(recent_files_list, []) # Remove duplicate items
 
 		for recent in recent_files_list:
 			if recent_files_submenu.item_count == 15: # Limit list to 15 items
@@ -371,10 +364,11 @@ func _reload_recent_files() -> void:
 
 			recent_files_submenu.add_item(recent.replace("\\", "/"))
 
-	# Save recent files (to remove repeated and non-existent items)
+	# Save recent files again (to remove repeated and non-existent items)
 	var recent_files := PackedStringArray()
 	for recent in recent_files_submenu.item_count:
 		recent_files.append(recent_files_submenu.get_item_text(recent))
-	var file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
-	file.store_string("\n".join(recent_files))
-	file.close()
+	if "\n".join(recent_files) != FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA):
+		var file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
+		file.store_string("\n".join(recent_files))
+		file.close()
