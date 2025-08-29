@@ -185,6 +185,8 @@ alignment = 2
 [node name="ProblemCounter" type="HBoxContainer" parent="Margin/Sections/BottomBar" node_paths=PackedStringArray("error_count", "warning_count")]
 layout_mode = 2
 size_flags_horizontal = 2
+tooltip_text = "Problem counter
+Number of detected error and warnings."
 script = ExtResource("5_xhu5d")
 error_count = NodePath("Errors/Container/Count")
 warning_count = NodePath("Warnings/Container/Count")
@@ -260,7 +262,10 @@ one_shot = true
 
 [node name="CaretPos" type="Button" parent="Margin/Sections/BottomBar" node_paths=PackedStringArray("line", "column")]
 layout_mode = 2
+tooltip_text = "Caret position
+Click to move caret."
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ge7io")
+text = "0 : 0"
 flat = true
 script = ExtResource("10_7ua4h")
 line = NodePath("PopupPanel/MarginContainer/VBoxContainer/HBoxContainer/LineEdit")
