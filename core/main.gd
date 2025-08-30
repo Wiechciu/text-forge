@@ -224,6 +224,11 @@ func _create_submenu(root_menu: PopupMenu, root_option: Dictionary, config_file:
 			submenu.id_pressed.connect(Extensions._menu_id_pressed)
 			Extensions.setup_extensions()
 
+		"Recent Projects":
+			Project.recent_menu = submenu
+			submenu.id_pressed.connect(Project._on_recent_id_pressed)
+			Project.load_recent_projects()
+
 		_: # just load items to another popup menu for other submenus
 			for submenu_item: Dictionary in config_file.get_value(DATA_SECTION, root_option.get("text", "").to_snake_case() + SUBMENU_SUFFIX):
 				var submenu_name: String = root_option.get("text", "").to_snake_case() + SUBMENU_SUFFIX

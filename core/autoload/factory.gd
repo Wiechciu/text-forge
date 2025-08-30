@@ -27,6 +27,24 @@ func confirmation_dialog(
 	return dialog
 
 
+func accept_dialog(
+		text := "", title := "Alert!", confirmed := Callable(), size := Vector2(500, 50),
+		autowarp := false, show := true
+) -> AcceptDialog:
+	var dialog := AcceptDialog.new()
+	dialog.title = title
+	dialog.initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_MAIN_WINDOW_SCREEN
+	dialog.size = size
+	dialog.dialog_autowrap = autowarp
+	dialog.dialog_text = text
+	if confirmed:
+		dialog.confirmed.connect(confirmed)
+	dialog.visibility_changed.connect(func(): if not dialog.visible: dialog.queue_free())
+	if show:
+		dialog.ready.connect(dialog.popup)
+	return dialog
+
+
 ## Creates new [MenuButton] based on parameters.
 func menu_button(switch_on_hover := false, text := "") -> MenuButton:
 	var button := MenuButton.new()
@@ -82,7 +100,9 @@ func file_dialog(
 	dialog.dir_selected.connect(callback)
 	dialog.file_selected.connect(callback)
 	dialog.files_selected.connect(callback)
-	dialog.confirmed.connect(func(): dialog.queue_free())
+	dialog.dir_selected.connect(func(path): dialog.queue_free())
+	dialog.file_selected.connect(func(path): dialog.queue_free())
+	dialog.files_selected.connect(func(paths): dialog.queue_free())
 	dialog.canceled.connect(func(): dialog.queue_free())
 	if current_path:
 		dialog.current_path = current_path
