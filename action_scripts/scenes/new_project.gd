@@ -124,6 +124,7 @@ func _on_create_pressed() -> void:
 	config.set_value("project", "tags", tags_edit.text)
 	config.set_value("project", "created", Time.get_datetime_string_from_system(false, true))
 	config.set_value("project", "modified", Time.get_datetime_string_from_system(false, true))
+	config.set_value("project", "version", "1.0")
 	config.set_value("files", "include", include_files.get_children().map(func(file):
 		return file.get_child(0).text))
 	config.set_value("files", "exclude", exclude_files.get_children().map(func(file):
