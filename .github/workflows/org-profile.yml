@@ -7,6 +7,7 @@ on:
       - Main
     paths:
       - 'README.md'
+      - '.github/workflows/org-profile.yml'
 
 jobs:
   sync:
@@ -25,7 +26,8 @@ jobs:
       - name: Sync profile to org repo
         run: |
           rm -rf config-repo/profile/*
-          cp -r README.md config-repo/profile/README.md
+          mkdir -p config-repo/profile
+          cp README.md config-repo/profile/README.md
           cd config-repo
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
