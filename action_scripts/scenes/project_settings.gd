@@ -122,6 +122,8 @@ func _on_create_pressed() -> void:
 		return
 
 	var config := ConfigFile.new()
+	config.load(Project.recent_menu.get_item_text(0))
+	var old := config.encode_to_text()
 	config.set_value("project", "name", name_edit.text)
 	config.set_value("project", "details", details_edit.text)
 	if icon_button.text.get_extension() in ["bmp", "dds", "ktx", "exr", "hdr", "jpg", "jpeg", "png", "tga", "svg", "webp"]:
@@ -131,6 +133,9 @@ func _on_create_pressed() -> void:
 		return file.get_child(0).text))
 	config.set_value("files", "exclude", exclude_files.get_children().map(func(file):
 		return file.get_child(0).text))
+	var new := config.encode_to_text()
+	if old != new:
+		config.set_value("project", "modified", Time.get_datetime_string_from_system(false, true))
 	config.save(Project.recent_menu.get_item_text(0))
 	Project.load_project(Project.recent_menu.get_item_text(0))
 	queue_free()
