@@ -27,7 +27,9 @@ jobs:
         run: |
           rm -rf config-repo/profile/*
           mkdir -p config-repo/profile
+          mkdir -p config-repo/progile/docs/img
           cp README.md config-repo/profile/README.md
+          cp -r docs/img config-repo/profile/docs/img
           cd config-repo
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
