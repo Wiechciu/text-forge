@@ -26,8 +26,7 @@ jobs:
       - name: Sync profile to org repo
         run: |
           rm -rf config-repo/profile/*
-          mkdir -p config-repo/profile
-          mkdir -p config-repo/progile/docs/img
+          mkdir -p config-repo/profile/docs/img
           cp README.md config-repo/profile/README.md
           cp -r docs/img config-repo/profile/docs/img
           cd config-repo
