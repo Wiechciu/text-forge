@@ -19,17 +19,25 @@ func close_project() -> void:
 		current_project.set_value("files", "caret_line", Global.get_editor().get_caret_line())
 		current_project.set_value("files", "caret_column", Global.get_editor().get_caret_column())
 		current_project.save(recent_menu.get_item_text(0))
+		current_project.free()
 		load_files.emit([], [])
 		Signals.close_file.emit()
 		project_closed.emit()
 
 
 func load_project(file_path: String) -> void:
+	if current_project:
+		close_project()
 	current_project = ConfigFile.new()
 	var err := current_project.load(file_path)
 	if err:
 		Global.send_notification(Global.Notification.ERROR, "Failed to load project: {0}".format([err]))
 		project_closed.emit()
+		return
+	if current_project.get_value("project", "version", "1.0") != "1.0":
+		Global.send_notification(Global.Notification.INFO, "Project version isn't same as editor project module!", "Please select a converter script and open project again.")
+		current_project.free()
+		add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.gd;GDScript File"], convert_project.bind(file_path), true, OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS), ""))
 		return
 	Global.get_core().append_to_recent_files(file_path)
 	append_to_recent_projects(file_path)
@@ -93,3 +101,18 @@ func append_to_recent_projects(file_path: String) -> void:
 	file.close()
 
 	load_recent_projects()
+
+
+func convert_project(script_path: String, project_file: String) -> void:
+	var script: Object = Global.load_resource(script_path).new()
+	if not (script.has_method("convert_project") and script.has_signal("convert_completed")):
+		Global.send_notification(Global.Notification.ERROR, "Converter is invalid!")
+		script.free()
+		return
+	script.call("convert_project", project_file)
+	Global.send_notification(Global.Notification.INFO, "Converting started.")
+
+	await script.convert_completed
+
+	script.free()
+	Global.send_notification(Global.Notification.INFO, "Convert completed.", "You can open project file now!")
