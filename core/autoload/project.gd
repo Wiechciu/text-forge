@@ -10,10 +10,18 @@ var recent_menu: PopupMenu
 
 func _ready() -> void:
 	Settings.define_preset("files", "save_files_in_move_between_project_files", false)
+	get_window().close_requested.connect(close_project)
 
 
 func close_project() -> void:
-	project_closed.emit()
+	if current_project:
+		current_project.set_value("files", "open", Global.get_file_path() if Global.has_file() else "")
+		current_project.set_value("files", "caret_line", Global.get_editor().get_caret_line())
+		current_project.set_value("files", "caret_column", Global.get_editor().get_caret_column())
+		current_project.save(recent_menu.get_item_text(0))
+		load_files.emit([], [])
+		Signals.close_file.emit()
+		project_closed.emit()
 
 
 func load_project(file_path: String) -> void:
@@ -27,6 +35,11 @@ func load_project(file_path: String) -> void:
 	append_to_recent_projects(file_path)
 	project_opened.emit()
 	load_files.emit(current_project.get_value("files", "include"), current_project.get_value("files", "exclude"))
+	if current_project.get_value("files", "open", "") != "":
+		Signals.open_file.emit(current_project.get_value("files", "open"))
+		await get_tree().process_frame
+		Global.get_editor().set_caret_line(current_project.get_value("files", "caret_line", 0))
+		Global.get_editor().set_caret_column(current_project.get_value("files", "caret_column", 0))
 	Signals.check_options.emit()
 
 

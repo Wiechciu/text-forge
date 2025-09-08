@@ -128,6 +128,9 @@ func _on_create_pressed() -> void:
 		return file.get_child(0).text))
 	config.set_value("files", "exclude", exclude_files.get_children().map(func(file):
 		return file.get_child(0).text))
+	config.set_value("files", "open", "")
+	config.set_value("files", "caret_line", 0)
+	config.set_value("files", "caret_column", 0)
 	var err := config.save(path_button.text)
 	if err == OK:
 		Global.send_notification(Global.Notification.INFO, "New project created at {0}.".format([path_button.text]))
