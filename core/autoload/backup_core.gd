@@ -9,7 +9,7 @@ signal backup_failed(was_auto: bool)
 func _ready() -> void:
 	get_window().close_requested.connect(_cleanup_backups)
 	Settings.define_preset("files", "auto_backup", true)
-	Settings.define_preset("files", "auto_backup_iterval_minutes", 1)
+	Settings.define_preset("files", "auto_backup_iterval_minutes", 5)
 	Settings.define_preset("files", "keep_backup_for_days", 10)
 	_handle_auto_save()
 
