@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bh6amhejvq6nw" path="res://data/panels/find/panel.gd" id="1_0rt6l"]
 
-[node name="Panel" type="Control"]
+[node name="Panel" type="Control" node_paths=PackedStringArray("counter", "match_case", "whole_words", "backwards", "search", "replace", "list")]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 3
 anchors_preset = 15
@@ -11,6 +11,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0rt6l")
+counter = NodePath("MarginContainer/VBoxContainer/Label")
+match_case = NodePath("MarginContainer/VBoxContainer/MatchCase")
+whole_words = NodePath("MarginContainer/VBoxContainer/WholeWords")
+backwards = NodePath("MarginContainer/VBoxContainer/Backwards")
+search = NodePath("MarginContainer/VBoxContainer/LineEdit")
+replace = NodePath("MarginContainer/VBoxContainer/HBoxContainer/LineEdit2")
+list = NodePath("MarginContainer/VBoxContainer/ItemList")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
