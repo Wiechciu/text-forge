@@ -8,7 +8,11 @@ func _ready() -> void:
 		var item: Button = project_item.duplicate()
 		var config := ConfigFile.new()
 		config.load(Project.recent_menu.get_item_text(i))
-		item.get_node(^"Panel/HBox/Icon").texture = ImageTexture.create_from_image(Image.load_from_file(config.get_value("project", "icon", "")))
+		var icon_path = config.get_value("project", "icon", "")
+		if icon_path and FileAccess.file_exists(icon_path):
+			var image = Image.load_from_file(icon_path)
+			if image:
+				item.get_node(^"Panel/HBox/Icon").texture = ImageTexture.create_from_image(image)
 		item.get_node(^"Panel/HBox/Labels/Name").text = config.get_value("project", "name")
 		item.get_node(^"Panel/HBox/Labels/Modified").text = config.get_value("project", "modified")
 		item.pressed.connect(_open_project.bind(Project.recent_menu.get_item_text(i)))
