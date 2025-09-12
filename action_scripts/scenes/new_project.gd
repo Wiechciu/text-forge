@@ -137,10 +137,9 @@ func _on_create_pressed() -> void:
 	var err := config.save(path_button.text)
 	if err == OK:
 		Global.send_notification(Global.Notification.INFO, "New project created at {0}.".format([path_button.text]))
+		queue_free()
 	else:
 		Global.send_notification(Global.Notification.ERROR, "Failed to save project at {0}!".format([path_button.text]), "Error code: {0}".format([err]))
-	queue_free()
-
 
 func _cache_icon(path: String) -> String:
 	if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_CACHED_PROJECT_ICONS)):
