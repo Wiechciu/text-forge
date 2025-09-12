@@ -7,6 +7,7 @@ signal load_files(include: Array, exclude: Array)
 
 var current_project := ConfigFile.new()
 var recent_menu := PopupMenu.new()
+var all_files: Array[String] = []
 
 func _ready() -> void:
 	Settings.define_preset("files", "save_files_in_move_between_project_files", false)

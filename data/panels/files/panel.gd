@@ -3,6 +3,8 @@ extends TextForgePanel
 @export var tab: TabContainer
 @export var tree: Tree
 
+var files: Array[String] = []
+
 func _ready() -> void:
 	Project.project_opened.connect(func(): tab.current_tab = 1)
 	Project.project_closed.connect(func(): tab.current_tab = 0)
@@ -12,9 +14,11 @@ func _ready() -> void:
 
 func _load_files_tree(include: Array, exclude: Array) -> void:
 	tree.clear()
+	files.clear()
 	var root := tree.create_item()
 	for item: String in include:
 		_add_branch(root, item, exclude)
+	Project.all_files = files
 
 
 func _add_branch(root: TreeItem, path: String, exclude_list: Array) -> void:
@@ -32,6 +36,7 @@ func _add_branch(root: TreeItem, path: String, exclude_list: Array) -> void:
 		var file := tree.create_item(root)
 		file.set_text(0, path.get_file() if root != tree.get_root() else path)
 		file.set_tooltip_text(0, path)
+		files.append(path)
 
 
 func _on_tree_item_selected() -> void:
