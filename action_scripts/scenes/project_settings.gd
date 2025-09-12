@@ -127,7 +127,8 @@ func _on_create_pressed() -> void:
 	config.set_value("project", "name", name_edit.text)
 	config.set_value("project", "details", details_edit.text)
 	if icon_button.text.get_extension() in ["bmp", "dds", "ktx", "exr", "hdr", "jpg", "jpeg", "png", "tga", "svg", "webp"]:
-		config.set_value("project", "icon", icon_button.text)
+		if FileAccess.get_file_as_bytes(config.get_value("project", "icon", "")) != FileAccess.get_file_as_bytes(icon_button.text):
+			config.set_value("project", "icon", _cache_icon(icon_button.text))
 	config.set_value("project", "tags", tags_edit.text)
 	config.set_value("files", "include", include_files.get_children().map(func(file):
 		return file.get_child(0).text))
@@ -139,3 +140,23 @@ func _on_create_pressed() -> void:
 	config.save(Project.recent_menu.get_item_text(0))
 	Project.load_project(Project.recent_menu.get_item_text(0))
 	queue_free()
+
+
+func _cache_icon(path: String) -> String:
+	if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_CACHED_PROJECT_ICONS)):
+		DirAccess.make_dir_recursive_absolute(SLib.globalize_path(FileDatabase.FOLDER_CACHED_PROJECT_ICONS))
+
+	var icon := FileAccess.get_file_as_bytes(path)
+	for f: String in DirAccess.get_files_at(FileDatabase.FOLDER_CACHED_PROJECT_ICONS):
+		if icon == FileAccess.get_file_as_bytes(FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(f)):
+			return FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(f)
+
+	var id: int = DirAccess.get_files_at(FileDatabase.FOLDER_CACHED_PROJECT_ICONS).size()
+	while FileAccess.file_exists(FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(str(id)) + "." + path.get_extension()):
+		id += 1
+
+	var file := FileAccess.open(FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(str(id)) + "." + path.get_extension(), FileAccess.WRITE)
+	file.store_buffer(icon)
+	file.close()
+
+	return FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(str(id)) + "." + path.get_extension()

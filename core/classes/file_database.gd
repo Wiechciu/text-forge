@@ -21,6 +21,8 @@ const RECENT_PROJECTS_DATA = "user://recent_projects.txt"
 const BACKUP_DATABASE = "user://backups.ini"
 ## Root folder for saved templates.
 const FOLDER_TEMPLATES = "user://templates/"
+## Root folder for cached project icons.
+const FOLDER_CACHED_PROJECT_ICONS = "user://project_icons/"
 ## Root folder for action scripts.
 const FOLDER_ACTION_SCRIPTS = "res://action_scripts/"
 ## Root folder for modes.
