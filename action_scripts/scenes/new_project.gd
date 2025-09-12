@@ -11,7 +11,7 @@ extends Window
 
 func _on_path_pressed() -> void:
 	add_child(Factory.file_dialog(FileDialog.FILE_MODE_SAVE_FILE, FileDialog.ACCESS_FILESYSTEM,
-			["*.tfproj;Text Forge Porject File"], _path_selected, true,
+			["*.tfproj;Text Forge Project File"], _path_selected, true,
 			OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS), ""))
 
 
