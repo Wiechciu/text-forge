@@ -5,38 +5,44 @@ signal project_opened
 signal project_closed
 signal load_files(include: Array, exclude: Array)
 
-var current_project: ConfigFile
-var recent_menu: PopupMenu
+var current_project := ConfigFile.new()
+var recent_menu := PopupMenu.new()
 
 func _ready() -> void:
 	Settings.define_preset("files", "save_files_in_move_between_project_files", false)
 	get_window().close_requested.connect(close_project)
+	load_recent_projects()
 
 
 func close_project() -> void:
-	if current_project:
+	if current_project.has_section("project"):
 		current_project.set_value("files", "open", Global.get_file_path() if Global.has_file() else "")
 		current_project.set_value("files", "caret_line", Global.get_editor().get_caret_line())
 		current_project.set_value("files", "caret_column", Global.get_editor().get_caret_column())
-		current_project.save(recent_menu.get_item_text(0))
-		current_project.free()
+		var err := current_project.save(recent_menu.get_item_text(0))
+		if err:
+			Global.send_notification(Global.Notification.ERROR, "Failed to close project!", "Error code: " + str(err))
+			return
+		current_project.clear()
 		load_files.emit([], [])
 		Signals.close_file.emit()
 		project_closed.emit()
+		get_window().set_title("Text Forge")
 
 
 func load_project(file_path: String) -> void:
-	if current_project:
+	if current_project.has_section("project"):
 		close_project()
-	current_project = ConfigFile.new()
+		await get_tree().process_frame
+
 	var err := current_project.load(file_path)
 	if err:
 		Global.send_notification(Global.Notification.ERROR, "Failed to load project: {0}".format([err]))
 		project_closed.emit()
 		return
-	if current_project.get_value("project", "version", "1.0") != "1.0":
+	if current_project.get_value("project", "version") != "1.0":
 		Global.send_notification(Global.Notification.INFO, "Project version isn't same as editor project module!", "Please select a converter script and open project again.")
-		current_project.free()
+		current_project.clear()
 		add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.gd;GDScript File"], convert_project.bind(file_path), true, OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS), ""))
 		return
 	Global.get_core().append_to_recent_files(file_path)
@@ -48,6 +54,7 @@ func load_project(file_path: String) -> void:
 		await get_tree().process_frame
 		Global.get_editor().set_caret_line(current_project.get_value("files", "caret_line", 0))
 		Global.get_editor().set_caret_column(current_project.get_value("files", "caret_column", 0))
+	get_window().set_title(current_project.get_value("project", "name") + " - Text Forge")
 	Signals.check_options.emit()
 
 
@@ -64,7 +71,6 @@ func _on_recent_id_pressed(id: int) -> void:
 
 
 func load_recent_projects() -> void:
-	# Clear submenu
 	recent_menu.clear()
 
 	# Load recent projects

@@ -182,6 +182,8 @@ func get_last_file_path() -> String:
 
 ## Loads a resource with globalizing [param path].
 func load_resource(path: String) -> Resource:
+	if path.is_empty():
+		return null
 	return ResourceLoader.load(SLib.globalize_path(path))
 
 

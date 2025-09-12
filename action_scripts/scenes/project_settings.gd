@@ -138,6 +138,7 @@ func _on_create_pressed() -> void:
 	if old != new:
 		config.set_value("project", "modified", Time.get_datetime_string_from_system(false, true))
 	config.save(Project.recent_menu.get_item_text(0))
+	await get_tree().process_frame
 	Project.load_project(Project.recent_menu.get_item_text(0))
 	queue_free()
 

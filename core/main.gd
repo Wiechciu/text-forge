@@ -52,6 +52,7 @@ var _translation_data: Dictionary[String, Dictionary]
 
 # This is start point of Text Forge
 func _ready() -> void:
+	get_window().set_title("Text Forge")
 	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Open file with drag and drop feature
 	get_window().files_dropped.connect(func(files: PackedStringArray): Signals.open_file.emit(files[0]))
@@ -223,11 +224,6 @@ func _create_submenu(root_menu: PopupMenu, root_option: Dictionary, config_file:
 			Extensions.menu = submenu
 			submenu.id_pressed.connect(Extensions._menu_id_pressed)
 			Extensions.setup_extensions()
-
-		"Recent Projects":
-			Project.recent_menu = submenu
-			submenu.id_pressed.connect(Project._on_recent_id_pressed)
-			Project.load_recent_projects()
 
 		_: # just load items to another popup menu for other submenus
 			for submenu_item: Dictionary in config_file.get_value(DATA_SECTION, root_option.get("text", "").to_snake_case() + SUBMENU_SUFFIX):

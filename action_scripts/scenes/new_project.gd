@@ -121,6 +121,8 @@ func _on_create_pressed() -> void:
 	config.set_value("project", "details", details_edit.text)
 	if icon_button.text.get_extension() in ["bmp", "dds", "ktx", "exr", "hdr", "jpg", "jpeg", "png", "tga", "svg", "webp"]:
 		config.set_value("project", "icon", _cache_icon(icon_button.text))
+	else:
+		config.set_value("project", "icon", "")
 	config.set_value("project", "tags", tags_edit.text)
 	config.set_value("project", "created", Time.get_datetime_string_from_system(false, true))
 	config.set_value("project", "modified", Time.get_datetime_string_from_system(false, true))
