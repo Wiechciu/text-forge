@@ -130,8 +130,7 @@ layout_mode = 2
 [node name="ExcludeL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Exlcude"
-
+text = "Exclude"
 [node name="Exclude" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 
