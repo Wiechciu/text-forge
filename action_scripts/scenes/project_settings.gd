@@ -117,8 +117,8 @@ func _on_save_pressed() -> void:
 				Callable(), Vector2(500, 50), true, true))
 		return
 	if include_files.get_child_count() == 0:
-		add_child(Factory.accept_dialog("Your project should have one or more file / folder.",
-				"Alert!", Callable(), Vector2(500, 50), true, true))
+		add_child(Factory.accept_dialog("Your project must include at least one file or folder.",
+				"Alert!", Callable(), Vector2i(500, 50), true, true))
 		return
 
 	var config := ConfigFile.new()
