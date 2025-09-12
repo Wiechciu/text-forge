@@ -15,8 +15,14 @@ func _ready() -> void:
 	load_recent_projects()
 
 
+func has_project() -> bool:
+	if current_project:
+		return current_project.has_section("project")
+	return false
+
+
 func close_project() -> void:
-	if current_project.has_section("project"):
+	if has_project():
 		current_project.set_value("files", "open", Global.get_file_path() if Global.has_file() else "")
 		current_project.set_value("files", "caret_line", Global.get_editor().get_caret_line())
 		current_project.set_value("files", "caret_column", Global.get_editor().get_caret_column())
@@ -32,7 +38,7 @@ func close_project() -> void:
 
 
 func load_project(file_path: String) -> void:
-	if current_project.has_section("project"):
+	if has_project():
 		close_project()
 		await get_tree().process_frame
 
