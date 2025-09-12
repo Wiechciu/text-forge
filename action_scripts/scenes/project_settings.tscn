@@ -1,12 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://b1sddr7ps0tem"]
+[gd_scene load_steps=3 format=3 uid="uid://b1sddr7ps0tem"]
 
 [ext_resource type="Script" uid="uid://p2lgrulkqol6" path="res://action_scripts/scenes/project_settings.gd" id="1_kylwx"]
-[ext_resource type="Texture2D" uid="uid://4ymdoc7w7sv7" path="res://assets/deactive.png" id="2_t6rjp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1kp10"]
 font_size = 20
 
-[node name="ProjectSettings" type="Window" node_paths=PackedStringArray("name_edit", "details_edit", "icon_button", "tags_edit", "file_node", "include_files", "exclude_files")]
+[node name="ProjectSettings" type="Window" node_paths=PackedStringArray("name_edit", "details_edit", "icon_button", "tags_edit", "include_files", "exclude_files")]
 title = "Project Settings..."
 initial_position = 2
 size = Vector2i(600, 500)
@@ -16,7 +15,6 @@ name_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContaine
 details_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Details")
 icon_button = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Icon")
 tags_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Tags")
-file_node = NodePath("File")
 include_files = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/IncludeFiles")
 exclude_files = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/ExcludeFiles")
 
@@ -131,6 +129,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Exclude"
+
 [node name="Exclude" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 
@@ -152,26 +151,10 @@ layout_mode = 2
 [node name="ExcludeFiles" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 
-[node name="Create" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="Save" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Save"
-
-[node name="File" type="HBoxContainer" parent="."]
-visible = false
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 24.0
-grow_horizontal = 2
-
-[node name="Path" type="Label" parent="File"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "File"
-
-[node name="Remove" type="Button" parent="File"]
-layout_mode = 2
-icon = ExtResource("2_t6rjp")
 
 [connection signal="close_requested" from="." to="." method="queue_free"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Icon" to="." method="_on_icon_pressed"]
@@ -179,4 +162,5 @@ icon = ExtResource("2_t6rjp")
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include/File" to="." method="_on_include_file_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/Dir" to="." method="_on_exclude_dir_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/File" to="." method="_on_exclude_file_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Create" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Save" to="." method="_on_create_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Save" to="." method="_on_save_pressed"]

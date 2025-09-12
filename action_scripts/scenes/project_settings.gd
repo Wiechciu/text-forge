@@ -1,13 +1,13 @@
 extends Window
 
+const FILE_NODE = "res://action_scripts/scenes/project_file_item.tscn"
+
 @export var name_edit: LineEdit
 @export var details_edit: LineEdit
 @export var icon_button: Button
 @export var tags_edit: LineEdit
-@export var file_node: HBoxContainer
 @export var include_files: VBoxContainer
 @export var exclude_files: VBoxContainer
-
 
 func _ready() -> void:
 	name_edit.text = Project.current_project.get_value("project", "name")
@@ -15,13 +15,13 @@ func _ready() -> void:
 	icon_button.text = Project.current_project.get_value("project", "icon") if Project.current_project.has_section_key("project", "icon") else "Select file"
 	tags_edit.text = Project.current_project.get_value("project", "tags")
 	for include in Project.current_project.get_value("files", "include"):
-		var n := file_node.duplicate()
+		var n: HBoxContainer = load(FILE_NODE).instantiate()
 		n.get_child(0).text = include
 		n.get_child(1).pressed.connect(_remove_include.bind(include))
 		n.show()
 		include_files.add_child(n)
 	for exclude in Project.current_project.get_value("files", "exclude"):
-		var n := file_node.duplicate()
+		var n: HBoxContainer = load(FILE_NODE).instantiate()
 		n.get_child(0).text = exclude
 		n.get_child(1).pressed.connect(_remove_exclude.bind(exclude))
 		n.show()
@@ -43,7 +43,7 @@ func _add_include(path) -> void:
 		for p in path:
 			if p in include_files.get_children().map(func(file): return file.get_child(0).text):
 				continue
-			var n := file_node.duplicate()
+			var n: HBoxContainer = load(FILE_NODE).instantiate()
 			n.get_child(0).text = p
 			n.get_child(1).pressed.connect(_remove_include.bind(p))
 			n.show()
@@ -51,7 +51,7 @@ func _add_include(path) -> void:
 	else:
 		if path in include_files.get_children().map(func(file): return file.get_child(0).text):
 			return
-		var n := file_node.duplicate()
+		var n: HBoxContainer = load(FILE_NODE).instantiate()
 		n.get_child(0).text = path
 		n.get_child(1).pressed.connect(_remove_include.bind(path))
 		n.show()
@@ -80,7 +80,7 @@ func _add_exclude(path) -> void:
 		for p in path:
 			if p in exclude_files.get_children().map(func(file): return file.get_child(0).text):
 				continue
-			var n := file_node.duplicate()
+			var n: HBoxContainer = load(FILE_NODE).instantiate()
 			n.get_child(0).text = p
 			n.get_child(1).pressed.connect(_remove_exclude.bind(p))
 			n.show()
@@ -88,7 +88,7 @@ func _add_exclude(path) -> void:
 	else:
 		if path in exclude_files.get_children().map(func(file): return file.get_child(0).text):
 			return
-		var n := file_node.duplicate()
+		var n: HBoxContainer = load(FILE_NODE).instantiate()
 		n.get_child(0).text = path
 		n.get_child(1).pressed.connect(_remove_exclude.bind(path))
 		n.show()
@@ -111,7 +111,7 @@ func _remove_exclude(path: String) -> void:
 			break
 
 
-func _on_create_pressed() -> void:
+func _on_save_pressed() -> void:
 	if name_edit.text == "":
 		add_child(Factory.accept_dialog("Please select a name for your project.", "Alert!",
 				Callable(), Vector2(500, 50), true, true))
@@ -128,7 +128,7 @@ func _on_create_pressed() -> void:
 	config.set_value("project", "details", details_edit.text)
 	if icon_button.text.get_extension() in ["bmp", "dds", "ktx", "exr", "hdr", "jpg", "jpeg", "png", "tga", "svg", "webp"]:
 		if FileAccess.get_file_as_bytes(config.get_value("project", "icon", "")) != FileAccess.get_file_as_bytes(icon_button.text):
-			config.set_value("project", "icon", _cache_icon(icon_button.text))
+			config.set_value("project", "icon", Project.cache_icon(icon_button.text))
 	config.set_value("project", "tags", tags_edit.text)
 	config.set_value("files", "include", include_files.get_children().map(func(file):
 		return file.get_child(0).text))
@@ -141,23 +141,3 @@ func _on_create_pressed() -> void:
 	await get_tree().process_frame
 	Project.load_project(Project.recent_menu.get_item_text(0))
 	queue_free()
-
-
-func _cache_icon(path: String) -> String:
-	if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_CACHED_PROJECT_ICONS)):
-		DirAccess.make_dir_recursive_absolute(SLib.globalize_path(FileDatabase.FOLDER_CACHED_PROJECT_ICONS))
-
-	var icon := FileAccess.get_file_as_bytes(path)
-	for f: String in DirAccess.get_files_at(FileDatabase.FOLDER_CACHED_PROJECT_ICONS):
-		if icon == FileAccess.get_file_as_bytes(FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(f)):
-			return FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(f)
-
-	var id: int = DirAccess.get_files_at(FileDatabase.FOLDER_CACHED_PROJECT_ICONS).size()
-	while FileAccess.file_exists(FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(str(id)) + "." + path.get_extension()):
-		id += 1
-
-	var file := FileAccess.open(FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(str(id)) + "." + path.get_extension(), FileAccess.WRITE)
-	file.store_buffer(icon)
-	file.close()
-
-	return FileDatabase.FOLDER_CACHED_PROJECT_ICONS.path_join(str(id)) + "." + path.get_extension()

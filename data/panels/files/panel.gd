@@ -47,7 +47,7 @@ func _on_tree_item_selected() -> void:
 				Signals.run_script.emit(Global.get_scripts_node().get_node("save").id)
 				await get_tree().process_frame
 			else:
-				add_child(Factory.accept_dialog("You have unsaved changes in this file, please save / discard them before open another file. You can enable autosave in \"Files > Save Files In Move Between Project Files\" in Preferences.",
+				add_child(Factory.accept_dialog("You have unsaved changes in this file.\n\nPlease save or discard them before opening another file.\n\nTip: Enable autosave in Preferences > Files > Save Files In Move Between Project Files.",
 						"Alert!", Callable(), Vector2(600, 50), true, true))
 				return
 		Signals.open_file.emit(path)

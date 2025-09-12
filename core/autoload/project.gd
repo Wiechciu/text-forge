@@ -48,7 +48,7 @@ func load_project(file_path: String) -> void:
 		project_closed.emit()
 		return
 	if current_project.get_value("project", "version") != "1.0":
-		Global.send_notification(Global.Notification.INFO, "Project version isn't same as editor project module!", "Please select a converter script and open project again.")
+		Global.send_notification(Global.Notification.INFO, "Project version mismatch", "The project was created with a different TFPM version. Please select a converter script to update it.")
 		current_project.clear()
 		add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM, ["*.gd;GDScript File"], convert_project.bind(file_path), true, OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS), ""))
 		return
@@ -129,3 +129,34 @@ func convert_project(script_path: String, project_file: String) -> void:
 
 	script.free()
 	Global.send_notification(Global.Notification.INFO, "Convert completed.", "You can open project file now!")
+
+
+func cache_icon(path: String) -> String:
+	var cache_dir := FileDatabase.FOLDER_CACHED_PROJECT_ICONS
+	if not DirAccess.dir_exists_absolute(cache_dir):
+		DirAccess.make_dir_recursive_absolute(cache_dir)
+
+	if not FileAccess.file_exists(path):
+		return ""
+
+	var icon := FileAccess.get_file_as_bytes(path)
+	if icon.is_empty():
+		return ""
+	for f: String in DirAccess.get_files_at(cache_dir):
+		if icon == FileAccess.get_file_as_bytes(cache_dir.path_join(f)):
+			return cache_dir.path_join(f)
+
+	var id: int = 0
+	var ext := path.get_extension().to_lower()
+	var target := cache_dir.path_join(str(id) + "." + ext)
+	while FileAccess.file_exists(target):
+		id += 1
+		target = cache_dir.path_join(str(id) + "." + ext)
+
+	var file := FileAccess.open(target, FileAccess.WRITE)
+	if file == null:
+		return ""
+	file.store_buffer(icon)
+	file.close()
+
+	return target
