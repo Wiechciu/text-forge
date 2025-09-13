@@ -18,7 +18,7 @@ func _load_files_tree(include: Array, exclude: Array) -> void:
 	var root := tree.create_item()
 	for item: String in include:
 		_add_branch(root, item, exclude)
-	Project.all_files = SLib.merge_unique(files, [])
+	Project.all_files = files
 
 
 func _add_branch(root: TreeItem, path: String, exclude_list: Array) -> void:
