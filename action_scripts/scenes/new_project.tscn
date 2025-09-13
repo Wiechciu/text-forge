@@ -57,7 +57,7 @@ text = "Project File"
 
 [node name="Path" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
-text = "Select file"
+text = "Select File..."
 
 [node name="NameL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2

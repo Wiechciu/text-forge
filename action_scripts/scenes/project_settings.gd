@@ -64,7 +64,7 @@ func _on_add_include_pressed(type: int) -> void:
 
 func _on_icon_pressed() -> void:
 	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM,
-			["*.bmp,*.dds,*.ktx,*.exr,*.hdr,*.jpg,*.jpeg,*.png,*.tga,*.svg,*.webp;Image Files;image/bmp,image/vnd.ms-dds,image/ktx,image/exr,image/vnd.radiance,image/jpeg,image/jpeg,image/png,image/x-tga,image/svg+xml,image/webp"],
+			["*.bmp,*.dds,*.ktx,*.exr,*.hdr,*.jpg,*.jpeg,*.png,*.tga,*.svg,*.webp;Image Files;image/bmp,image/vnd.ms-dds,image/ktx,image/exr,image/vnd.radiance,image/jpeg,image/png,image/x-tga,image/svg+xml,image/webp"],
 			_icon_selected, true, OS.get_system_dir(OS.SYSTEM_DIR_PICTURES), ""))
 
 
@@ -86,7 +86,7 @@ func _on_save_pressed() -> void:
 	if icon_button.text.get_extension().to_lower() in FileDatabase.IMAGE_EXTS:
 		if FileAccess.get_file_as_bytes(config.get_value("project", "icon", "")) != FileAccess.get_file_as_bytes(icon_button.text):
 			config.set_value("project", "icon", Project.cache_icon(icon_button.text))
-	config.set_value("project", "tags", tags_edit.text)
+	config.set_value("project", "tags", tags_edit.text.strip_edges())
 	config.set_value("files", "include", include_files.get_children().map(func(file):
 		return file.get_child(0).text))
 	config.set_value("files", "exclude", exclude_files.get_children().map(func(file):

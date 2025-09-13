@@ -39,7 +39,7 @@ func _on_create_pressed() -> void:
 		add_child(Factory.accept_dialog("Please select a valid .tfproj file path to save your project.",
 				"Alert!", Callable(), Vector2i(500, 50), true, true))
 		return
-	if name_edit.text == "":
+	if name_edit.text.is_empty():
 		add_child(Factory.accept_dialog("Please enter a name for your project.", "Alert!",
 				Callable(), Vector2i(500, 50), true, true))
 		return
@@ -55,7 +55,7 @@ func _on_create_pressed() -> void:
 		config.set_value("project", "icon", Project.cache_icon(icon_button.text))
 	else:
 		config.set_value("project", "icon", "")
-	config.set_value("project", "tags", tags_edit.text)
+	config.set_value("project", "tags", tags_edit.text.strip_edges())
 	config.set_value("project", "created", Time.get_datetime_string_from_system(false, true))
 	config.set_value("project", "modified", Time.get_datetime_string_from_system(false, true))
 	config.set_value("project", "version", Project.VERSION)
@@ -81,7 +81,7 @@ func _on_add_exclude_pressed(type: int) -> void:
 
 func _on_icon_pressed() -> void:
 	add_child(Factory.file_dialog(FileDialog.FILE_MODE_OPEN_FILE, FileDialog.ACCESS_FILESYSTEM,
-			["*.bmp,*.dds,*.ktx,*.exr,*.hdr,*.jpg,*.jpeg,*.png,*.tga,*.svg,*.webp;Image Files;image/bmp,image/vnd.ms-dds,image/ktx,image/exr,image/vnd.radiance,image/jpeg,image/jpeg,image/png,image/x-tga,image/svg+xml,image/webp"],
+			["*.bmp,*.dds,*.ktx,*.exr,*.hdr,*.jpg,*.jpeg,*.png,*.tga,*.svg,*.webp;Image Files;image/bmp,image/vnd.ms-dds,image/ktx,image/exr,image/vnd.radiance,image/jpeg,image/png,image/x-tga,image/svg+xml,image/webp"],
 			_icon_selected, true, OS.get_system_dir(OS.SYSTEM_DIR_PICTURES), ""))
 
 
