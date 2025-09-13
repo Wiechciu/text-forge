@@ -8,7 +8,7 @@ selection. You can click on a text without selection (caret) when hold `Alt` to 
 
 !!! Note
 
-    If there was something you didn't find in this list, check the [Not Available Options](#Not-Available-Options)
+    If there was something you didn't find in this list, check the [Not Available Options](#not-available-options)
     section; if it wasn't there either, please [report it](https://github.com/text-forge/text-forge/issues/new?template=bug_report.md).
 
 ## File
