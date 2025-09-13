@@ -74,6 +74,34 @@ Similar to New Window but closes the current window.
 ### Exit
 Closes the editor. 
 
+## Project
+This menu contains commands and actions related to projects.
+
+### New Project
+Opens **New Project** window to create new project.
+
+### Open Project
+Opens a file dialog to select a `.tfproj` file to open as a project.
+
+!!! Note
+
+	You can open a project usin **File > Open** option, but it isn't recommended.
+
+### Recent Projects
+Opens a list of recent projects. You can click on a project to open it.
+
+### Close Project
+Closes current project.
+
+!!! Note
+
+	When you open a file that isn't in project files, editor will close current project. If you want
+	to add new file to project files, use **Project > Project Settings > Include > Add Files...** 
+	option.
+
+### Project Settings
+Opens **Project Settings** window, where you can modify current project configurations.
+
 ## Edit
 This menu contains commands and actions related to editing the content of the file. 
 
