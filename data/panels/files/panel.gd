@@ -46,7 +46,7 @@ func _on_tree_item_selected() -> void:
 	if not selected.get_metadata(0)["is_directory"]:
 		var path := selected.get_tooltip_text(0)
 		if Global.get_file_name().ends_with("*"):
-			if Settings.get_setting("files", "save_files_in_move_between_project_files"):
+			if Settings.get_setting("files", "save_files_when_moving_between_project_files"):
 				Signals.run_script.emit(Global.get_scripts_node().get_node("save").id)
 				await get_tree().process_frame
 			else:

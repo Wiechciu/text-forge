@@ -12,7 +12,7 @@ var recent_menu := PopupMenu.new()
 var all_files: Array[String] = []
 
 func _ready() -> void:
-	Settings.define_preset("files", "save_files_in_move_between_project_files", false)
+	Settings.define_preset("files", "save_files_when_moving_between_project_files", false)
 	get_window().close_requested.connect(close_project)
 	load_recent_projects()
 

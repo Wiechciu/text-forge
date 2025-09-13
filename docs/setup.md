@@ -46,47 +46,48 @@ You have a ready code editor! Let's open a file:
     On windows, use RMB on file and click on **Open With**, then select Text Forge runnable `.exe`.
     After this you will be able to open files with Text Forge without open it directly.
 
-## Create new project
+## Create New Project
 
 !!! Note
 
-	Unlike most editors, you don't need to create a project before creating a file, so this section is optional.
+    Unlike most editors, you don't need to create a project before creating a file, so this section is optional.
 
-If you've worked with another editor, you'll quickly notice the difference in the concept of 
-**project** in other editors compared to its meaning in Text Forge. In other editors:
+If you've used other editors, you'll notice a different **project** concept. In other editors:
 
-- A project is defined as a folder
-- Project information is stored in a subfolder within the main project folder (e.g. `.textforge`)
+- A project is a folder.
+- Project information is stored in a subfolder of that folder (e.g., `.textforge`).
 
-But in Text Forge:
+In Text Forge:
 
-- A project is created as a `.tfproj` file
-- Project information is stored in project file
+- A project is a `.tfproj` file.
+- Project information is stored in that file.
 
 But why? We have specific reasons for this design:
 
-|Feature                |Folder-Based Projects          |`.tfproj` Projects      |
+|Feature                |Folder-based projects          |`.tfproj` projects      |
 |-----------------------|-------------------------------|------------------------|
 |File Path Flexibility  |Only files inside the folder   |Any file from any path  |
 |Single-File Projects   |Requires a folder              |A single file is enough |
 |Custom Project Settings|Scattered across multiple files|Centralized in `.tfproj`|
 
-In total, this feature gives you more flexibility to define the project. You can keep several 
-folders containing the execution of a larger project in several different places, while switching 
-between them in the editor is as simple as a single click.
+Overall, this design gives you more flexibility. You can keep parts of a larger project in different
+folders and switch between them in the editor with a single click.
 
-So let's see Text Forge projects is action; You can create a project from **Project > New Project**
-option, this will shows **New Project** window with these fields:
+Let's see Text Forge projects in action. You can create a project from **Project > New Project**.
+This opens the **New Project** window with these fields:
 
-- **Project File** - Path to your `.tfproj` file
-- **Name** - Project name
-- **Details** - Optional details on project
-- **Icon** - Optional icon for project
-- **Tags** - Optional command-separated list of tags
-- **Include** - List of folders and files to add to project
-- **Exclude** - List of folders and files to exclude from project
+- **Project File** — Path to your `.tfproj` file.
+- **Name** — Project name.
+- **Details** — Optional project details.
+- **Icon** — Optional project icon.
+- **Tags** — Optional comma-separated list of tags.
+- **Include** — Folders and files to add to the project.
+- **Exclude** — Folders and files to exclude from the project.
 
-When you press **Create** button editor will create project and you can use **Project > Open Project**
-to open your new project. Then, you can navigate between project files in **Files** panel in the 
-left side of editor. If you want to automatically save files when you move between project files,
-turn on **Settings > Preferences... > Files > Save Files In Move Between Project Files**.
+When you press the **Create** button, the editor creates the project, and you can use **Project > Open Project**
+to open it. Then, navigate between project files in the **Files** panel on the left side of the editor.
+To automatically save files when moving between project files, enable
+**Settings > Preferences... > Files > Save Files When Moving Between Project Files**.
+
+!!! Tip
+    See also: [Project menu](menus.md#project)

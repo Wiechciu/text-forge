@@ -21,7 +21,7 @@ this is a good way to work with multiple files.
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Open
 Creates a pop-up to select and open an existing file. 
@@ -41,8 +41,8 @@ It reloads the open file, similar to reopening the same file.
 
 !!! Note
 
-	Some functions may not work properly after saving a file, in which case please report the 
-	problem and use Reload as a temporary solution. 
+    Some functions may not work properly after saving a file, in which case please report the 
+    problem and use Reload as a temporary solution. 
 
 ### Close
 It closes the open file, without closing the editor. 
@@ -56,7 +56,7 @@ It displays a list of available backups by file and time, restored by clicking o
 
 !!! Warning
 
-	This is an experimental feature.
+    This is an experimental feature.
 
 ### Copy Path
 Copies the path of the open file to the clipboard. 
@@ -75,32 +75,32 @@ Similar to New Window but closes the current window.
 Closes the editor. 
 
 ## Project
-This menu contains commands and actions related to projects.
+This menu includes commands and actions related to projects.
 
 ### New Project
-Opens **New Project** window to create new project.
+Opens the **New Project** window to create new project.
 
 ### Open Project
-Opens a file dialog to select a `.tfproj` file to open as a project.
+Opens a file dialog to select a `.tfproj` file and open it as a project.
 
 !!! Note
 
-	You can open a project usin **File > Open** option, but it isn't recommended.
+    You can open a project using the **File > Open** option, but it isn't recommended. Prefer 
+    **Project > Open Project** for proper `.tfproj` handling.
 
 ### Recent Projects
-Opens a list of recent projects. You can click on a project to open it.
+Opens a list of recent projects. Click a project to open it.
 
 ### Close Project
-Closes current project.
+Closes the current project.
 
 !!! Note
 
-	When you open a file that isn't in project files, editor will close current project. If you want
-	to add new file to project files, use **Project > Project Settings > Include > Add Files...** 
-	option.
+    When you open a file that isn't in the project's files, the editor will close the current project.  
+    To add a new file to the project, use **Project > Project Settings > Include > Add Files...**.
 
 ### Project Settings
-Opens **Project Settings** window, where you can modify current project configurations.
+Opens the **Project Settings** window, where you can modify the current project's configuration.
 
 ## Edit
 This menu contains commands and actions related to editing the content of the file. 
@@ -165,7 +165,7 @@ It converts the line into a comment or vice versa.
 
 !!! Warning
 
-	This is an experimental feature.
+    This is an experimental feature.
 
 #### Duplicate Lines
 It duplicates the selected lines and selects the duplicated lines. 
@@ -194,7 +194,7 @@ Will automaticly indent whole file content.
 
 !!! Note
 
-	Some modes haven't support for auto indent, this option will be enabled just for supported modes.
+    Some modes haven't support for auto indent, this option will be enabled just for supported modes.
 
 #### Convert Indent To Spaces
 Converts indention of currently selected line(s) to spaces and sets indention mode to spaces.
@@ -231,43 +231,43 @@ Shows a popup to go to selected line, **line numbers start from 1.**
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Insert Navigation Mark
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Navigation Marks
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Table Of Contents
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Bookmarks
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Toggle Bookmark
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Remove All Bookmarks
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ## Command
 This menu includes commands and actions related to commands that you can run.
@@ -286,7 +286,7 @@ Will automaticly format whole file content.
 
 !!! Note
 
-	Some modes haven't support for auto format, this option will be enabled just for supported modes.
+    Some modes haven't support for auto format, this option will be enabled just for supported modes.
 
 ### Auto Indention
 When enabled, editor will try to calculate indention level when you add new line; Otherwise, will 
@@ -294,7 +294,7 @@ apply last line indention level for new line.
 
 !!! Note
 
-	This is an experimental feature and can have wrong behavior.
+    This is an experimental feature and can have wrong behavior.
 
 ### Remove All Indents
 Removes all indention and white spaces in both side of all lines.
@@ -303,13 +303,13 @@ Removes all indention and white spaces in both side of all lines.
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Templates
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ## View 
 This menu includes options and actions related to editor layout and visible items.
@@ -337,7 +337,7 @@ When enabled, shows bookmarks in gutter.
 
 !!! Note
 
-	Bookmarks feature isn't yet available.
+    Bookmarks feature isn't yet available.
 
 ### Show Line Numbers
 When enabled, shows line numbers in gutter (from 1).
@@ -353,8 +353,8 @@ When enabled, shows caret as block.
 
 !!! Important
 
-	This ins't replace edit mode (replace next character instead of insert new character before it),
-	to switch between insert and replace editing modes, press `insert` button.
+    This ins't replace edit mode (replace next character instead of insert new character before it),
+    to switch between insert and replace editing modes, press `insert` button.
 
 ### Highlight All Occurrences
 When enabled, highlightes other occurrences of currently selected text.
@@ -367,7 +367,7 @@ When enabled, shows control characters.
 
 !!! Tip
 
-	You can insert control characters from context menu.
+    You can insert control characters from context menu.
 
 ### Show Tabs
 When enabled, shows each tab with a transparent.
@@ -388,55 +388,55 @@ Shows a color picker window to help you work with colors.
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Counter
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Translation
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Clipboard History
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Function Creator.
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Documentation
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Auto Completion
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Time Management.
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### Calendar
 
 !!! Note
 
-	It isn't yet available. 
+    It isn't yet available. 
 
 ### By Extensions
 Keeps options provided by extensions.
