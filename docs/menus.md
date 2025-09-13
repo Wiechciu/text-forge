@@ -21,7 +21,7 @@ this is a good way to work with multiple files.
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Open
 Creates a pop-up to select and open an existing file. 
@@ -41,8 +41,8 @@ It reloads the open file, similar to reopening the same file.
 
 !!! Note
 
-    Some functions may not work properly after saving a file, in which case please report the 
-    problem and use Reload as a temporary solution. 
+    If some functions don’t work properly after saving, please report the issue and use Reload as a 
+    temporary workaround.
 
 ### Close
 It closes the open file, without closing the editor. 
@@ -78,15 +78,15 @@ Closes the editor.
 This menu includes commands and actions related to projects.
 
 ### New Project
-Opens the **New Project** window to create new project.
+Opens the **New Project** window to create a new project.
 
 ### Open Project
-Opens a file dialog to select a `.tfproj` file and open it as a project.
+Opens a file dialog to select a `.tfproj` file and load it as the current project.
 
 !!! Note
 
-    You can open a project using the **File > Open** option, but it isn't recommended. Prefer 
-    **Project > Open Project** for proper `.tfproj` handling.
+    While you can open a `.tfproj` via **File > Open**, it is discouraged because it won’t initialize
+    full project context. Prefer **Project > Open Project** for proper `.tfproj` handling.
 
 ### Recent Projects
 Opens a list of recent projects. Click a project to open it.
@@ -100,7 +100,9 @@ Closes the current project.
     To add a new file to the project, use **Project > Project Settings > Include > Add Files...**.
 
 ### Project Settings
-Opens the **Project Settings** window, where you can modify the current project's configuration.
+Opens the **Project Settings** window, where you can modify the current project's configuration. You
+can use **Add Files...** and **Add Folder...** buttons in **Include** and **Exclude** sections to
+manage project files.
 
 ## Edit
 This menu contains commands and actions related to editing the content of the file. 
@@ -194,7 +196,7 @@ Will automaticly indent whole file content.
 
 !!! Note
 
-    Some modes haven't support for auto indent, this option will be enabled just for supported modes.
+    Some modes don’t support Auto Indent; this option is enabled only for supported modes.
 
 #### Convert Indent To Spaces
 Converts indention of currently selected line(s) to spaces and sets indention mode to spaces.
@@ -231,43 +233,43 @@ Shows a popup to go to selected line, **line numbers start from 1.**
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Insert Navigation Mark
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Navigation Marks
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Table Of Contents
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Bookmarks
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Toggle Bookmark
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Remove All Bookmarks
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ## Command
 This menu includes commands and actions related to commands that you can run.
@@ -286,7 +288,7 @@ Will automaticly format whole file content.
 
 !!! Note
 
-    Some modes haven't support for auto format, this option will be enabled just for supported modes.
+    Some modes don’t support Auto Format; this option is enabled only for supported modes.
 
 ### Auto Indention
 When enabled, editor will try to calculate indention level when you add new line; Otherwise, will 
@@ -294,7 +296,7 @@ apply last line indention level for new line.
 
 !!! Note
 
-    This is an experimental feature and can have wrong behavior.
+    This feature is experimental and may behave unexpectedly.
 
 ### Remove All Indents
 Removes all indention and white spaces in both side of all lines.
@@ -303,13 +305,13 @@ Removes all indention and white spaces in both side of all lines.
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Templates
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ## View 
 This menu includes options and actions related to editor layout and visible items.
@@ -353,8 +355,8 @@ When enabled, shows caret as block.
 
 !!! Important
 
-    This ins't replace edit mode (replace next character instead of insert new character before it),
-    to switch between insert and replace editing modes, press `insert` button.
+    This isn’t the Replace edit mode (which overwrites the next character). To switch between Insert
+    and Replace modes, press the `Insert` key.
 
 ### Highlight All Occurrences
 When enabled, highlightes other occurrences of currently selected text.
@@ -367,7 +369,7 @@ When enabled, shows control characters.
 
 !!! Tip
 
-    You can insert control characters from context menu.
+    You can insert control characters from the context menu.
 
 ### Show Tabs
 When enabled, shows each tab with a transparent.
@@ -388,55 +390,55 @@ Shows a color picker window to help you work with colors.
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Counter
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Translation
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Clipboard History
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Function Creator.
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Documentation
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Auto Completion
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Time Management.
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### Calendar
 
 !!! Note
 
-    It isn't yet available. 
+    Not available yet.
 
 ### By Extensions
 Keeps options provided by extensions.
