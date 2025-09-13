@@ -160,4 +160,8 @@ text = "Save"
 
 [connection signal="close_requested" from="." to="." method="queue_free"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Icon" to="." method="_on_icon_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include/Dir" to="." method="_on_add_include_pressed" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include/File" to="." method="_on_add_include_pressed" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/Dir" to="." method="_on_add_exclude_pressed" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/File" to="." method="_on_add_exclude_pressed" binds= [1]]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Save" to="." method="_on_save_pressed"]
