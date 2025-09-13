@@ -81,7 +81,7 @@ Opens the **New Project** window to create a new project.
 
 !!! Tip
 
-    See (Setup > Create New Project)[setup.md#create-new-project] for a guide to `.tfproj` fields and workflow.
+    See [Setup > Create New Project](setup.md#create-new-project) for a guide to `.tfproj` fields and workflow.
 
 ### Open Project
 Opens a file dialog to select a `.tfproj` file and load it as the current project.
