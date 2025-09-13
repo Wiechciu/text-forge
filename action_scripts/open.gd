@@ -16,6 +16,11 @@ func _open_file(path: String) -> void:
 	if not FileAccess.file_exists(path):
 		Global.send_notification(Global.Notification.ERROR, "Can't find this file!", "")
 		return
+	if path.ends_with(".tfproj"):
+		Project.load_project(path)
+		return
+	if Project.has_project() and not path in Project.all_files:
+		Project.close_project()
 	Global.set_file_name(path.get_file())
 	Global.set_file_path(path)
 	Global.get_editor_api().load_file(path)

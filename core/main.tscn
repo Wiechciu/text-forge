@@ -135,6 +135,7 @@ layout_mode = 2
 editable = false
 deselect_on_focus_loss_enabled = false
 scroll_smooth = true
+caret_draw_when_editable_disabled = true
 symbol_lookup_on_click = true
 symbol_tooltip_on_hover = true
 line_folding = true
@@ -378,7 +379,8 @@ layout_mode = 2
 bbcode_enabled = true
 text = "[font_size=24]Text Forge[/font_size]
 [font_size=15][color=darkgray]v0.1-stable
-TFM API v2.0[/color][/font_size]
+Mode API v2.0
+Project Module v1.0[/color][/font_size]
 
 A highly modular and extendable open-source code editor.
 Based on:

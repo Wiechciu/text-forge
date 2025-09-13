@@ -182,6 +182,8 @@ func get_last_file_path() -> String:
 
 ## Loads a resource with globalizing [param path].
 func load_resource(path: String) -> Resource:
+	if path.is_empty():
+		return null
 	return ResourceLoader.load(SLib.globalize_path(path))
 
 
@@ -199,7 +201,7 @@ func load_resources_threaded(paths: PackedStringArray, for_each: Callable, after
 ## This class will request threaded loading for all given resources and handle loaded resources in
 ## loading order, so resource that was loaded faster will handle before others.
 class ThreadedLoader extends Node:
-	var _pending := PackedStringArray()
+	var _pending: Dictionary[String, bool]= {}
 	var _for_each: Callable
 	var _after_all: Callable
 	## Initializes threaded loader for given [param paths], you can do this multiple times to add
@@ -209,7 +211,7 @@ class ThreadedLoader extends Node:
 	## [param
 	func initialize(paths: PackedStringArray, for_each: Callable, after_all := Callable()) -> void:
 		for p in paths:
-			_pending.append(p)
+			_pending[p] = false
 		_for_each = for_each
 		_after_all = after_all
 
@@ -220,13 +222,22 @@ class ThreadedLoader extends Node:
 		_monitor_loading()
 
 	func _monitor_loading() -> void:
-		while _pending.size():
+		while _pending.values().any(func(s): return not s):
 			for path in _pending:
+				if _pending[path]:
+					continue
 				var status := ResourceLoader.load_threaded_get_status(path)
-				if status == ResourceLoader.THREAD_LOAD_LOADED:
-					var res := ResourceLoader.load_threaded_get(path)
-					_pending.remove_at(_pending.find(path))
-					_for_each.call(path, res)
+				match status:
+					ResourceLoader.THREAD_LOAD_LOADED:
+						var res := ResourceLoader.load_threaded_get(path)
+						_pending[path] = true
+						_for_each.call(path, res)
+					ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+						pass
+					_:
+						push_error("Threaded load failed for {0} (status: {1})".format([path, str(status)]))
+						_pending[path] = true
+						_for_each.call(path, null)
 			await get_tree().process_frame
 		if _after_all:
 			_after_all.call()

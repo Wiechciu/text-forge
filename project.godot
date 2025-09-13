@@ -36,6 +36,7 @@ Factory="*res://core/autoload/factory.gd"
 Extensions="*res://core/extensions/extensions.gd"
 BackupCore="*res://core/autoload/backup_core.gd"
 Tests="*res://core/autoload/tests.gd"
+Project="*res://core/autoload/project.gd"
 
 [debug]
 

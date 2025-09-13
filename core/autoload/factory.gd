@@ -27,6 +27,24 @@ func confirmation_dialog(
 	return dialog
 
 
+func accept_dialog(
+		text := "", title := "Alert!", confirmed := Callable(), size := Vector2i(500, 50),
+		autowrap := false, show := true
+) -> AcceptDialog:
+	var dialog := AcceptDialog.new()
+	dialog.title = title
+	dialog.initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_MAIN_WINDOW_SCREEN
+	dialog.size = size
+	dialog.dialog_autowrap = autowrap
+	dialog.dialog_text = text
+	if confirmed:
+		dialog.confirmed.connect(confirmed)
+	dialog.visibility_changed.connect(func(): if not dialog.visible: dialog.queue_free())
+	if show:
+		dialog.ready.connect(dialog.popup)
+	return dialog
+
+
 ## Creates new [MenuButton] based on parameters.
 func menu_button(switch_on_hover := false, text := "") -> MenuButton:
 	var button := MenuButton.new()
@@ -68,7 +86,7 @@ func signle_line_input(
 func file_dialog(
 		file_mode := FileDialog.FILE_MODE_SAVE_FILE, access := FileDialog.ACCESS_FILESYSTEM,
 		filters := PackedStringArray(), callback := Callable(), show := true, current_dir := "",
-		current_path := ""
+		current_path := "", auto_free_on_select := true
 ) -> FileDialog:
 	var dialog := FileDialog.new()
 	dialog.file_mode = file_mode
@@ -82,7 +100,10 @@ func file_dialog(
 	dialog.dir_selected.connect(callback)
 	dialog.file_selected.connect(callback)
 	dialog.files_selected.connect(callback)
-	dialog.confirmed.connect(func(): dialog.queue_free())
+	if auto_free_on_select:
+		dialog.dir_selected.connect(func(_path): dialog.queue_free())
+		dialog.file_selected.connect(func(_path): dialog.queue_free())
+		dialog.files_selected.connect(func(_paths): dialog.queue_free())
 	dialog.canceled.connect(func(): dialog.queue_free())
 	if current_path:
 		dialog.current_path = current_path

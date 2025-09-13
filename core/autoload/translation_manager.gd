@@ -58,7 +58,7 @@ func set_language(language_code: String = "default", fallback_code: String = "de
 func cache_source(source_file: String) -> Dictionary[String,Dictionary]:
 	var data: Dictionary[String, Dictionary] = {}
 	if not FileAccess.file_exists(SLib.globalize_path(source_file)):
-		print("Can't cache translation data\nFile {0} doesn't exitsts!".format([source_file]))
+		print("Can't cache translation data\nFile {0} doesn't exist!".format([source_file]))
 		return data
 
 	var file := FileAccess.open(SLib.globalize_path(source_file), FileAccess.READ)
@@ -79,6 +79,8 @@ func get_text_from_cache(key: String, cache: Dictionary[String, Dictionary]) -> 
 	if key == "":
 		return ""
 
+	if not cache.has(key):
+		return key
 	var map := cache.get(key, {}) as Dictionary[String, String]
 	if map.has(language):
 		return map.get(language)
@@ -109,7 +111,7 @@ func get_text(key: String, source_file: String = "default") -> String:
 	var lang
 	if not column_names.has(language):
 		if not column_names.has(fallback):
-			print("Invalid language code!\nLanguage {0} doesn't exitst in {1}, usign fallback language ({2}) failed.".format([language, source_file, fallback]))
+			print("Invalid language code!\nLanguage {0} doesn't exist in {1}, usign fallback language ({2}) failed.".format([language, source_file, fallback]))
 			file.close()
 			return key
 		else:

@@ -52,6 +52,8 @@ var _translation_data: Dictionary[String, Dictionary]
 
 # This is start point of Text Forge
 func _ready() -> void:
+	Project.project_opened.connect(func(): get_window().title = "%s - Text Forge" % Project.get_project_name())
+	Project.project_closed.connect(func(): get_window().title = "Text Forge")
 	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Open file with drag and drop feature
 	get_window().files_dropped.connect(func(files: PackedStringArray): Signals.open_file.emit(files[0]))
@@ -134,7 +136,9 @@ func _handle_cmdline_arguments() -> void:
 func _handle_load_last_file() -> void:
 	if Global.has_file():
 		return
-	if not(Settings.get_setting_bool("files", "load_last_file_at_start") and Global.get_last_file_path() == ""):
+	if not Settings.get_setting_bool("files", "load_last_file_at_start"):
+		return
+	if Global.get_last_file_path() == "":
 		return
 
 	if Settings.get_setting_bool("files", "ask_before_load_last_file_at_start"):
