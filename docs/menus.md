@@ -6,6 +6,11 @@ command structure. This guide has tried to explore the tips for menu options.
 All actions support multi-caret editing, if not, action will show a popup and request caret 
 selection. You can click on a text without selection (caret) when hold `Alt` to add new caret.
 
+!!! Note
+
+    If there was something you didn't find in this list, check the [Not Available Options](#Not-Available-Options)
+    section; if it wasn't there either, please [report it](https://github.com/text-forge/text-forge/issues/new?template=bug_report.md).
+
 ## File
 This menu includes regular actions with working with files and the editor window. 
 
@@ -16,12 +21,6 @@ file and then continue editing.
 ### New Window
 Opens another window of the editor. Due to the lack of support for multi-file editing (currently), 
 this is a good way to work with multiple files. 
-
-### New With Template
-
-!!! Note
-
-    Not available yet.
 
 ### Open
 Creates a pop-up to select and open an existing file. 
@@ -80,29 +79,41 @@ This menu includes commands and actions related to projects.
 ### New Project
 Opens the **New Project** window to create a new project.
 
+!!! Tip
+
+    See (Setup > Create New Project)[setup.md#create-new-project] for a guide to `.tfproj` fields and workflow.
+
 ### Open Project
 Opens a file dialog to select a `.tfproj` file and load it as the current project.
 
 !!! Note
 
     While you can open a `.tfproj` via **File > Open**, it is discouraged because it won’t initialize
-    full project context. Prefer **Project > Open Project** for proper `.tfproj` handling.
+    full project context (e.g. last opened file). Prefer **Project > Open Project** for proper 
+    `.tfproj` handling.
 
 ### Recent Projects
 Opens a list of recent projects. Click a project to open it.
+
+!!! Note
+
+    This list is limited to 15 items. Non-existent files will be removed automatically.
 
 ### Close Project
 Closes the current project.
 
 !!! Note
 
-    When you open a file that isn't in the project's files, the editor will close the current project.  
-    To add a new file to the project, use **Project > Project Settings > Include > Add Files...**.
+    When you open a file that isn't in the project's files, the editor will run this action. To add
+    a new file to the project, use **Project > Project Settings > Include > Add Files...**.
 
 ### Project Settings
 Opens the **Project Settings** window, where you can modify the current project's configuration. You
 can use **Add Files...** and **Add Folder...** buttons in **Include** and **Exclude** sections to
 manage project files.
+
+For each folder in include list, editor will add folder and all it's subfolders and files to project. 
+When you exclude a subfolder it's contents will be ignored too.
 
 ## Edit
 This menu contains commands and actions related to editing the content of the file. 
@@ -229,48 +240,6 @@ This menu includes commands and actions related to fast navigation in file conte
 ### Go To Line
 Shows a popup to go to selected line, **line numbers start from 1.**
 
-### Code Regions
-
-!!! Note
-
-    Not available yet.
-
-### Insert Navigation Mark
-
-!!! Note
-
-    Not available yet.
-
-### Navigation Marks
-
-!!! Note
-
-    Not available yet.
-
-### Table Of Contents
-
-!!! Note
-
-    Not available yet.
-
-### Bookmarks
-
-!!! Note
-
-    Not available yet.
-
-### Toggle Bookmark
-
-!!! Note
-
-    Not available yet.
-
-### Remove All Bookmarks
-
-!!! Note
-
-    Not available yet.
-
 ## Command
 This menu includes commands and actions related to commands that you can run.
 
@@ -300,18 +269,6 @@ apply last line indention level for new line.
 
 ### Remove All Indents
 Removes all indention and white spaces in both side of all lines.
-
-### Save As Template
-
-!!! Note
-
-    Not available yet.
-
-### Templates
-
-!!! Note
-
-    Not available yet.
 
 ## View 
 This menu includes options and actions related to editor layout and visible items.
@@ -386,60 +343,6 @@ This menu includes tools, them settings, and extensions options.
 ### Color Picker
 Shows a color picker window to help you work with colors.
 
-### Security
-
-!!! Note
-
-    Not available yet.
-
-### Counter
-
-!!! Note
-
-    Not available yet.
-
-### Translation
-
-!!! Note
-
-    Not available yet.
-
-### Clipboard History
-
-!!! Note
-
-    Not available yet.
-
-### Function Creator.
-
-!!! Note
-
-    Not available yet.
-
-### Documentation
-
-!!! Note
-
-    Not available yet.
-
-### Auto Completion
-
-!!! Note
-
-    Not available yet.
-
-### Time Management.
-
-!!! Note
-
-    Not available yet.
-
-### Calendar
-
-!!! Note
-
-    Not available yet.
-
 ### By Extensions
 Keeps options provided by extensions.
 
@@ -481,3 +384,29 @@ Opens home page of online documentation in browser.
 
 ### About
 Opens about dialog.
+
+---
+
+## Not Available Options
+There are some options that are always disabled in menus and are not yet available, these are listed
+below:
+
+- File > New With Template
+- Go To > Code Regions
+- Go To > Insert Navigation Mark
+- Go To > Navigation Marks
+- Go To > Table Of Contents
+- Go To > Bookmarks
+- Go To > Toggle Bookmark
+- Go To > Remove All Bookmarks
+- Format > Save As Template
+- Format > Templates
+- Tools > Security
+- Tools > Counter
+- Tools > Translation
+- Tools > Clipboard History
+- Tools > Function Creator
+- Tools > Documentation
+- Tools > Auto Completion
+- Tools > Time Management
+- Tools > Calendar
