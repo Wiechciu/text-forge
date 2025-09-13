@@ -94,9 +94,16 @@ func _on_save_pressed() -> void:
 	var new := config.encode_to_text()
 	if old != new:
 		config.set_value("project", "modified", Time.get_datetime_string_from_system(false, true))
-	config.save(Project.get_current_project_path())
-	await get_tree().process_frame
-	Project.load_project(Project.get_current_project_path())
+		var err := config.save(Project.get_current_project_path())
+		if err:
+			Global.send_notification(
+				Global.Notification.ERROR,
+				"Failed to save project at {0}!".format([Project.get_current_project_path()]),
+				"Error code: {0}".format([err])
+			)
+			return
+		await get_tree().process_frame
+		Project.load_project(Project.get_current_project_path())
 	queue_free()
 
 
