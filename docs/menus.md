@@ -109,12 +109,11 @@ Closes the current project.
 
 ### Project Settings
 Opens the **Project Settings** window, where you can modify the current project's configuration. You
-can use **Add Files...** and **Add Folder...** buttons in **Include** and **Exclude** sections to
+can use the **Add Files...** and **Add Folder...** buttons in the **Include** and **Exclude** sections to
 manage project files.
 
-For each folder in include list, editor will add folder and all it's subfolders and files to project. 
-When you exclude a subfolder it's contents will be ignored too.
-
+For each folder in the include list, the editor adds that folder and all its subfolders and files to the project.
+When you exclude a subfolder, its contents are ignored as well.
 ## Edit
 This menu contains commands and actions related to editing the content of the file. 
 
