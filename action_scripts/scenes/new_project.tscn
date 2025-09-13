@@ -5,19 +5,19 @@
 [sub_resource type="LabelSettings" id="LabelSettings_1kp10"]
 font_size = 20
 
-[node name="NewProject" type="Window" node_paths=PackedStringArray("path_button", "name_edit", "details_edit", "icon_button", "tags_edit", "include_files", "exclude_files")]
+[node name="NewProject" type="Window" node_paths=PackedStringArray("details_edit", "exclude_files", "icon_button", "include_files", "name_edit", "path_button", "tags_edit")]
 title = "New Project..."
 initial_position = 2
 size = Vector2i(600, 500)
 min_size = Vector2i(400, 500)
 script = ExtResource("1_tojex")
-path_button = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Path")
-name_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Name")
 details_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Details")
-icon_button = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Icon")
-tags_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Tags")
-include_files = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/IncludeFiles")
 exclude_files = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/ExcludeFiles")
+icon_button = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Icon")
+include_files = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/IncludeFiles")
+name_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Name")
+path_button = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Path")
+tags_edit = NodePath("MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Tags")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -71,13 +71,13 @@ size_flags_horizontal = 3
 [node name="DetailsL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
 text = "Details"
 
-[node name="Details" type="LineEdit" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="Details" type="TextEdit" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-size_flags_horizontal = 3
 placeholder_text = "Optional"
-clear_button_enabled = true
 
 [node name="IconL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
@@ -86,8 +86,8 @@ text = "Icon"
 
 [node name="Icon" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
-tooltip_text = "Optional"
-text = "Select file"
+tooltip_text = "Choose an image to use as the project icon (Optional)"
+text = "Select Image..."
 
 [node name="TagsL" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
@@ -97,6 +97,7 @@ text = "Tags"
 [node name="Tags" type="LineEdit" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Comma-separated (e.g., tag1, tag2)"
 placeholder_text = "Comma-separated"
 clear_button_enabled = true
 
@@ -120,14 +121,14 @@ layout_mode = 2
 [node name="Dir" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Optional"
-text = "Add Dir"
+tooltip_text = "Add a directory to the include list"
+text = "Add Folder..."
 
 [node name="File" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Optional"
-text = "Add Files"
+tooltip_text = "Add files to the include list"
+text = "Add Files..."
 
 [node name="Placeholder3" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
@@ -146,14 +147,14 @@ layout_mode = 2
 [node name="Dir" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Optional"
-text = "Add Dir"
+tooltip_text = "Add a directory to the exclude list"
+text = "Add Folder..."
 
 [node name="File" type="Button" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Optional"
-text = "Add Files"
+tooltip_text = "Add files to the exclude list"
+text = "Add Files..."
 
 [node name="Placeholder4" type="Control" parent="MarginContainer/VBoxContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
@@ -162,6 +163,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Create" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Create"
@@ -169,8 +171,8 @@ text = "Create"
 [connection signal="close_requested" from="." to="." method="queue_free"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Path" to="." method="_on_path_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Icon" to="." method="_on_icon_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include/Dir" to="." method="_on_include_dir_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include/File" to="." method="_on_include_file_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/Dir" to="." method="_on_exclude_dir_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/File" to="." method="_on_exclude_file_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include/Dir" to="." method="_on_add_include_pressed" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Include/File" to="." method="_on_add_include_pressed" binds= [1]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/Dir" to="." method="_on_add_exclude_pressed" binds= [2]]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ScrollContainer/GridContainer/Exclude/File" to="." method="_on_add_exclude_pressed" binds= [1]]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Create" to="." method="_on_create_pressed"]

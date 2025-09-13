@@ -53,3 +53,5 @@ const TEMPLATE_MODE_SCRIPT = "user://modes/{0}/mode.gd"
 const TEMPLATE_MODE_ICON = "user://modes/{0}/icon.png"
 ## Template file path for backup files.
 const TEMPLATE_BACKUP_FILE = "user://backups/{0}"
+
+const IMAGE_EXTS = ["bmp", "dds", "ktx", "exr", "hdr", "jpg", "jpeg", "png", "tga", "svg", "webp"]

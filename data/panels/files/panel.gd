@@ -18,7 +18,7 @@ func _load_files_tree(include: Array, exclude: Array) -> void:
 	var root := tree.create_item()
 	for item: String in include:
 		_add_branch(root, item, exclude)
-	Project.all_files = files
+	Project.all_files = SLib.merge_unique(files, [])
 
 
 func _add_branch(root: TreeItem, path: String, exclude_list: Array) -> void:
@@ -28,6 +28,7 @@ func _add_branch(root: TreeItem, path: String, exclude_list: Array) -> void:
 		var dir := tree.create_item(root)
 		dir.set_text(0, path.get_file() if root != tree.get_root() else path)
 		dir.set_tooltip_text(0, "Directory")
+		dir.set_metadata(0, {"is_directory": true})
 		for item in DirAccess.get_directories_at(path):
 			_add_branch(dir, path.path_join(item), exclude_list)
 		for file in DirAccess.get_files_at(path):
@@ -36,18 +37,20 @@ func _add_branch(root: TreeItem, path: String, exclude_list: Array) -> void:
 		var file := tree.create_item(root)
 		file.set_text(0, path.get_file() if root != tree.get_root() else path)
 		file.set_tooltip_text(0, path)
+		file.set_metadata(0, {"is_directory": false})
 		files.append(path)
 
 
 func _on_tree_item_selected() -> void:
-	var path := tree.get_selected().get_tooltip_text(0)
-	if path != "Directory":
+	var selected := tree.get_selected()
+	if not selected.get_metadata(0)["is_directory"]:
+		var path := selected.get_tooltip_text(0)
 		if Global.get_file_name().ends_with("*"):
 			if Settings.get_setting("files", "save_files_in_move_between_project_files"):
 				Signals.run_script.emit(Global.get_scripts_node().get_node("save").id)
 				await get_tree().process_frame
 			else:
 				add_child(Factory.accept_dialog("You have unsaved changes in this file.\n\nPlease save or discard them before opening another file.\n\nTip: Enable autosave in Preferences > Files > Save Files In Move Between Project Files.",
-						"Alert!", Callable(), Vector2(600, 50), true, true))
+						"Alert!", Callable(), Vector2i(600, 50), true, true))
 				return
 		Signals.open_file.emit(path)

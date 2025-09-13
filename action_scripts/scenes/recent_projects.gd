@@ -5,12 +5,15 @@ extends Window
 
 func _ready() -> void:
 	for i in Project.recent_menu.get_item_count():
-		var item: Button = project_item.duplicate()
+		var item := project_item.duplicate() as Button
 		var config := ConfigFile.new()
-		config.load(Project.recent_menu.get_item_text(i))
-		var icon_path = config.get_value("project", "icon", "")
+		var err := config.load(Project.recent_menu.get_item_text(i))
+		if err:
+			Global.send_notification(Global.Notification.ERROR, "Failed to read project file: " + Project.recent_menu.get_item_text(i))
+			continue
+		var icon_path: String = config.get_value("project", "icon", "")
 		if icon_path and FileAccess.file_exists(icon_path):
-			var image = Image.load_from_file(icon_path)
+			var image := Image.load_from_file(icon_path)
 			if image:
 				item.get_node(^"Panel/HBox/Icon").texture = ImageTexture.create_from_image(image)
 		item.get_node(^"Panel/HBox/Labels/Name").text = config.get_value("project", "name")

@@ -144,7 +144,7 @@ func save_file(file_path: String) -> void:
 ## Handle file loading from mode selection to targe file and then to correct mode decode system and editor.
 ## This method have same logic as [method save_file].
 func load_file(file_path: String) -> void:
-	if file_path.ends_with(".tfproj"):
+	if file_path.get_extension().to_lower() == "tfproj":
 		Project.load_project(file_path)
 		return
 	var mode := current_mode

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=42 format=3 uid="uid://dnvygvv1c55qb"]
+[gd_resource type="Theme" load_steps=44 format=3 uid="uid://dnvygvv1c55qb"]
 
 [ext_resource type="FontFile" uid="uid://d03vkdeo2egtn" path="res://assets/JetBrainsMono-Regular.ttf" id="1_qjhx0"]
 [ext_resource type="Texture2D" uid="uid://bwarwcjjx7it3" path="res://assets/active.png" id="2_u427p"]
@@ -183,6 +183,19 @@ bg_color = Color(0.11834, 0.167543, 0.216756, 1)
 border_width_top = 3
 border_color = Color(0.11834, 0.167543, 0.216756, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gymfr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_husxp"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.0823529, 0.121569, 0.160784, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okkhu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rga1e"]
@@ -269,6 +282,8 @@ TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_1ojjt")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_amhry")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_1ojjt")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_okkhu")
+TextEdit/styles/focus = SubResource("StyleBoxEmpty_gymfr")
+TextEdit/styles/normal = SubResource("StyleBoxFlat_husxp")
 Tree/colors/font_color = Color(0.6, 0.6, 0.6, 1)
 Tree/colors/guide_color = Color(0.11834, 0.167543, 0.216756, 1)
 Tree/styles/focus = SubResource("StyleBoxEmpty_okkhu")

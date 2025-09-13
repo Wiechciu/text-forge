@@ -1,9 +1,7 @@
 extends WindowActionScript
 
 func _check_option_extra() -> bool:
-	if Project.current_project:
-		return Project.current_project.has_section_key("project", "name")
-	return false
+	return Project.has_project()
 
 
 func _initialize() -> void:

@@ -28,7 +28,7 @@ func confirmation_dialog(
 
 
 func accept_dialog(
-		text := "", title := "Alert!", confirmed := Callable(), size := Vector2(500, 50),
+		text := "", title := "Alert!", confirmed := Callable(), size := Vector2i(500, 50),
 		autowrap := false, show := true
 ) -> AcceptDialog:
 	var dialog := AcceptDialog.new()

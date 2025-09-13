@@ -380,7 +380,7 @@ bbcode_enabled = true
 text = "[font_size=24]Text Forge[/font_size]
 [font_size=15][color=darkgray]v0.1-stable
 Mode API v2.0
-Poject Module v1.0[/color][/font_size]
+Project Module v1.0[/color][/font_size]
 
 A highly modular and extendable open-source code editor.
 Based on:

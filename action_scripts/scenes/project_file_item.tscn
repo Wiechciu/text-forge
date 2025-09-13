@@ -15,4 +15,6 @@ text = "File"
 
 [node name="Remove" type="Button" parent="."]
 layout_mode = 2
+tooltip_text = "Remove"
 icon = ExtResource("1_6i370")
+flat = true
