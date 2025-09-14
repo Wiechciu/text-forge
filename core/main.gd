@@ -63,6 +63,7 @@ func _ready() -> void:
 	Signals.reload_recent_files.connect(_reload_recent_files)
 	Signals.check_options.connect(_post_initialize, CONNECT_ONE_SHOT)
 
+	_initialize_themes()
 	_handle_settings()
 
 	# load data in main_menu_data
@@ -72,6 +73,19 @@ func _ready() -> void:
 
 	# Load action scripts
 	_load_scripts()
+
+
+func _initialize_themes() -> void:
+	if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_THEMES)):
+		DirAccess.make_dir_recursive_absolute(SLib.globalize_path(FileDatabase.FOLDER_THEMES))
+
+	for t in DirAccess.get_files_at(FileDatabase.FOLDER_INTERNAL_THEMES):
+		if t.get_extension().to_lower() != "tres" or FileAccess.file_exists(FileDatabase.FOLDER_THEMES.path_join(t)):
+			continue
+
+		var file := FileAccess.open(FileDatabase.FOLDER_THEMES.path_join(t), FileAccess.WRITE)
+		file.store_buffer(FileAccess.get_file_as_bytes(FileDatabase.FOLDER_INTERNAL_THEMES.path_join(t)))
+		file.close()
 
 
 func _post_initialize() -> void:
@@ -94,10 +108,17 @@ func _handle_settings() -> void:
 	Settings.define_preset("edit", "indent_with_space", false)
 	Settings.define_preset("edit", "indent_size", 4)
 
+	Settings.define_preset("editor_ui", "theme_name", "dark")
+
 	# Load settings
 
 	Global.get_editor().indent_use_spaces = Settings.get_setting("edit", "indent_with_space")
 	Global.get_editor().indent_size = Settings.get_setting("edit", "indent_size")
+	if FileAccess.file_exists(FileDatabase.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])):
+		get_window().set_theme(Global.load_resource(FileDatabase.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])))
+	else:
+		_initialize_themes()
+		get_window().set_theme(Global.load_resource(FileDatabase.TEMPLATE_THEME.format(["dark"])))
 
 
 ## Appends [param file_path] in [constant FileDatabase.RECENT_FILES_DATA]. New file will be in top

@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dw7ifqy8aum48"]
+[gd_scene load_steps=2 format=3 uid="uid://dw7ifqy8aum48"]
 
 [ext_resource type="Script" uid="uid://bx6gmc44onll" path="res://data/panels/problems/panel.gd" id="1_dsd4v"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dsd4v"]
 
 [node name="Panel" type="Control" node_paths=PackedStringArray("instance", "problem_list", "message")]
 custom_minimum_size = Vector2(0, 100)
@@ -68,10 +66,10 @@ autowrap_mode = 3
 
 [node name="Details" type="Label" parent="Instance/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.472656, 0.472656, 0.472656, 1)
+theme_type_variation = &"ProblemDetails"
 autowrap_mode = 3
 
 [node name="MoveButton" type="Button" parent="Instance"]
 layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_dsd4v")
+theme_type_variation = &"NoFocusButton"
 flat = true
