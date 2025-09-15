@@ -115,7 +115,7 @@ func _handle_settings() -> void:
 	Global.get_editor().indent_use_spaces = Settings.get_setting("edit", "indent_with_space")
 	Global.get_editor().indent_size = Settings.get_setting("edit", "indent_size")
 	if FileAccess.file_exists(FileDatabase.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])):
-		get_window().set_theme(Global.load_resource(FileDatabase.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])))
+		get_window().set_theme(Global.load_resource(FileDatabase.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name").to_lower()])))
 	else:
 		_initialize_themes()
 		get_window().set_theme(Global.load_resource(FileDatabase.TEMPLATE_THEME.format(["dark"])))
