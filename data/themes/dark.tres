@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=55 format=3 uid="uid://biemqm07w26kl"]
+[gd_resource type="Theme" load_steps=58 format=3 uid="uid://biemqm07w26kl"]
 
 [ext_resource type="Texture2D" uid="uid://bwarwcjjx7it3" path="res://assets/active.png" id="1_26g0h"]
 [ext_resource type="Texture2D" uid="uid://dat7uwrm3mo45" path="res://assets/active_disabled.png" id="2_xqe5d"]
@@ -83,6 +83,10 @@ corner_radius_bottom_left = 5
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_70dqv"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fxery"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xqe5d"]
+content_margin_top = 7.0
+bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qjhx0"]
 
@@ -245,6 +249,10 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ptpdr"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ki5i"]
+content_margin_left = 7.0
+bg_color = Color(0, 0, 0, 0)
+
 [resource]
 AboutTabContainer/base_type = &"TabContainer"
 AboutTabContainer/styles/panel = SubResource("StyleBoxFlat_tusby")
@@ -292,6 +300,7 @@ FileTree/base_type = &"Tree"
 FileTree/styles/panel = SubResource("StyleBoxEmpty_70dqv")
 FlatTabContainer/base_type = &"TabContainer"
 FlatTabContainer/styles/panel = SubResource("StyleBoxEmpty_fxery")
+HScrollBar/styles/scroll = SubResource("StyleBoxFlat_xqe5d")
 ItemList/styles/focus = SubResource("StyleBoxEmpty_qjhx0")
 ItemList/styles/hovered = SubResource("StyleBoxEmpty_u427p")
 ItemList/styles/hovered_selected = SubResource("StyleBoxEmpty_7rtxy")
@@ -377,6 +386,7 @@ Tree/styles/hovered = SubResource("StyleBoxEmpty_rga1e")
 Tree/styles/panel = SubResource("StyleBoxFlat_rga1e")
 Tree/styles/selected = SubResource("StyleBoxEmpty_cuqy7")
 Tree/styles/selected_focus = SubResource("StyleBoxEmpty_ptpdr")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_7ki5i")
 WarningCount/base_type = &"Label"
 WarningCount/colors/font_color = Color(0.909804, 0.737255, 0.0117647, 1)
 WarningCount/font_sizes/font_size = 14
