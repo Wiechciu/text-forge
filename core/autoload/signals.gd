@@ -74,11 +74,16 @@ func _log_notification(type: Global.Notification, title: String, text: String) -
 ## Connected to [signal save_request]. Creates a save change [ConfirmationDialog] and show it, [param confirmed] signal will connected
 ## to [method _save_changes] and [param canceled] will connected to [method _resum_after_save].
 func _handle_save_request(from: int) -> void:
-	add_child(Factory.confirmation_dialog(
-			"You have unsaved changes in currently opened file, what do you want to do with them?",
-			"Save", "Discard", "You have unsaved changes!", _resume_after_save.bind(from),
-			_save_changes.bind(from), true
-	))
+	if get_child_count():
+		# When recieves other request when dialog in visible, handles that request with current dialog.
+		await child_exiting_tree
+		save_finished.emit(from)
+	else:
+		add_child(Factory.confirmation_dialog(
+				"You have unsaved changes in currently opened file, what do you want to do with them?",
+				"Save", "Discard", "You have unsaved changes!", _resume_after_save.bind(from),
+				_save_changes.bind(from), true
+		))
 
 
 ## Calls [signal run_script] with id of save script and sets its callback to [param from], save
