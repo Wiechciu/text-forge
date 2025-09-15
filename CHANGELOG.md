@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add Project module (TFPM): .tfproj support, Project menu, Files panel and Recent Projects ([#95](https://github.com/text-forge/text-forge/pull/95))
 
 ### Fixed
-- Reset editor scroll when text changes from code ([#101](https://github.com/text-forge/text-forge/pull/101))
+- Preserve editor scroll when text is updated programmatically when `keep_carets` is true ([#101](https://github.com/text-forge/text-forge/pull/101))
 
 ## [v0.1-rc2] - 2025-8-26
 
