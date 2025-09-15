@@ -2,9 +2,9 @@
 Text Forge supports customizable themes for UI elements. This page explains how themes work, how to 
 create your own, and how to install or share them.
 
-## Theme Strcuture
+## Theme Structure
 Each theme is defined as a `.tres` file. This file is a Godot (text-based) resource in INI style.
-With this file you can apply changes to any UI element style.
+You can style UI elements with this file.
 
 ## Getting Themes
 Text Forge has some internal themes:
@@ -16,27 +16,27 @@ You can find other themes here:
 - [Text Forge awsome themes](https://text-forge.github.io/awsome-themes)
 
 ## Installing Themes
-To install new themes, you can use **Settings > Open Data Folder**, then go to `themes/` folder and
-paste theme `.tres` file there.
+To install a theme, open **Settings > Open Data Folder**, go to the `themes/` folder, and paste the
+`.tres` file there.
 
 !!! Note
 
-    You can use installed themes without restart.
+    You can use installed themes without restarting the editor.
 
 ## Changing Editor Theme
-For changing theme, go to **Settings > Preferences > Editor UI > Theme Name** and enter your theme
-file name (without `.tres`). When you close Preferences window editor will load new theme.
+To change the theme, go to **Settings > Preferences > Editor UI > Theme Name**, enter the theme file
+name (without the extension), and close the Preferences window. The editor will load the new theme.
 
 ## Creating a Theme
-If you want to create new themes, you must create it inside Godot, there is a guide about opening
-Text Forge source in Godot:
+If you want to create themes, use the Godot editor. See the guide for opening the Text Forge source
+in Godot:
 
 - [Build Text Forge from source](build.md)
 
-Then, you can edit `res://data/themes/dark.tres` in Godot Theme Editor or create new theme in this
-folder. When your theme completed, change its name and share it. You can test it directly, editor
-will copy `res://data/themes/` content to `user://themes/` when you run it.
+Then edit `res://data/themes/dark.tres` in the Godot Theme Editor or create a new theme in that
+folder. When your theme is complete, rename it and share it. You can test it directly; the editor
+copies `res://data/themes/` to `user://themes/` when you run it.
 
 ## Themes Location
-Editor loads all themes from `themes/` folder in editor data folder, for internal themes you can see
-`res://data/themes/`.
+The editor loads all themes from the `themes/` folder in the editor data directory. Internal themes
+live at `res://data/themes/`.
