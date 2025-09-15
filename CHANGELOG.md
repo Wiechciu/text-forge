@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Caret position button ([#96](https://github.com/text-forge/text-forge/pull/96))
 - Add Project module (TFPM): .tfproj support, Project menu, Files panel and Recent Projects ([#95](https://github.com/text-forge/text-forge/pull/95))
 
+### Fixed
+- Error when multiple save requests sent at same time ([#102](https://github.com/text-forge/text-forge/pull/102))
+
 ## [v0.1-rc2] - 2025-8-26
 
 ### Added
