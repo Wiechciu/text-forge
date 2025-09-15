@@ -180,6 +180,18 @@ border_color = Color(0.0625005, 0.0961309, 0.129758, 1)
 color = Color(0.0625005, 0.0961309, 0.129758, 1)
 thickness = 2
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atsne"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.0625005, 0.0961309, 0.129758, 1)
+border_color = Color(0.0625005, 0.0961309, 0.129758, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqe5d"]
 content_margin_left = 5.0
 content_margin_top = 5.0
@@ -353,6 +365,8 @@ PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxFlat_0wfyh")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_0wfyh")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_0wfyh")
 PopupPanel/styles/panel = SubResource("StyleBoxFlat_0wfyh")
+PreferencesSectionTab/base_type = &"TabContainer"
+PreferencesSectionTab/styles/panel = SubResource("StyleBoxFlat_atsne")
 ProblemDetails/base_type = &"Label"
 ProblemDetails/colors/font_color = Color(0.47451, 0.47451, 0.47451, 1)
 ProblemPanel/base_type = &"PanelContainer"

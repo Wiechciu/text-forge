@@ -33,6 +33,7 @@ select_mode = 1
 [node name="TabContainer" type="TabContainer" parent="MarginContainer/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_type_variation = &"PreferencesSectionTab"
 tabs_visible = false
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
