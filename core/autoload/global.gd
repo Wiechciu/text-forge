@@ -93,12 +93,14 @@ func get_editor_text() -> String:
 ## and do caret restoring yourself.
 func set_editor_text(text: String, keep_carets: bool = true) -> void:
 	var carets: Array[Selection] = []
+	var scroll: Vector2
 	if keep_carets:
 		for index in _editor.get_caret_count():
 			var selection := Selection.new()
 			selection.o = Vector2i(_editor.get_selection_origin_line(index), _editor.get_selection_origin_column(index))
 			selection.c = Vector2i(_editor.get_caret_line(index), _editor.get_caret_column(index))
 			carets.append(selection)
+		scroll = Vector2(_editor.scroll_horizontal, _editor.scroll_vertical)
 	_editor.text = text
 	if keep_carets:
 		for idx: int in carets.size():
@@ -106,6 +108,8 @@ func set_editor_text(text: String, keep_carets: bool = true) -> void:
 			if idx >= _editor.get_caret_count():
 				_editor.add_caret(0, 0)
 			_editor.select(selection.o.x, selection.o.y, selection.c.x, selection.c.y, idx)
+		_editor.scroll_horizontal = scroll.x
+		_editor.scroll_vertical = scroll.y
 
 
 ## Will disable the editor if [param disabled] is [code]true[/code].
