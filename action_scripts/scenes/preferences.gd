@@ -13,7 +13,6 @@ func _ready() -> void:
 	tree.create_item()
 	for section in config.get_sections():
 		var scroll := ScrollContainer.new()
-		scroll.add_theme_stylebox_override("panel", Global.load_resource("res://data/margin_style_box_empty.tres"))
 		var tab := VBoxContainer.new()
 		tab.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		for item in config.get_section_keys(section):

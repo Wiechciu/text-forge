@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dx1alvj3tjt16"]
+[gd_scene load_steps=15 format=3 uid="uid://dx1alvj3tjt16"]
 
 [ext_resource type="Script" uid="uid://byayvu15ojy1j" path="res://core/main.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dfy2sbtb4i0ht" path="res://core/scripts/panel_manager.gd" id="2_tefeu"]
@@ -17,25 +17,6 @@
 [sub_resource type="Theme" id="Theme_csopv"]
 Button/colors/font_color = Color(0.87451, 0.87451, 0.87451, 0.607843)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ua4h"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ntwa4"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ge7io"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tusby"]
-bg_color = Color(0.0625005, 0.0961309, 0.129758, 1)
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [node name="Main" type="Control" node_paths=PackedStringArray("menu_container", "file_label", "editor", "scripts", "panel_manager", "about", "module_profiler")]
 layout_mode = 3
 anchors_preset = 15
@@ -52,14 +33,14 @@ panel_manager = NodePath("Margin/Sections/PanelManager")
 about = NodePath("About")
 module_profiler = NodePath("Margin/Sections/BottomBar/ModuleProfiler")
 
-[node name="Back" type="ColorRect" parent="."]
+[node name="Background" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.0823529, 0.121569, 0.160784, 1)
+theme_type_variation = &"MainBackground"
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -196,7 +177,7 @@ warning_count = NodePath("Warnings/Container/Count")
 visible = false
 custom_minimum_size = Vector2(60, 30)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_7ua4h")
+theme_type_variation = &"ProblemPanel"
 
 [node name="Container" type="HBoxContainer" parent="Margin/Sections/BottomBar/ProblemCounter/Errors"]
 layout_mode = 2
@@ -212,8 +193,7 @@ stretch_mode = 5
 [node name="Count" type="Label" parent="Margin/Sections/BottomBar/ProblemCounter/Errors/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.898039, 0, 0, 1)
-theme_override_font_sizes/font_size = 14
+theme_type_variation = &"ErrorCount"
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -222,7 +202,7 @@ vertical_alignment = 1
 visible = false
 custom_minimum_size = Vector2(60, 30)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ntwa4")
+theme_type_variation = &"ProblemPanel"
 
 [node name="Container" type="HBoxContainer" parent="Margin/Sections/BottomBar/ProblemCounter/Warnings"]
 layout_mode = 2
@@ -238,8 +218,7 @@ stretch_mode = 5
 [node name="Count" type="Label" parent="Margin/Sections/BottomBar/ProblemCounter/Warnings/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.909804, 0.737255, 0.0117647, 1)
-theme_override_font_sizes/font_size = 14
+theme_type_variation = &"WarningCount"
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -265,7 +244,7 @@ one_shot = true
 layout_mode = 2
 tooltip_text = "Caret position
 Click to move caret."
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ge7io")
+theme_type_variation = &"CaretPos"
 text = "0 : 0"
 flat = true
 script = ExtResource("10_7ua4h")
@@ -320,7 +299,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 tooltip_text = "Mode Viewer
 Currently in use mode. Click to see more details."
-theme_override_font_sizes/font_size = 14
+theme_type_variation = &"BottomMenuButton"
 text = "Current Mode: None"
 script = ExtResource("5_kagtj")
 
@@ -329,7 +308,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 tooltip_text = "Module Profiler
 Number of currently connected modules. Click to see more details."
-theme_override_font_sizes/font_size = 14
+theme_type_variation = &"BottomMenuButton"
 text = "11 Modules"
 switch_on_hover = true
 item_count = 1
@@ -367,7 +346,7 @@ grow_vertical = 2
 
 [node name="TabContainer" type="TabContainer" parent="About/MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tusby")
+theme_type_variation = &"AboutTabContainer"
 current_tab = 0
 
 [node name="About" type="MarginContainer" parent="About/MarginContainer/TabContainer"]

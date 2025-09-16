@@ -1,10 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://yyicwmyc6usr"]
+[gd_scene load_steps=2 format=3 uid="uid://yyicwmyc6usr"]
 
 [ext_resource type="Script" uid="uid://cwenslu0l5275" path="res://data/panels/files/panel.gd" id="1_h88as"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h88as"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qanhg"]
 
 [node name="Panel" type="Control" node_paths=PackedStringArray("tab", "tree")]
 custom_minimum_size = Vector2(200, 0)
@@ -28,11 +24,12 @@ grow_vertical = 2
 
 [node name="TabContainer" type="TabContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_h88as")
-current_tab = 0
+theme_type_variation = &"FlatTabContainer"
+current_tab = 1
 tabs_visible = false
 
 [node name="Label" type="Label" parent="MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
 text = "Please open a project to see files"
 horizontal_alignment = 1
@@ -41,9 +38,8 @@ autowrap_mode = 3
 metadata/_tab_index = 0
 
 [node name="Tree" type="Tree" parent="MarginContainer/TabContainer"]
-visible = false
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_qanhg")
+theme_type_variation = &"FileTree"
 allow_reselect = true
 hide_root = true
 metadata/_tab_index = 1
