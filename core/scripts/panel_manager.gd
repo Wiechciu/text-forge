@@ -70,6 +70,7 @@ func _ready() -> void:
 
 	_load_panels()
 	_load_layout()
+	_apply_split()
 
 
 ## Add given [param panel] in [param location] with [param icon], it means new icon in [param location]
