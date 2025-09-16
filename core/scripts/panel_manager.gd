@@ -43,8 +43,6 @@ var data := {
 }
 
 func _ready() -> void:
-	_load_layout()
-
 	for side in 3:
 		# handle panel changing
 		tabs[side].item_selected.connect(_handle_panel.bind(side))
@@ -71,6 +69,7 @@ func _ready() -> void:
 	get_window().close_requested.connect(_save_layout)
 
 	_load_panels()
+	_load_layout()
 
 
 ## Add given [param panel] in [param location] with [param icon], it means new icon in [param location]
