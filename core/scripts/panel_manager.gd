@@ -117,7 +117,10 @@ func show_panel(location: Panels, index: int) -> void:
 
 ## Saves current panels latout.
 func _save_layout() -> void:
-	Settings.write_data("panels", "layout_data", data)
+	var data_to_save := data.duplicate(true)
+	for l in data_to_save:
+		data_to_save[l]["panels"] = []
+	Settings.write_data("panels", "layout_data", data_to_save)
 
 
 ## Loads panels layout in [member panels]. Will ignore last loaded panels.
