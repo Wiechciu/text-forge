@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://donr0wkm0exta"]
+[gd_scene load_steps=2 format=3 uid="uid://donr0wkm0exta"]
 
 [ext_resource type="Script" uid="uid://b3e8ybbfve04f" path="res://data/panels/outline/panel.gd" id="1_pj7jf"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pj7jf"]
 
 [node name="Panel" type="Control" node_paths=PackedStringArray("outline_tree", "message")]
 custom_minimum_size = Vector2(200, 0)
@@ -26,7 +24,7 @@ grow_vertical = 2
 
 [node name="OutlineTree" type="Tree" parent="Margin"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_pj7jf")
+theme_type_variation = &"OutlineTree"
 allow_reselect = true
 allow_rmb_select = true
 hide_root = true

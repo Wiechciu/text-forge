@@ -1,13 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5s5xlri3xsfu"]
+[gd_scene load_steps=2 format=3 uid="uid://b5s5xlri3xsfu"]
 
 [ext_resource type="Script" uid="uid://px4l4s68t3f0" path="res://action_scripts/scenes/mode_manager.gd" id="1_hbc7b"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbc7b"]
-bg_color = Color(0.11834, 0.167543, 0.216756, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hbc7b"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0d52p"]
 
 [node name="Window" type="Window" node_paths=PackedStringArray("mode_list", "about", "mode_kit_button")]
 title = "Mode Manager"
@@ -45,38 +38,35 @@ text = "Create Mode Kit..."
 [node name="Modes" type="HBoxContainer" parent="Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 20
+theme_type_variation = &"ModeEditorSeparator"
 
 [node name="ModesList" type="ItemList" parent="Margin/VBox/Modes"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/selected = SubResource("StyleBoxFlat_hbc7b")
-theme_override_styles/selected_focus = SubResource("StyleBoxFlat_hbc7b")
+theme_type_variation = &"ModeList"
 
 [node name="Mode Editor" type="VBoxContainer" parent="Margin/VBox/Modes"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 0
+theme_type_variation = &"ModeEditorContainer"
 
 [node name="Name" type="LineEdit" parent="Margin/VBox/Modes/Mode Editor"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_type_variation = &"ModeEditorModeName"
 placeholder_text = "Name"
 flat = true
 
 [node name="Version" type="LineEdit" parent="Margin/VBox/Modes/Mode Editor"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.476563, 0.476563, 0.476563, 1)
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"ModeEditorModeMetadata"
 placeholder_text = "Version"
 flat = true
 
 [node name="Author" type="LineEdit" parent="Margin/VBox/Modes/Mode Editor"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.476563, 0.476563, 0.476563, 1)
-theme_override_font_sizes/font_size = 12
+theme_type_variation = &"ModeEditorModeMetadata"
 placeholder_text = "Author"
 flat = true
 
@@ -88,8 +78,7 @@ flat = true
 [node name="Description" type="TextEdit" parent="Margin/VBox/Modes/Mode Editor"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("StyleBoxEmpty_hbc7b")
-theme_override_styles/focus = SubResource("StyleBoxTexture_0d52p")
+theme_type_variation = &"ModeEditorModeDescription"
 placeholder_text = " Description"
 wrap_mode = 1
 

@@ -5,7 +5,7 @@ extends Object
 ## This class holds file paths and template strings for file paths. All file paths are constants, so
 ## they can be used without instantiating this class.
 
-# NOTE: keep file paths before folders ans folders before templates.
+# NOTE: use this order: file paths - folders - templates - other
 
 ## Saved scene for menus like "File" and "Edit", see also [member Core.menu_container].
 const MENU_BUTTON_SCENE = "res://core/prebuilds/menu_button.tscn"
@@ -33,6 +33,10 @@ const FOLDER_PANELS = "res://data/panels/"
 const FOLDER_BACKUPS = "user://backups/"
 ## Root folder for extensions.
 const FOLDER_EXTENSIONS = "user://extensions/"
+## Root folder for themes.
+const FOLDER_THEMES = "user://themes/"
+## Root folder for internal themes.
+const FOLDER_INTERNAL_THEMES = "res://data/themes/"
 ## Template file path for action script shotcut files.
 const TEMPLATE_ACTION_SCRIPT_SHORTCUT = "res://shortcuts/{0}.tres"
 ## Template file path for action script files.
@@ -53,5 +57,7 @@ const TEMPLATE_MODE_SCRIPT = "user://modes/{0}/mode.gd"
 const TEMPLATE_MODE_ICON = "user://modes/{0}/icon.png"
 ## Template file path for backup files.
 const TEMPLATE_BACKUP_FILE = "user://backups/{0}"
-
+## Template file path for themes.
+const TEMPLATE_THEME = "user://themes/{0}.tres"
+## Valid image extensions for runtime loading.
 const IMAGE_EXTS = ["bmp", "dds", "ktx", "exr", "hdr", "jpg", "jpeg", "png", "tga", "svg", "webp"]
