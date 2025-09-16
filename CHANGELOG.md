@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Preserve editor scroll when text is updated programmatically when `keep_carets` is true ([#101](https://github.com/text-forge/text-forge/pull/101))
 - Error when multiple save requests sent at same time ([#102](https://github.com/text-forge/text-forge/pull/102))
+- Restore panel open state ([#103](https://github.com/text-forge/text-forge/pull/103))
 
 ## [v0.1-rc2] - 2025-8-26
 

@@ -43,8 +43,6 @@ var data := {
 }
 
 func _ready() -> void:
-	_load_layout()
-
 	for side in 3:
 		# handle panel changing
 		tabs[side].item_selected.connect(_handle_panel.bind(side))
@@ -71,6 +69,8 @@ func _ready() -> void:
 	get_window().close_requested.connect(_save_layout)
 
 	_load_panels()
+	_load_layout()
+	_apply_split()
 
 
 ## Add given [param panel] in [param location] with [param icon], it means new icon in [param location]
@@ -118,7 +118,10 @@ func show_panel(location: Panels, index: int) -> void:
 
 ## Saves current panels latout.
 func _save_layout() -> void:
-	Settings.write_data("panels", "layout_data", data)
+	var data_to_save := data.duplicate(true)
+	for l in data_to_save:
+		data_to_save[l]["panels"] = []
+	Settings.write_data("panels", "layout_data", data_to_save)
 
 
 ## Loads panels layout in [member panels]. Will ignore last loaded panels.
