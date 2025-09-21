@@ -1,0 +1,197 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4o4ojx870a1m"]
+
+[ext_resource type="Script" uid="uid://d1ghentsabnc7" path="res://action_scripts/scenes/marketplace.gd" id="1_872ex"]
+[ext_resource type="Texture2D" uid="uid://x8ceredrblyd" path="res://assets/reload.png" id="2_uexq8"]
+[ext_resource type="Texture2D" uid="uid://c53xda8pdrml6" path="res://assets/loafing.png" id="3_oposo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sqdyf"]
+
+[node name="Marketplace" type="Window" node_paths=PackedStringArray("request", "packages", "version_edit", "i_name", "i_author", "i_category", "i_version", "i_min_editor_version", "i_dates", "i_tags", "i_description", "i_images", "infomration_popup", "install_button")]
+title = "Marketplace"
+initial_position = 2
+size = Vector2i(700, 500)
+popup_window = true
+min_size = Vector2i(700, 500)
+script = ExtResource("1_872ex")
+request = NodePath("HTTPRequest")
+packages = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer")
+version_edit = NodePath("MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/LineEdit")
+i_name = NodePath("Window/MarginContainer/VBox/Header/Name")
+i_author = NodePath("Window/MarginContainer/VBox/Header/Author")
+i_category = NodePath("Window/MarginContainer/VBox/Header/Category")
+i_version = NodePath("Window/MarginContainer/VBox/Footer/Version")
+i_min_editor_version = NodePath("Window/MarginContainer/VBox/Footer/MinEditorVersion")
+i_dates = NodePath("Window/MarginContainer/VBox/Footer/Dates")
+i_tags = NodePath("Window/MarginContainer/VBox/Tags")
+i_description = NodePath("Window/MarginContainer/VBox/Description")
+i_images = NodePath("Window/MarginContainer/VBox/ScrollContainer/HBoxContainer")
+infomration_popup = NodePath("Window")
+install_button = NodePath("Window/MarginContainer/VBox/HBoxContainer/Button")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Marketplace Version
+Path to root dir in Marketplace server"
+text = "heads/main"
+placeholder_text = "Marketplace version"
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(31, 0)
+layout_mode = 2
+tooltip_text = "Reload"
+icon = ExtResource("2_uexq8")
+icon_alignment = 1
+expand_icon = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Search Box
+Type to search..."
+placeholder_text = "Type to search..."
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tooltip_text = "Type Filter"
+selected = 0
+item_count = 5
+popup/item_0/text = "All"
+popup/item_0/id = 0
+popup/item_1/id = 1
+popup/item_1/separator = true
+popup/item_2/text = "Modes"
+popup/item_2/id = 2
+popup/item_3/text = "Extensions"
+popup/item_3/id = 3
+popup/item_4/text = "Themes"
+popup/item_4/id = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+use_threads = true
+timeout = 20.0
+
+[node name="Window" type="Window" parent="."]
+title = "Package information..."
+initial_position = 2
+size = Vector2i(500, 400)
+unresizable = true
+popup_window = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Window"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="Window/MarginContainer"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Window/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Window/MarginContainer/VBox/Header"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Dark"
+
+[node name="Author" type="Label" parent="Window/MarginContainer/VBox/Header"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_type_variation = &"PackageBadgeLabel"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sqdyf")
+text = "by text-forge"
+
+[node name="Category" type="Label" parent="Window/MarginContainer/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_type_variation = &"PackageBadgeLabel"
+text = "theme"
+
+[node name="Footer" type="HBoxContainer" parent="Window/MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="Version" type="Label" parent="Window/MarginContainer/VBox/Footer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_type_variation = &"PackageBadgeLabel"
+text = "1.0.0"
+
+[node name="MinEditorVersion" type="Label" parent="Window/MarginContainer/VBox/Footer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_type_variation = &"PackageBadgeLabel"
+text = "Text Forge 0.1.0+"
+
+[node name="Dates" type="Label" parent="Window/MarginContainer/VBox/Footer"]
+layout_mode = 2
+theme_type_variation = &"PackageDatesLabel"
+text = "2025-9-16 | 2025-9-16"
+
+[node name="Tags" type="HFlowContainer" parent="Window/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Description" type="Label" parent="Window/MarginContainer/VBox"]
+layout_mode = 2
+theme_type_variation = &"PackageDescriptionLabel"
+text = "Text Forge default dark theme"
+autowrap_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Window/MarginContainer/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Window/MarginContainer/VBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="Window/MarginContainer/VBox/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("3_oposo")
+expand_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Window/MarginContainer/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="Window/MarginContainer/VBox/HBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Install"
+
+[connection signal="close_requested" from="." to="." method="queue_free"]
+[connection signal="text_submitted" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/LineEdit" to="." method="_ready"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer2/Button" to="." method="_ready"]
