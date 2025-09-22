@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Caret position button ([#96](https://github.com/text-forge/text-forge/pull/96))
 - Add Project module (TFPM): .tfproj support, Project menu, Files panel and Recent Projects ([#95](https://github.com/text-forge/text-forge/pull/95))
 - Theme support ([#100](https://github.com/text-forge/text-forge/pull/100))
+- **API:** `NetSuite` autoload ([#105](https://github.com/text-forge/text-forge/pull/105))
 
 ### Fixed
 - Preserve editor scroll when text is updated programmatically when `keep_carets` is true ([#101](https://github.com/text-forge/text-forge/pull/101))
