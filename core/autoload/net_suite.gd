@@ -1,5 +1,5 @@
 extends Node
-## Helper class for network works.
+## Helper for network tasks.
 
 ## Default value for [param auto_free_on] in [method http_request].
 const DEFAULT_HTTP_AUTO_FREE: Array[HTTPClient.Status] = [
@@ -10,29 +10,29 @@ const DEFAULT_HTTP_AUTO_FREE: Array[HTTPClient.Status] = [
 	HTTPClient.STATUS_TLS_HANDSHAKE_ERROR
 ]
 
-## Child [HTTPRequest]s with they [param auto_free_on] values, use [method http_request] to make new items.
-var http_rquests: Dictionary[HTTPRequest, Array]
+## Child [HTTPRequest]s with their [param auto_free_on] values, use [method http_request] to make new items.
+var http_requests: Dictionary[HTTPRequest, Array] = {}
 
 func _process(delta: float) -> void:
-	if http_rquests.is_empty():
+	if http_requests.is_empty():
 		return
-	for hr in http_rquests:
-		if hr.get_http_client_status() in http_rquests[hr]:
+	for hr in http_requests:
+		if hr.get_http_client_status() in http_requests[hr]:
 			hr.cancel_request()
-			http_rquests.erase(hr)
+			http_requests.erase(hr)
 			remove_child(hr)
 			hr.queue_free()
 
 
-## Creates new [HTTPRequest] and intiailize it with this optioanl parameters:[br]
+## Creates a new [HTTPRequest] and intiailizes it with these optioanl parameters:[br]
 ## َ    - [param callback]: [Callable] to connect to [signal HTTPRequest.request_completed].[br]
-## َ    - [param request]: Optional request to send, with these keys:[br]
-## َ        - [code]"url"[/code]: URL to send request.[br]
-## َ        - [code]"raw"[/code] (Optional, default is [code]false[/code]): Uses [method HTTPRequest.request_raw] insted of [method HTTPRequest.request] if [code]true[/code].[br]
+## َ    - [param request]: Optional request with keys:[br]
+## َ        - [code]"url"[/code]: URL to request.[br]
+## َ        - [code]"raw"[/code] (Optional, default [code]false[/code]): Uses [method HTTPRequest.request_raw] insted of [method HTTPRequest.request] when [code]true[/code].[br]
 ## َ        - [code]"custom_headers"[/code] (Optional, default is empty [PackedStringArray]): Custom headers to send request.[br]
-## َ        - [code]"method"[/code] (Optional, default is [constant HTTPClient.METHOD_GET]): Request method.[br]
-## َ        - [code]"request_data_raw"[/code] (Optional, default is empty [PackedByteArray]): Data to send in rquest when [code]"url"[/code] is [code]true[/code].[br]
-## َ        - [code]"request_data"[/code] (Optional, default is empty [String]): Data to send in rquest when [code]"url"[/code] is [code]false[/code] (default).[br]
+## َ        - [code]"method"[/code] (Optional, default [constant HTTPClient.METHOD_GET]): Request method.[br]
+## َ        - [code]"request_data_raw"[/code] (Optional, default empty [PackedByteArray]): Binary body when [code]"url"[/code] is [code]true[/code].[br]
+## َ        - [code]"request_data"[/code] (Optional, default empty [String]): String body when [code]"url"[/code] is [code]false[/code] (default).[br]
 ## َ    - [param downloadfile]: The file to download into.[br]
 ## َ    - [param auto_free_on]: An [Array] of [enum HTTPClient.Status]es that will free this request.[br][br]
 ## [b]Note:[/b] All parameters are optional, but if you need to send a request in this function you should set a value for [param request] [code]"url"[/code] key.[br][br]
@@ -41,16 +41,23 @@ func _process(delta: float) -> void:
 func http_request(callback := Callable(), request := {}, downloadfile := "", auto_free_on := DEFAULT_HTTP_AUTO_FREE) -> HTTPRequest:
 	var hr := HTTPRequest.new()
 	hr.download_file = downloadfile
-	if callback:
+	if callback.is_valid():
 		hr.request_completed.connect(callback)
 	if request.has("url"):
-		if request.get("raw", false):
-			hr.request_raw(request.get("url"), request.get("custom_headers", PackedStringArray()),
-					request.get("method", HTTPClient.METHOD_GET), request.get("request_data_raw",
-					PackedByteArray()))
-		else:
-			hr.request(request.get("url"), request.get("custom_headers", PackedStringArray()),
-					request.get("method", HTTPClient.METHOD_GET), request.get("request_data", String()))
-		http_rquests[hr] = auto_free_on
 		add_child(hr)
+		if request.get("raw", false):
+			hr.request_raw(
+				request.get("url"),
+				request.get("custom_headers", PackedStringArray()),
+				request.get("method", HTTPClient.METHOD_GET),
+				request.get("request_data_raw", PackedByteArray())
+			)
+		else:
+			hr.request(
+				request.get("url"),
+				request.get("custom_headers", PackedStringArray()),
+				request.get("method", HTTPClient.METHOD_GET),
+				request.get("request_data", String())
+			)
+		http_requests[hr] = auto_free_on
 	return hr
