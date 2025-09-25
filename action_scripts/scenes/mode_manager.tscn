@@ -102,6 +102,7 @@ layout_mode = 2
 tooltip_text = "Remove this mode (move to trash)"
 text = "Remove"
 
+[connection signal="close_requested" from="." to="." method="queue_free"]
 [connection signal="pressed" from="Margin/VBox/Buttons/Import" to="." method="_on_import_pressed"]
 [connection signal="toggled" from="Margin/VBox/Buttons/CreateKit" to="." method="_on_create_kit_toggled"]
 [connection signal="text_changed" from="Margin/VBox/Modes/Mode Editor/Name" to="." method="_on_data_changed"]
