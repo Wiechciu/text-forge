@@ -7,7 +7,6 @@ var mode_informations: Array[Dictionary]
 var current_mode_index: int
 
 func _ready() -> void:
-	close_requested.connect(_close)
 	mode_list.item_selected.connect(_show_about)
 	_load_mode_list()
 
