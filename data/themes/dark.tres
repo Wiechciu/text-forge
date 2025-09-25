@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=58 format=3 uid="uid://biemqm07w26kl"]
+[gd_resource type="Theme" load_steps=60 format=3 uid="uid://biemqm07w26kl"]
 
 [ext_resource type="Texture2D" uid="uid://bwarwcjjx7it3" path="res://assets/active.png" id="1_26g0h"]
 [ext_resource type="Texture2D" uid="uid://dat7uwrm3mo45" path="res://assets/active_disabled.png" id="2_xqe5d"]
@@ -149,6 +149,33 @@ bg_color = Color(0.11834, 0.167543, 0.216756, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_28nt2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a818m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0guws"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.215686)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a818m"]
+content_margin_left = 7.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.11834, 0.167543, 0.216756, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0823529, 0.121569, 0.160784, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ahyh"]
 content_margin_left = 5.0
@@ -347,6 +374,19 @@ NoFocusButton/base_type = &"Button"
 NoFocusButton/styles/focus = SubResource("StyleBoxEmpty_28nt2")
 OutlineTree/base_type = &"Tree"
 OutlineTree/styles/panel = SubResource("StyleBoxEmpty_a818m")
+PackageBadgeLabel/base_type = &"Label"
+PackageBadgeLabel/font_sizes/font_size = 12
+PackageBadgeLabel/styles/normal = SubResource("StyleBoxFlat_0guws")
+PackageDatesLabel/base_type = &"Label"
+PackageDatesLabel/colors/font_color = Color(0.699219, 0.699219, 0.699219, 1)
+PackageDatesLabel/font_sizes/font_size = 10
+PackageDescriptionLabel/base_type = &"Label"
+PackageDescriptionLabel/colors/font_color = Color(1, 1, 1, 0.392157)
+PackageDescriptionLabel/font_sizes/font_size = 14
+PackagePanel/base_type = &"PanelContainer"
+PackagePanel/styles/panel = SubResource("StyleBoxFlat_a818m")
+PackageVersionLabel/base_type = &"Label"
+PackageVersionLabel/font_sizes/font_size = 12
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_0ahyh")
 PopupMenu/colors/font_accelerator_color = Color(0.701961, 0.701961, 0.701961, 0.392157)
 PopupMenu/constants/item_end_padding = 10
