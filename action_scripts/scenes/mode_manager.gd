@@ -36,33 +36,8 @@ func _on_import_pressed() -> void:
 
 
 func _import_mode(path: String) -> void:
-	var reader = ZIPReader.new()
-	var err := reader.open(path)
-	if err:
-		Global.send_notification(Global.Notification.ERROR, "Can't load this file!", "Load {0} for import mode or mode kit failed. Error code: {1}".format([path, str(err)]))
-		return
-
-	if not DirAccess.dir_exists_absolute(SLib.globalize_path("user://modes")):
-		DirAccess.make_dir_absolute(SLib.globalize_path("user://modes"))
-	var root_dir = DirAccess.open("user://")
-
-	var files = reader.get_files()
-	for file_path in files:
-		if file_path.ends_with("/"):
-			root_dir.make_dir_recursive(file_path)
-			continue
-
-		root_dir.make_dir_recursive(root_dir.get_current_dir().path_join(file_path).get_base_dir())
-		var file = FileAccess.open(root_dir.get_current_dir().path_join(file_path), FileAccess.WRITE)
-		var buffer = reader.read_file(file_path)
-		file.store_buffer(buffer)
-
-	Global.get_editor_api().reload_modes()
+	Global.get_editor_api().import_mode(path)
 	_load_mode_list()
-	Global.send_notification(Global.Notification.INFO, "Load mode / mode kit completed.")
-
-func _close() -> void:
-	queue_free()
 
 
 func _on_data_changed(new_text: String) -> void:
@@ -78,7 +53,7 @@ func _on_data_changed(new_text: String) -> void:
 
 func _on_edit_script_pressed() -> void:
 	Signals.open_file.emit(SLib.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.gd")))
-	_close()
+	queue_free()
 
 
 func _on_export_pressed() -> void:

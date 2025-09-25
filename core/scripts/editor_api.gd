@@ -84,6 +84,36 @@ func reload_modes() -> void:
 	_load_mode_list()
 
 
+## Imports one or more mode from a [code].tfmode[/code] file.
+func import_mode(path: String) -> void:
+	if path.get_extension().to_lower() != "tfmode":
+		Global.send_notification(Global.Notification.ERROR, "Invalid mode file!")
+		return
+	var reader = ZIPReader.new()
+	var err := reader.open(path)
+	if err:
+		Global.send_notification(Global.Notification.ERROR, "Can't load this file!", "Load {0} for import mode or mode kit failed. Error code: {1}".format([path, str(err)]))
+		return
+
+	if not DirAccess.dir_exists_absolute(SLib.globalize_path("user://modes")):
+		DirAccess.make_dir_absolute(SLib.globalize_path("user://modes"))
+	var root_dir = DirAccess.open("user://")
+
+	var files = reader.get_files()
+	for file_path in files:
+		if file_path.ends_with("/"):
+			root_dir.make_dir_recursive(file_path)
+			continue
+
+		root_dir.make_dir_recursive(root_dir.get_current_dir().path_join(file_path).get_base_dir())
+		var file = FileAccess.open(root_dir.get_current_dir().path_join(file_path), FileAccess.WRITE)
+		var buffer = reader.read_file(file_path)
+		file.store_buffer(buffer)
+
+	reload_modes()
+	Global.send_notification(Global.Notification.INFO, "Load mode / mode kit completed.")
+
+
 ## Handle file saving from mode selection to correct mode encode system and then to targe file.
 ## Will use current mode if is compatible (based on [method _is_mode_compatible]), otherwise will
 ## use [method _is_mode_compatible] to filter modes and select one of them. Three situation can heppend:[br]
