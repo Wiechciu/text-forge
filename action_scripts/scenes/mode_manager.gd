@@ -44,7 +44,7 @@ func _import_mode(path: String) -> void:
 
 	if not DirAccess.dir_exists_absolute(SLib.globalize_path("user://modes")):
 		DirAccess.make_dir_absolute(SLib.globalize_path("user://modes"))
-	var root_dir = DirAccess.open("user://modes")
+	var root_dir = DirAccess.open("user://")
 
 	var files = reader.get_files()
 	for file_path in files:

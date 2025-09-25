@@ -45,19 +45,25 @@ func http_request(callback := Callable(), request := {}, downloadfile := "", aut
 		hr.request_completed.connect(callback)
 	if request.has("url"):
 		add_child(hr)
+		var err := Error.OK
 		if request.get("raw", false):
-			hr.request_raw(
+			err = hr.request_raw(
 				request.get("url"),
 				request.get("custom_headers", PackedStringArray()),
 				request.get("method", HTTPClient.METHOD_GET),
 				request.get("request_data_raw", PackedByteArray())
 			)
 		else:
-			hr.request(
+			err = hr.request(
 				request.get("url"),
 				request.get("custom_headers", PackedStringArray()),
 				request.get("method", HTTPClient.METHOD_GET),
 				request.get("request_data", String())
 			)
+		if err:
+			Global.send_notification(Global.Notification.ERROR, "Failed to send HTTP request!", "Error code: " + str(err))
+			remove_child(hr)
+			hr.queue_free()
+			return null
 		http_requests[hr] = auto_free_on
 	return hr
