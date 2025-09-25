@@ -141,55 +141,9 @@ func _complete_installation(result: int, response_code: int, headers: PackedStri
 	downloaded.close()
 	match data["category"]:
 		"extensions":
-			var reader = ZIPReader.new()
-			var err := reader.open(path)
-			if err:
-				Global.send_notification(Global.Notification.ERROR, "Can't load this extension file!", "Load {0} for install extension failed. Error code: {1}".format([path, str(err)]))
-				return
-
-			if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS)):
-				DirAccess.make_dir_recursive_absolute(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS))
-
-			var root_dir = DirAccess.open(FileDatabase.FOLDER_EXTENSIONS)
-
-			var files = reader.get_files()
-			for file_path in files:
-				if file_path.ends_with("/"):
-					root_dir.make_dir_recursive(file_path)
-					continue
-
-				root_dir.make_dir_recursive(root_dir.get_current_dir().path_join(file_path).get_base_dir())
-				var file = FileAccess.open(root_dir.get_current_dir().path_join(file_path), FileAccess.WRITE)
-				var buffer = reader.read_file(file_path)
-				file.store_buffer(buffer)
-
-			Global.get_editor_api().reload_modes()
-			Global.send_notification(Global.Notification.INFO, "Install extension completed.")
-			add_child(Factory.confirmation_dialog("Unpack extension completed, Do you want to reload extensions to use it?", "Yes, Reload", "No, Later", "Do you want reload extensions?", Callable(), Extensions.setup_extensions))
+			Extensions.install_extension(path)
 		"modes":
-			var reader = ZIPReader.new()
-			var err := reader.open(path)
-			if err:
-				Global.send_notification(Global.Notification.ERROR, "Can't load this file!", "Load {0} for import mode or mode kit failed. Error code: {1}".format([path, str(err)]))
-				return
-
-			if not DirAccess.dir_exists_absolute(SLib.globalize_path("user://modes")):
-				DirAccess.make_dir_absolute(SLib.globalize_path("user://modes"))
-			var root_dir = DirAccess.open("user://")
-
-			var files = reader.get_files()
-			for file_path in files:
-				if file_path.ends_with("/"):
-					root_dir.make_dir_recursive(file_path)
-					continue
-
-				root_dir.make_dir_recursive(root_dir.get_current_dir().path_join(file_path).get_base_dir())
-				var file = FileAccess.open(root_dir.get_current_dir().path_join(file_path), FileAccess.WRITE)
-				var buffer = reader.read_file(file_path)
-				file.store_buffer(buffer)
-
-			Global.get_editor_api().reload_modes()
-			Global.send_notification(Global.Notification.INFO, "Load mode / mode kit completed.")
+			Global.get_editor_api().import_mode(path)
 		"themes":
 			add_child(Factory.confirmation_dialog("Installing theme completed, Do you want to use it now?", "Yes", "No, Later", "Do you want use new theme?", Callable(), _change_theme.bind(path.get_file().get_basename())))
 	Global.send_notification(Global.Notification.INFO, "Package installed!", "You can close marketplace window now.")
