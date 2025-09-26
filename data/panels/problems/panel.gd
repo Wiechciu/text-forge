@@ -26,13 +26,13 @@ func _ready() -> void:
 
 func _update_problems(problems: Array[Dictionary]) -> void:
 	# Remove old problem list items
-	SLib.free_all_children(problem_list)
+	S.free_all_children(problem_list)
 
 	for p in problems:
 		var item: PanelContainer = instance.duplicate()
 
 		# red for errrors, yellow for warnings
-		var icon: Texture2D = Global.load_resource("res://data/panels/problems/error.png" if p["error"] else "res://data/panels/problems/warning.png")
+		var icon: Texture2D = U.load_resource("res://data/panels/problems/error.png" if p["error"] else "res://data/panels/problems/warning.png")
 		# color for title, same color as icon
 		var color: Color = Color("e50000" if p["error"] else "e8bc03")
 		# line and column prefix

@@ -5,7 +5,7 @@ extends TextureRect
 func _ready() -> void:
 	BackupCore.backup_saved.connect(_on_backup_saved)
 	BackupCore.backup_failed.connect(_on_backup_failed)
-	hide_timer.timeout.connect(SLib.play_animation.bind(SLib.Animations.FADE_OUT, self))
+	hide_timer.timeout.connect(S.fade_out.bind(self))
 
 
 func _on_backup_saved(was_auto: bool) -> void:

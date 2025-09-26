@@ -10,4 +10,4 @@ extends ActionScript
 var window_scene: String
 
 func _run_action() -> void:
-	add_child(Global.load_resource(window_scene).instantiate())
+	add_child(U.load_resource(window_scene).instantiate())

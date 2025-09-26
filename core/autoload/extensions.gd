@@ -62,7 +62,7 @@ func setup_extensions() -> void:
 
 	# just do activation for enabled extensions
 	for xtn: String in extensions.keys().filter(func(item): return item in enabled_extensions):
-		var entry = Global.load_resource(FileDatabase.FOLDER_EXTENSIONS.path_join(xtn).path_join(extensions[xtn]["entry"])).new()
+		var entry = U.load_resource(S.FOLDER_EXTENSIONS.path_join(xtn).path_join(extensions[xtn]["entry"])).new()
 		entry.name = xtn
 		add_child(entry)
 		entry.call(extensions[xtn]["on_activate"])
@@ -81,10 +81,10 @@ func install_extension(path: String) -> void:
 		Global.send_notification(Global.Notification.ERROR, "Can't load this file!", "Load {0} for install extension failed. Error code: {1}".format([path, str(err)]))
 		return
 
-	if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS)):
-		DirAccess.make_dir_recursive_absolute(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS))
+	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_EXTENSIONS)):
+		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.FOLDER_EXTENSIONS))
 
-	var root_dir = DirAccess.open(FileDatabase.FOLDER_EXTENSIONS)
+	var root_dir = DirAccess.open(S.FOLDER_EXTENSIONS)
 
 	var files = reader.get_files()
 	for file_path in files:
@@ -113,7 +113,7 @@ func cleanup_all_extensions() -> void:
 		get_node(xtn).call(extensions[xtn]["on_deactivate"])
 
 	await get_tree().process_frame
-	SLib.free_all_children(self)
+	S.free_all_children(self)
 
 
 ## Sets given extension as [param enabled] and activate/diactivate it.
@@ -130,7 +130,7 @@ func set_extension_enabled(id: String, enabled: bool = true) -> void:
 	else:
 		if not enabled_extensions.has(id):
 			enabled_extensions.append(id)
-			var entry = Global.load_resource(FileDatabase.FOLDER_EXTENSIONS.path_join(id).path_join(extensions[id]["entry"])).new()
+			var entry = U.load_resource(S.FOLDER_EXTENSIONS.path_join(id).path_join(extensions[id]["entry"])).new()
 			entry.name = id
 			add_child(entry)
 			entry.call(extensions[id]["on_activate"])
@@ -159,10 +159,10 @@ func uninstall_extension(id: String) -> void:
 	if has_node(id):
 		get_node(id).call(extensions[id]["uninstall"])
 	else:
-		Global.load_resource(FileDatabase.FOLDER_EXTENSIONS.path_join(id).path_join(extensions[id]["entry"])).new().call(extensions[id]["uninstall"])
+		U.load_resource(S.FOLDER_EXTENSIONS.path_join(id).path_join(extensions[id]["entry"])).new().call(extensions[id]["uninstall"])
 
 	await get_tree().process_frame
-	OS.move_to_trash(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS.path_join(id)))
+	OS.move_to_trash(S.globalize_path(S.FOLDER_EXTENSIONS.path_join(id)))
 
 
 ## Calls linked [Callable] based on [param id], see [method add_extensions_menu_item] for more information.
@@ -175,20 +175,20 @@ func _load_enabled_list() -> void:
 	enabled_extensions = Settings.read_data("extensions", "enabled", [])
 
 
-## Loads extensions from [constant FileDatabase.FOLDER_EXTENSIONS], each extension is a folder and
+## Loads extensions from [constant S.FOLDER_EXTENSIONS], each extension is a folder and
 ## must have a [code]extension.cfg[/code].
 func _load_extensions() -> void:
 	extensions = {}
 
-	if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS)):
-		DirAccess.make_dir_absolute(SLib.globalize_path(FileDatabase.FOLDER_EXTENSIONS))
+	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_EXTENSIONS)):
+		DirAccess.make_dir_absolute(S.globalize_path(S.FOLDER_EXTENSIONS))
 
 	var config := ConfigFile.new()
-	for xtn: String in DirAccess.get_directories_at(FileDatabase.FOLDER_EXTENSIONS):
-		if not FileAccess.file_exists(SLib.globalize_path(FileDatabase.TEMPLATE_EXTENSION_CONFIG.format([xtn]))):
+	for xtn: String in DirAccess.get_directories_at(S.FOLDER_EXTENSIONS):
+		if not FileAccess.file_exists(S.globalize_path(S.TEMPLATE_EXTENSION_CONFIG.format([xtn]))):
 			continue
 
-		config.load(SLib.globalize_path(FileDatabase.TEMPLATE_EXTENSION_CONFIG.format([xtn])))
+		config.load(S.globalize_path(S.TEMPLATE_EXTENSION_CONFIG.format([xtn])))
 
 		extensions[xtn] = {}
 		extensions[xtn]["name"] = config.get_value("main", "name", "null")

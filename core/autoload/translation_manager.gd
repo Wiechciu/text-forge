@@ -57,11 +57,11 @@ func set_language(language_code: String = "default", fallback_code: String = "de
 
 func cache_source(source_file: String) -> Dictionary[String,Dictionary]:
 	var data: Dictionary[String, Dictionary] = {}
-	if not FileAccess.file_exists(SLib.globalize_path(source_file)):
+	if not FileAccess.file_exists(S.globalize_path(source_file)):
 		print("Can't cache translation data\nFile {0} doesn't exist!".format([source_file]))
 		return data
 
-	var file := FileAccess.open(SLib.globalize_path(source_file), FileAccess.READ)
+	var file := FileAccess.open(S.globalize_path(source_file), FileAccess.READ)
 	var column_names := file.get_csv_line()
 	while file.get_position() < file.get_length():
 		var line = file.get_csv_line()
@@ -94,19 +94,19 @@ func get_text_from_cache(key: String, cache: Dictionary[String, Dictionary]) -> 
 ##  - [member language] does not exist but the [member fallback] is successful: [code]Translation fallback to %fallback%[/code] warning, returns translated key to fallback language.[br]
 ##  - [member language] and [member fallback] do not exist: [code]Invalid language code![/code] error, returns [param key].[br]
 ##  - [param key] does not exist: [code]Invalid translation key![/code] error, returns [param key].[br][br]
-## [b]Note:[/b] If [param source_file] is [code]"default"[/code], will use [constant FileDatabase.TRANSLATION_FILE].
+## [b]Note:[/b] If [param source_file] is [code]"default"[/code], will use [constant S.TRANSLATION_FILE].
 func get_text(key: String, source_file: String = "default") -> String:
 	if source_file == "default":
-		source_file = FileDatabase.TRANSLATION_FILE
+		source_file = S.TRANSLATION_FILE
 
 	if key == "":
 		return ""
 
-	if not FileAccess.file_exists(SLib.globalize_path(source_file)):
+	if not FileAccess.file_exists(S.globalize_path(source_file)):
 		print("Can't load translation data\nFile {0} doesn't exitsts!".format([source_file]))
 		return key
 
-	var file := FileAccess.open(SLib.globalize_path(source_file), FileAccess.READ)
+	var file := FileAccess.open(S.globalize_path(source_file), FileAccess.READ)
 	var column_names := file.get_csv_line()
 	var lang
 	if not column_names.has(language):
@@ -131,8 +131,8 @@ func get_text(key: String, source_file: String = "default") -> String:
 	file.close()
 
 	## Remove temprory translation file
-	if FileAccess.file_exists(SLib.globalize_path(TEMP_TRANSLATION_SOURCE)):
-		DirAccess.remove_absolute(SLib.globalize_path(TEMP_TRANSLATION_SOURCE))
+	if FileAccess.file_exists(S.globalize_path(TEMP_TRANSLATION_SOURCE)):
+		DirAccess.remove_absolute(S.globalize_path(TEMP_TRANSLATION_SOURCE))
 
 	return key
 

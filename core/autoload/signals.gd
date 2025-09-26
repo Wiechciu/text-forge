@@ -99,6 +99,6 @@ func _save_changes(from: int) -> void:
 func _resume_after_save(to: int) -> void:
 	if to == -1:
 		return
-	await SLib.wait(0.5)
+	await U.wait(0.5)
 	Global.set_file_name(Global.get_file_name().replace("*", ""))
 	run_script.emit(to)

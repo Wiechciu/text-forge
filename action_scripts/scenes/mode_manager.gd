@@ -41,7 +41,7 @@ func _import_mode(path: String) -> void:
 
 func _on_data_changed(new_text: String) -> void:
 	var config = ConfigFile.new()
-	config.load(SLib.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.cfg")))
+	config.load(S.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.cfg")))
 	config.set_value("mode", "name", about.get_child(0).text.strip_edges())
 	config.set_value("mode", "version", about.get_child(1).text.strip_edges())
 	config.set_value("mode", "author", about.get_child(2).text.strip_edges())
@@ -51,7 +51,7 @@ func _on_data_changed(new_text: String) -> void:
 
 
 func _on_edit_script_pressed() -> void:
-	Signals.open_file.emit(SLib.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.gd")))
+	Signals.open_file.emit(S.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"]).path_join("mode.gd")))
 	queue_free()
 
 
@@ -88,7 +88,7 @@ func _on_remove_pressed() -> void:
 	confirm.popup_centered()
 
 func _remove_mode() -> void:
-	OS.move_to_trash(SLib.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"])))
+	OS.move_to_trash(S.globalize_path("user://modes".path_join(mode_informations[current_mode_index]["id"])))
 	Global.send_notification(Global.Notification.INFO, "Remove mode completed.")
 	Global.get_editor_api().reload_modes()
 	_load_mode_list()
@@ -102,7 +102,7 @@ func _save_package(path: String) -> void:
 		Global.send_notification(Global.Notification.ERROR, "Cann't export mode kit!", "Error code: " + str(err))
 		return
 	for index in mode_list.get_selected_items():
-		_add_folder_to_zip(writer, FileDatabase.FOLDER_MODES.path_join(mode_informations[index]["id"]))
+		_add_folder_to_zip(writer, S.FOLDER_MODES.path_join(mode_informations[index]["id"]))
 	writer.close()
 	Global.send_notification(Global.Notification.INFO, "Export mode kit completed.", "Exported file: " + path)
 	mode_list.select_mode = ItemList.SELECT_SINGLE

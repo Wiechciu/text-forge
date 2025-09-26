@@ -43,9 +43,9 @@ func _handle_auto_save() -> void:
 ## [/codeblock]
 func get_backups_list() -> Dictionary[String, Dictionary]:
 	var config := ConfigFile.new()
-	if not FileAccess.file_exists(SLib.globalize_path(FileDatabase.BACKUP_DATABASE)):
+	if not FileAccess.file_exists(S.globalize_path(S.BACKUP_DATABASE)):
 		return Dictionary({}, TYPE_STRING, "", null, TYPE_DICTIONARY, "", null)
-	config.load(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
+	config.load(S.globalize_path(S.BACKUP_DATABASE))
 	if not config.has_section("backups"):
 		return Dictionary({}, TYPE_STRING, "", null, TYPE_DICTIONARY, "", null)
 
@@ -58,7 +58,7 @@ func get_backups_list() -> Dictionary[String, Dictionary]:
 
 ## Restores current backup to given [param path] from given [param code] backup.
 func restore_backup(code: String, path: String) -> void:
-	var content := FileAccess.get_file_as_string(FileDatabase.TEMPLATE_BACKUP_FILE.format([code]))
+	var content := FileAccess.get_file_as_string(S.TEMPLATE_BACKUP_FILE.format([code]))
 	Global.set_file_path(path)
 	Global.set_file_name(path.get_file())
 	Global.set_editor_disabled(false)
@@ -72,20 +72,20 @@ func backup_file(as_auto: bool) -> void:
 	if not Global.has_file():
 		return
 	var config := ConfigFile.new()
-	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.BACKUP_DATABASE)):
-		config.load(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
+	if FileAccess.file_exists(S.globalize_path(S.BACKUP_DATABASE)):
+		config.load(S.globalize_path(S.BACKUP_DATABASE))
 
 	var file_backups: Dictionary = config.get_value("backups", Global.get_file_path(), {})
 	var backup_id := _generate_new_backup_id()
 	if backup_id == "":
 		backup_failed.emit(as_auto)
 		return
-	var file := FileAccess.open(SLib.globalize_path(FileDatabase.TEMPLATE_BACKUP_FILE.format([backup_id])), FileAccess.WRITE)
+	var file := FileAccess.open(S.globalize_path(S.TEMPLATE_BACKUP_FILE.format([backup_id])), FileAccess.WRITE)
 	file.store_string(Global.get_editor_text())
 	file.close()
 	file_backups[Time.get_datetime_string_from_system(false, true)] = backup_id
 	config.set_value("backups", Global.get_file_path(), file_backups)
-	config.save(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
+	config.save(S.globalize_path(S.BACKUP_DATABASE))
 	backup_saved.emit(as_auto)
 
 
@@ -96,7 +96,7 @@ func _generate_new_backup_id() -> String:
 		var codes := Array()
 		codes.resize(8)
 		codes = codes.map(func(j): return randi_range(0, 9))
-		path = SLib.globalize_path(FileDatabase.TEMPLATE_BACKUP_FILE.format(["".join(codes)]))
+		path = S.globalize_path(S.TEMPLATE_BACKUP_FILE.format(["".join(codes)]))
 		if not FileAccess.file_exists(path):
 			return "".join(codes)
 	Global.send_notification(Global.Notification.ERROR, "Failed to generate random backup ID in 10^8 tries.")
@@ -106,11 +106,11 @@ func _generate_new_backup_id() -> String:
 # Searchs backup database for each backup file and removes backups without refrence
 func _remove_backups_without_refrence() -> void:
 	var config := ConfigFile.new()
-	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.BACKUP_DATABASE)):
-		config.load(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
-	if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.TEMPLATE_BACKUP_FILE.get_base_dir())):
-		DirAccess.make_dir_recursive_absolute(SLib.globalize_path(FileDatabase.TEMPLATE_BACKUP_FILE.get_base_dir()))
-	var dir := DirAccess.open(SLib.globalize_path(FileDatabase.TEMPLATE_BACKUP_FILE.get_base_dir()))
+	if FileAccess.file_exists(S.globalize_path(S.BACKUP_DATABASE)):
+		config.load(S.globalize_path(S.BACKUP_DATABASE))
+	if not DirAccess.dir_exists_absolute(S.globalize_path(S.TEMPLATE_BACKUP_FILE.get_base_dir())):
+		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.TEMPLATE_BACKUP_FILE.get_base_dir()))
+	var dir := DirAccess.open(S.globalize_path(S.TEMPLATE_BACKUP_FILE.get_base_dir()))
 	for file in dir.get_files():
 		var code = file.get_file()
 		var found := false
@@ -126,8 +126,8 @@ func _remove_old_backups() -> void:
 	if Settings.get_setting("files", "keep_backup_for_days") == -1:
 		return
 	var config := ConfigFile.new()
-	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.BACKUP_DATABASE)):
-		config.load(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
+	if FileAccess.file_exists(S.globalize_path(S.BACKUP_DATABASE)):
+		config.load(S.globalize_path(S.BACKUP_DATABASE))
 
 	if not config.has_section("backups"):
 		return
@@ -141,7 +141,7 @@ func _remove_old_backups() -> void:
 			if _convert_to_days(backup_time) + Settings.get_setting("files", "keep_backup_for_days") < _convert_to_days(Time.get_datetime_string_from_system()):
 				file_backups.erase(backup_time)
 		config.set_value("backups", file_item, file_backups)
-	config.save(SLib.globalize_path(FileDatabase.BACKUP_DATABASE))
+	config.save(S.globalize_path(S.BACKUP_DATABASE))
 
 
 # Converts given date_string to days int, supports both datetime and date formats

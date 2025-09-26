@@ -91,10 +91,10 @@ func load_recent_projects() -> void:
 	recent_menu.clear()
 
 	# Load recent projects
-	if FileAccess.file_exists(FileDatabase.RECENT_PROJECTS_DATA):
-		var recent_projects_list = FileAccess.get_file_as_string(FileDatabase.RECENT_PROJECTS_DATA).split("\n", false)
+	if FileAccess.file_exists(S.RECENT_PROJECTS_DATA):
+		var recent_projects_list = FileAccess.get_file_as_string(S.RECENT_PROJECTS_DATA).split("\n", false)
 
-		recent_projects_list = SLib.merge_unique(recent_projects_list, []) # Remove duplicate items
+		recent_projects_list = S.merge_unique(recent_projects_list, []) # Remove duplicate items
 
 		for recent in recent_projects_list:
 			if recent_menu.item_count == 15: # Limit list to 15 items
@@ -109,9 +109,9 @@ func load_recent_projects() -> void:
 	for recent in recent_menu.item_count:
 		recent_projects.append(recent_menu.get_item_text(recent))
 
-	var existing_content: String = FileAccess.get_file_as_string(FileDatabase.RECENT_PROJECTS_DATA) if FileAccess.file_exists(FileDatabase.RECENT_PROJECTS_DATA) else ""
+	var existing_content: String = FileAccess.get_file_as_string(S.RECENT_PROJECTS_DATA) if FileAccess.file_exists(S.RECENT_PROJECTS_DATA) else ""
 	if "\n".join(recent_projects) != existing_content:
-		var file = FileAccess.open(FileDatabase.RECENT_PROJECTS_DATA, FileAccess.WRITE)
+		var file = FileAccess.open(S.RECENT_PROJECTS_DATA, FileAccess.WRITE)
 		file.store_string("\n".join(recent_projects))
 		file.close()
 
@@ -119,10 +119,10 @@ func load_recent_projects() -> void:
 func append_to_recent_projects(file_path: String) -> void:
 	var file: FileAccess
 	var files := ""
-	if FileAccess.file_exists(FileDatabase.RECENT_PROJECTS_DATA):
-		files = FileAccess.get_file_as_string(FileDatabase.RECENT_PROJECTS_DATA)
+	if FileAccess.file_exists(S.RECENT_PROJECTS_DATA):
+		files = FileAccess.get_file_as_string(S.RECENT_PROJECTS_DATA)
 
-	file = FileAccess.open(FileDatabase.RECENT_PROJECTS_DATA, FileAccess.WRITE)
+	file = FileAccess.open(S.RECENT_PROJECTS_DATA, FileAccess.WRITE)
 	file.store_string(file_path.replace("\\", "/") + "\n" + files)
 	file.close()
 
@@ -130,7 +130,7 @@ func append_to_recent_projects(file_path: String) -> void:
 
 
 func convert_project(script_path: String, project_file: String) -> void:
-	var script: Object = Global.load_resource(script_path).new()
+	var script: Object = U.load_resource(script_path).new()
 	if not (script.has_method("convert_project") and script.has_signal("convert_completed")):
 		Global.send_notification(Global.Notification.ERROR, "Converter is invalid!")
 		script.free()
@@ -147,7 +147,7 @@ func convert_project(script_path: String, project_file: String) -> void:
 func cache_icon(path: String) -> String:
 	if path == "" or not FileAccess.file_exists(path):
 		return ""
-	var cache_dir := FileDatabase.FOLDER_CACHED_PROJECT_ICONS
+	var cache_dir := S.FOLDER_CACHED_PROJECT_ICONS
 	if not DirAccess.dir_exists_absolute(cache_dir):
 		DirAccess.make_dir_recursive_absolute(cache_dir)
 

@@ -51,7 +51,7 @@ func _on_create_pressed() -> void:
 	var config := ConfigFile.new()
 	config.set_value("project", "name", name_edit.text)
 	config.set_value("project", "details", details_edit.text)
-	if icon_button.text.get_extension().to_lower() in FileDatabase.IMAGE_EXTS:
+	if icon_button.text.get_extension().to_lower() in S.IMAGE_EXTS:
 		config.set_value("project", "icon", Project.cache_icon(icon_button.text))
 	else:
 		config.set_value("project", "icon", "")

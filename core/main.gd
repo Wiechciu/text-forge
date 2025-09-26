@@ -46,7 +46,7 @@ const MENU_TRANSLATION_PREFIX = "menu."
 
 ## Recent files [PopupMenu], see also [method _update_recent_files].
 var recent_files_submenu: PopupMenu
-## Configurations loaded from [constant FileDatabase.MAIN_UI_DATA].
+## Configurations loaded from [constant S.MAIN_UI_DATA].
 var main_menu_data: Dictionary
 var _translation_data: Dictionary[String, Dictionary]
 
@@ -57,7 +57,7 @@ func _ready() -> void:
 	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
 	# Open file with drag and drop feature
 	get_window().files_dropped.connect(func(files: PackedStringArray): Signals.open_file.emit(files[0]))
-	_translation_data = TFT.cache_source(FileDatabase.TRANSLATION_FILE)
+	_translation_data = TFT.cache_source(S.TRANSLATION_FILE)
 
 	# Connect reload_recent_files request signal
 	Signals.reload_recent_files.connect(_reload_recent_files)
@@ -76,15 +76,15 @@ func _ready() -> void:
 
 
 func _initialize_themes() -> void:
-	if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_THEMES)):
-		DirAccess.make_dir_recursive_absolute(SLib.globalize_path(FileDatabase.FOLDER_THEMES))
+	if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_THEMES)):
+		DirAccess.make_dir_recursive_absolute(S.globalize_path(S.FOLDER_THEMES))
 
-	for t in DirAccess.get_files_at(FileDatabase.FOLDER_INTERNAL_THEMES):
-		if t.get_extension().to_lower() != "tres" or FileAccess.file_exists(FileDatabase.FOLDER_THEMES.path_join(t)):
+	for t in DirAccess.get_files_at(S.FOLDER_INTERNAL_THEMES):
+		if t.get_extension().to_lower() != "tres" or FileAccess.file_exists(S.FOLDER_THEMES.path_join(t)):
 			continue
 
-		var file := FileAccess.open(FileDatabase.FOLDER_THEMES.path_join(t), FileAccess.WRITE)
-		file.store_buffer(FileAccess.get_file_as_bytes(FileDatabase.FOLDER_INTERNAL_THEMES.path_join(t)))
+		var file := FileAccess.open(S.FOLDER_THEMES.path_join(t), FileAccess.WRITE)
+		file.store_buffer(FileAccess.get_file_as_bytes(S.FOLDER_INTERNAL_THEMES.path_join(t)))
 		file.close()
 
 
@@ -114,21 +114,21 @@ func _handle_settings() -> void:
 
 	Global.get_editor().indent_use_spaces = Settings.get_setting("edit", "indent_with_space")
 	Global.get_editor().indent_size = Settings.get_setting("edit", "indent_size")
-	if FileAccess.file_exists(FileDatabase.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])):
-		get_window().set_theme(Global.load_resource(FileDatabase.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name").to_lower()])))
+	if FileAccess.file_exists(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])):
+		get_window().set_theme(U.load_resource(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name").to_lower()])))
 	else:
 		_initialize_themes()
-		get_window().set_theme(Global.load_resource(FileDatabase.TEMPLATE_THEME.format(["dark"])))
+		get_window().set_theme(U.load_resource(S.TEMPLATE_THEME.format(["dark"])))
 
 
-## Appends [param file_path] in [constant FileDatabase.RECENT_FILES_DATA]. New file will be in top
+## Appends [param file_path] in [constant S.RECENT_FILES_DATA]. New file will be in top
 ## of list. This function will emit [signal SignalBus.reload_recent_files].
 func append_to_recent_files(file_path: String) -> void:
 	var file: FileAccess
 	var files: String
-	files = FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA)
+	files = FileAccess.get_file_as_string(S.RECENT_FILES_DATA)
 
-	file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
+	file = FileAccess.open(S.RECENT_FILES_DATA, FileAccess.WRITE)
 	file.store_string(file_path + "\n" + files)
 	file.close()
 
@@ -150,7 +150,7 @@ func _handle_cmdline_arguments() -> void:
 		if file_path.begins_with("uid://"):
 			continue
 		if file_path.is_relative_path():
-			file_path = SLib.globalize_path(arg)
+			file_path = S.globalize_path(arg)
 		Signals.open_file.emit(file_path)
 
 
@@ -173,10 +173,10 @@ func _load_last_file(is_automatic := true) -> void:
 		Global.send_notification(Global.Notification.INFO, "Your last opened file was loaded!", "You can change this behavior or disable this notification in preferences.")
 
 
-## Loads data in [member main_menu_data], uses [constant FileDatabase.MAIN_UI_DATA] and [constant DATA_SECTION].
+## Loads data in [member main_menu_data], uses [constant S.MAIN_UI_DATA] and [constant DATA_SECTION].
 func _load_main_menu_data() -> void:
 	var config := ConfigFile.new()
-	config.load(SLib.globalize_path(FileDatabase.MAIN_UI_DATA))
+	config.load(S.globalize_path(S.MAIN_UI_DATA))
 	for menu_section: String in config.get_section_keys(DATA_SECTION):
 		main_menu_data[menu_section] = config.get_value(DATA_SECTION, menu_section) as Array
 
@@ -184,7 +184,7 @@ func _load_main_menu_data() -> void:
 ## This function will load data from UI source and generate buttons.
 func _load_main_menu() -> void:
 	var config := ConfigFile.new()
-	config.load(SLib.globalize_path(FileDatabase.MAIN_UI_DATA))
+	config.load(S.globalize_path(S.MAIN_UI_DATA))
 
 	for menu_item: String in config.get_section_keys(DATA_SECTION):
 		if menu_item.ends_with(SUBMENU_SUFFIX):
@@ -238,10 +238,10 @@ func _create_submenu(root_menu: PopupMenu, root_option: Dictionary, config_file:
 			_reload_recent_files()
 
 		"New With Template": # needs special action
-			if not DirAccess.dir_exists_absolute(SLib.globalize_path(FileDatabase.FOLDER_TEMPLATES)):
-				DirAccess.make_dir_recursive_absolute(SLib.globalize_path(FileDatabase.FOLDER_TEMPLATES))
+			if not DirAccess.dir_exists_absolute(S.globalize_path(S.FOLDER_TEMPLATES)):
+				DirAccess.make_dir_recursive_absolute(S.globalize_path(S.FOLDER_TEMPLATES))
 
-			for template: String in DirAccess.get_files_at(FileDatabase.FOLDER_TEMPLATES):
+			for template: String in DirAccess.get_files_at(S.FOLDER_TEMPLATES):
 				submenu.add_item(template)
 
 		"By Extensions": # needs load from another script
@@ -282,9 +282,9 @@ func _load_scripts() -> void:
 			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SEPARATOR: # ignore separators
 				continue
 
-			var script_path: String = FileDatabase.TEMPLATE_ACTION_SCRIPT.format([item.get("text", "").to_snake_case().replace(".", "")])
+			var script_path: String = S.TEMPLATE_ACTION_SCRIPT.format([item.get("text", "").to_snake_case().replace(".", "")])
 
-			if not FileAccess.file_exists(SLib.globalize_path(script_path)):
+			if not FileAccess.file_exists(S.globalize_path(script_path)):
 				# disable items without script (except submenu roots)
 				if item.has("popup") and item.get("type", OptionTypes.REGULAR) != OptionTypes.SUBMENU:
 					item.get("popup").set_item_disabled(item.get("popup").get_item_index(item.get("code", 0)), true)
@@ -292,14 +292,14 @@ func _load_scripts() -> void:
 
 			paths.append(script_path)
 
-	Global.load_resources_threaded(paths, _connect_script, _all_scripts_loaded)
+	U.load_resources_threaded(paths, _connect_script, _all_scripts_loaded)
 
 
 func _connect_script(path: String, res: Resource) -> void:
 	var item: Dictionary
 	for menu: String in main_menu_data:
 		for option: Dictionary in main_menu_data[menu]:
-			if FileDatabase.TEMPLATE_ACTION_SCRIPT.format([option.get("text", "").to_snake_case().replace(".", "")]) == path:
+			if S.TEMPLATE_ACTION_SCRIPT.format([option.get("text", "").to_snake_case().replace(".", "")]) == path:
 				item = option
 	var script = res.new()
 	# for MultiActionScripts (submenu roots)
@@ -376,15 +376,15 @@ func _reload_recent_files() -> void:
 	recent_files_submenu.clear()
 
 	# Load recent files
-	if FileAccess.file_exists(SLib.globalize_path(FileDatabase.RECENT_FILES_DATA)):
-		var recent_files_list = FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA).split("\n", false)
+	if FileAccess.file_exists(S.globalize_path(S.RECENT_FILES_DATA)):
+		var recent_files_list = FileAccess.get_file_as_string(S.RECENT_FILES_DATA).split("\n", false)
 
-		recent_files_list = SLib.merge_unique(recent_files_list, []) # Remove duplicate items
+		recent_files_list = S.merge_unique(recent_files_list, []) # Remove duplicate items
 
 		for recent in recent_files_list:
 			if recent_files_submenu.item_count == 15: # Limit list to 15 items
 				break
-			if not FileAccess.file_exists(SLib.globalize_path(recent)): # Remove non-existent items
+			if not FileAccess.file_exists(S.globalize_path(recent)): # Remove non-existent items
 				continue
 
 			recent_files_submenu.add_item(recent.replace("\\", "/"))
@@ -393,7 +393,7 @@ func _reload_recent_files() -> void:
 	var recent_files := PackedStringArray()
 	for recent in recent_files_submenu.item_count:
 		recent_files.append(recent_files_submenu.get_item_text(recent))
-	if "\n".join(recent_files) != FileAccess.get_file_as_string(FileDatabase.RECENT_FILES_DATA):
-		var file = FileAccess.open(FileDatabase.RECENT_FILES_DATA, FileAccess.WRITE)
+	if "\n".join(recent_files) != FileAccess.get_file_as_string(S.RECENT_FILES_DATA):
+		var file = FileAccess.open(S.RECENT_FILES_DATA, FileAccess.WRITE)
 		file.store_string("\n".join(recent_files))
 		file.close()

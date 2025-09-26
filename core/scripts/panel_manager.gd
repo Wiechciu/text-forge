@@ -41,6 +41,7 @@ var data := {
 	Panels.RIGHT: {"size": 200, "closed": true, "panels": {}, "last_tab": 0},
 	Panels.BOTTOM: {"size": 200, "closed": true, "panels": {}, "last_tab": 0},
 }
+var _panels: Dictionary[String, Dictionary] = {}
 
 func _ready() -> void:
 	for side in 3:
@@ -120,7 +121,7 @@ func show_panel(location: Panels, index: int) -> void:
 func _save_layout() -> void:
 	var data_to_save := data.duplicate(true)
 	for l in data_to_save:
-		data_to_save[l]["panels"] = []
+		data_to_save[l]["panels"] = {}
 	Settings.write_data("panels", "layout_data", data_to_save)
 
 
@@ -129,11 +130,12 @@ func _load_layout() -> void:
 	data = Settings.read_data("panels", "layout_data", data)
 
 
-## Loads all panels in [constant FileDatabase.FOLDER_PANELS].
+## Loads all panels in [constant S.FOLDER_PANELS].
 func _load_panels() -> void:
-	for panel in DirAccess.get_directories_at(FileDatabase.FOLDER_PANELS):
+	var paths: Array[String] = []
+	for panel in DirAccess.get_directories_at(S.FOLDER_PANELS):
 		var config = ConfigFile.new()
-		config.load(SLib.globalize_path(FileDatabase.TEMPLATE_PANEL_CONFIG.format([panel])))
+		config.load(S.globalize_path(S.TEMPLATE_PANEL_CONFIG.format([panel])))
 		var place = config.get_value("panel", "place")
 		var converted: int
 		if place == "R":
@@ -142,8 +144,17 @@ func _load_panels() -> void:
 			converted = Panels.BOTTOM
 		else: # Also panels with invalid place
 			converted = Panels.LEFT
-		add_panel(converted, Global.load_resource(FileDatabase.TEMPLATE_PANEL_SCENE.format([panel])).instantiate(),
-				Global.load_resource(FileDatabase.TEMPLATE_PANEL_ICON.format([panel])))
+		paths.append(S.TEMPLATE_PANEL_SCENE.format([panel]))
+		_panels[S.TEMPLATE_PANEL_SCENE.format([panel])] = {
+			"place": converted,
+			"name": panel,
+		}
+	U.load_resources_threaded(paths, finish_panel_load)
+
+
+func finish_panel_load(path: String, panel: PackedScene) -> void:
+	var info := _panels[path]
+	add_panel(info["place"], panel.instantiate(), U.load_resource(S.TEMPLATE_PANEL_ICON.format([info["name"]])))
 
 
 ## Changes current panel based on selected items. Calls [method _apply_split] if changes [member panels].

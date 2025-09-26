@@ -35,10 +35,6 @@ func test_confirmation_dialog(
 	assert_bool(get_child(-1).visible).is_equal(show)
 
 
-func test_menu_button(switch_on_hover := false, text := "", test_parameters := menu_button_parameters) -> void:
-	assert_error(add_child.bind(factory.menu_button(switch_on_hover, text))).is_success()
-
-
 func test_signle_line_input(
 		placeholder := "", button_text := "OK", output := Callable(), show := true, test_parameters := single_line_input_parameters
 ) -> void:

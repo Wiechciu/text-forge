@@ -16,7 +16,7 @@ func _ready() -> void:
 func _on_line_edit_text_changed(new_text: String) -> void:
 	var order := commands.keys()
 	order.sort_custom(_sort_commands.bind(new_text))
-	SLib.free_all_children(options)
+	S.free_all_children(options)
 	for item: String in order:
 		var option: Button = sample.duplicate()
 		var modified_text = item

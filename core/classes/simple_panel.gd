@@ -12,8 +12,8 @@ func get_container() -> MarginContainer:
 ## This function will set panel [member Control.custom_minimum_size] to [param scene] root node
 ## [member Control.custom_minimum_size].
 func load_scene_as_child(scene: String) -> void:
-	SLib.free_all_children(get_container())
-	var instance: Control = Global.load_resource(scene).instantiate()
+	S.free_all_children(get_container())
+	var instance: Control = U.load_resource(scene).instantiate()
 	get_container().add_child(instance)
 	instance.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	instance.size_flags_vertical = Control.SIZE_EXPAND_FILL
