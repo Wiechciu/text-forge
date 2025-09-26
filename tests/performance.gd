@@ -6,9 +6,13 @@ var end_time: int
 func _ready() -> void:
 	start_time = Time.get_ticks_msec()
 
-	get_tree().connect("process_frame", _on_first_frame, CONNECT_ONE_SHOT)
+	get_tree().process_frame.connect(_on_first_frame, CONNECT_ONE_SHOT)
 	Tests.open_started.connect(_monitor_open)
 	Tests.search_started.connect(_monitor_search)
+
+	await Global.get_panel_manager().load_completed
+
+	print("Panels loading (msec): " + str(Time.get_ticks_msec() - end_time))
 
 	await Signals.check_options
 

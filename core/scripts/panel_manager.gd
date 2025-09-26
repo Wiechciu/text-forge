@@ -21,6 +21,8 @@ extends HBoxContainer
 ## Nodes with [code]Spliter[/code] suffix are [SplitContainer]s for handle panel sizes and open/close.[br]
 ## Nodes with [code]Panel[/code] suffix are [TabContainer]s with panels as children for show panels.
 
+signal load_completed
+
 ## Panel IDs.
 enum Panels {
 	## Left panel.
@@ -145,16 +147,19 @@ func _load_panels() -> void:
 		else: # Also panels with invalid place
 			converted = Panels.LEFT
 		paths.append(S.TEMPLATE_PANEL_SCENE.format([panel]))
+		paths.append(S.TEMPLATE_PANEL_ICON.format([panel]))
 		_panels[S.TEMPLATE_PANEL_SCENE.format([panel])] = {
 			"place": converted,
 			"name": panel,
 		}
-	U.load_resources_threaded(paths, finish_panel_load)
+	U.load_resources_threaded(paths, Callable(), _complete_loading)
 
 
-func finish_panel_load(path: String, panel: PackedScene) -> void:
-	var info := _panels[path]
-	add_panel(info["place"], panel.instantiate(), U.load_resource(S.TEMPLATE_PANEL_ICON.format([info["name"]])))
+func _complete_loading() -> void:
+	for p in _panels:
+		var info := _panels[p]
+		add_panel(info["place"], U.load_resource(p).instantiate(), U.load_resource(S.TEMPLATE_PANEL_ICON.format([info["name"]])))
+	load_completed.emit()
 
 
 ## Changes current panel based on selected items. Calls [method _apply_split] if changes [member panels].
