@@ -27,7 +27,8 @@ func load_resources_threaded(paths: PackedStringArray, for_each: Callable, after
 ## Threaded resource loader for multiple resources.
 ##
 ## This class will request threaded loading for all given resources and handle loaded resources in
-## loading order, so resource that was loaded faster will handle before others.
+## loading order, so resource that was loaded faster will handle before others.[br][br]
+## [b]Important:[/b] [ThreadedLoader] must be in scene tree before calling [method start]!
 class ThreadedLoader extends Node:
 	var _pending: Dictionary[String, bool]= {}
 	var _for_each: Callable
@@ -36,14 +37,16 @@ class ThreadedLoader extends Node:
 	## Initializes threaded loader for given [param paths], you can do this multiple times to add
 	## all files you need, but each time will overwrite [param for_each] and [param after_all] values.[br]
 	## [param for_each]: a [Callable] wich will be called for each loader with [code]resource_path, loaded_resource[/code]
-	## parameters as [String] and [Resource]. Use this to use loaded resource.
-	## [param
-	func initialize(paths: PackedStringArray, for_each: Callable, after_all := Callable()) -> void:
+	## parameters as [String] and [Resource]. Use this to use loaded resource.[br]
+	## [param after_all]: a [Callable] that will be called when all resources loaded. You can use this to
+	## load resources when order metters, because this function cachs resources.
+	func initialize(paths: PackedStringArray, for_each := Callable(), after_all := Callable()) -> void:
 		for p in paths:
 			_pending[p] = false
 		_for_each = for_each
 		_after_all = after_all
 
+	## Starts threaded loader.
 	func start() -> void:
 		for p in _pending:
 			ResourceLoader.load_threaded_request(p, "", true)
