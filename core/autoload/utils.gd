@@ -18,9 +18,7 @@ func load_resource(path: String) -> Resource:
 ## Creates a new [GlobalAccess.ThreadedLoader] node and pass arguments to it. Calls [method GlobalAccess.ThreadedLoader.initialize]
 ## and [method GlobalAccess.ThreadedLoader.start] after add loader to tree.
 func load_resources_threaded(paths: PackedStringArray, for_each: Callable, after_all := Callable()) -> void:
-	var loader := ThreadedLoader.new()
-	add_child(loader)
-	loader.initialize(paths, for_each, after_all)
+	var loader := ThreadedLoader.new(get_tree(), paths, for_each, after_all)
 	loader.start()
 
 
@@ -28,11 +26,11 @@ func load_resources_threaded(paths: PackedStringArray, for_each: Callable, after
 ##
 ## This class will request threaded loading for all given resources and handle loaded resources in
 ## loading order, so resource that was loaded faster will handle before others.[br][br]
-## [b]Important:[/b] [ThreadedLoader] must be in scene tree before calling [method start]!
-class ThreadedLoader extends Node:
+class ThreadedLoader extends Object:
+	var _tree: SceneTree
 	var _pending: Dictionary[String, bool]= {}
-	var _for_each: Callable
-	var _after_all: Callable
+	var _for_each
+	var _after_all
 
 	## Initializes threaded loader for given [param paths], you can do this multiple times to add
 	## all files you need, but each time will overwrite [param for_each] and [param after_all] values.[br]
@@ -40,11 +38,14 @@ class ThreadedLoader extends Node:
 	## parameters as [String] and [Resource]. Use this to use loaded resource.[br]
 	## [param after_all]: a [Callable] that will be called when all resources loaded. You can use this to
 	## load resources when order metters, because this function cachs resources.
-	func initialize(paths: PackedStringArray, for_each := Callable(), after_all := Callable()) -> void:
+	func _init(tree: SceneTree, paths: PackedStringArray, for_each := Callable(), after_all := Callable()) -> void:
+		_tree = tree
 		for p in paths:
 			_pending[p] = false
-		_for_each = for_each
-		_after_all = after_all
+		if for_each.is_valid():
+			_for_each = for_each
+		if after_all.is_valid():
+			_after_all = after_all
 
 	## Starts threaded loader.
 	func start() -> void:
@@ -62,16 +63,16 @@ class ThreadedLoader extends Node:
 					ResourceLoader.THREAD_LOAD_LOADED:
 						var res := ResourceLoader.load_threaded_get(path)
 						_pending[path] = true
-						if _for_each.is_valid():
+						if _for_each:
 							_for_each.call(path, res)
 					ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 						pass
 					_:
 						push_error("Threaded load failed for {0} (status: {1})".format([path, str(status)]))
 						_pending[path] = true
-						if _for_each.is_valid():
+						if _for_each:
 							_for_each.call(path, null)
-			await get_tree().process_frame
-		if _after_all.is_valid():
+			await _tree.process_frame
+		if _after_all:
 			_after_all.call()
-		queue_free()
+		free()

@@ -124,7 +124,6 @@ func _install_package(pack_info: Dictionary, _info: Dictionary) -> void:
 		_complete_installation.bind(data_to_pass),
 		{
 			"url": MP_HOST.path_join(version).path_join("packages").path_join(pack_info["id"]).path_join(_info["file"]),
-			"downloadfile": path_to_download
 		}
 	)
 	Global.send_notification(Global.Notification.INFO, "Please don't close marketplace window!", "Downloading and installing package is in progress...")

@@ -41,7 +41,7 @@ var options: Dictionary[int, Callable] = {}
 
 func _ready() -> void:
 	get_window().close_requested.connect(cleanup_all_extensions)
-	child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
+	child_order_changed.connect(Signals.refresh_module_profiler)
 
 
 ## (Re)loads all extensions. Calls [method cleanup_all_extensions], [method _load_extensions] and [method _load_enable_list].

@@ -54,7 +54,7 @@ var _translation_data: Dictionary[String, Dictionary]
 func _ready() -> void:
 	Project.project_opened.connect(func(): get_window().title = "%s - Text Forge" % Project.get_project_name())
 	Project.project_closed.connect(func(): get_window().title = "Text Forge")
-	scripts.child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
+	scripts.child_order_changed.connect(Signals.refresh_module_profiler)
 	# Open file with drag and drop feature
 	get_window().files_dropped.connect(func(files: PackedStringArray): Signals.open_file.emit(files[0]))
 	_translation_data = TFT.cache_source(S.TRANSLATION_FILE)

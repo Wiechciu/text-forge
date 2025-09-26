@@ -436,4 +436,5 @@ bbcode_enabled = true
 [connection signal="pressed" from="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer/VBoxContainer/Button" to="Margin/Sections/BottomBar/CaretPos" method="_on_go_pressed"]
 [connection signal="timeout" from="Margin/Sections/BottomBar/ModuleProfiler/RefreshTimer" to="Margin/Sections/BottomBar/ModuleProfiler" method="_refresh"]
 [connection signal="timeout" from="Margin/Sections/BottomBar/ModuleProfiler/ModulateTimer" to="Margin/Sections/BottomBar/ModuleProfiler" method="_on_timer_2_timeout"]
+[connection signal="about_to_popup" from="About" to="About/MarginContainer/TabContainer/Change Log" method="_on_about_about_to_popup"]
 [connection signal="close_requested" from="About" to="About" method="hide"]

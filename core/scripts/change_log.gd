@@ -1,14 +1,6 @@
 extends Node
 
-
 @export var label: RichTextLabel
-
-
-func _ready() -> void:
-	var markdown_text: String = FileAccess.get_file_as_string(S.globalize_path("res://CHANGELOG.md"))
-	var bbcode_text: String = _convert_text_from_markdown_to_bbcode_style(markdown_text)
-	label.text = bbcode_text
-
 
 func _convert_text_from_markdown_to_bbcode_style(markdown_text: String) -> String:
 	var text: String = markdown_text
@@ -67,3 +59,9 @@ func _convert_text_from_markdown_to_bbcode_style(markdown_text: String) -> Strin
 		text = text.replace("[%s]" % version, "[url=%s]%s[/url]" % [version_link_dict[version], version])
 
 	return text
+
+
+func _on_about_about_to_popup() -> void:
+	var markdown_text: String = FileAccess.get_file_as_string(S.globalize_path("res://CHANGELOG.md"))
+	var bbcode_text: String = _convert_text_from_markdown_to_bbcode_style(markdown_text)
+	label.text = bbcode_text

@@ -102,3 +102,7 @@ func _resume_after_save(to: int) -> void:
 	await U.wait(0.5)
 	Global.set_file_name(Global.get_file_name().replace("*", ""))
 	run_script.emit(to)
+
+
+func refresh_module_profiler() -> void:
+	module_profiler_refresh.emit()
