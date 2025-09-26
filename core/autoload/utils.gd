@@ -59,14 +59,16 @@ class ThreadedLoader extends Node:
 					ResourceLoader.THREAD_LOAD_LOADED:
 						var res := ResourceLoader.load_threaded_get(path)
 						_pending[path] = true
-						_for_each.call(path, res)
+						if _for_each.is_valid():
+							_for_each.call(path, res)
 					ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 						pass
 					_:
 						push_error("Threaded load failed for {0} (status: {1})".format([path, str(status)]))
 						_pending[path] = true
-						_for_each.call(path, null)
+						if _for_each.is_valid():
+							_for_each.call(path, null)
 			await get_tree().process_frame
-		if _after_all:
+		if _after_all.is_valid():
 			_after_all.call()
 		queue_free()
