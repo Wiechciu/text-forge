@@ -11,4 +11,4 @@ func _ready() -> void:
 	if DISABLE_ALL:
 		return
 	if PERFORMANCE_TEST:
-		add_child(U.load_resource("res://tests/performance.gd").new())
+		add_child(load("res://tests/performance.gd").new())
