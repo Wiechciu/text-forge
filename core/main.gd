@@ -114,11 +114,9 @@ func _handle_settings() -> void:
 
 	Global.get_editor().indent_use_spaces = Settings.get_setting("edit", "indent_with_space")
 	Global.get_editor().indent_size = Settings.get_setting("edit", "indent_size")
-	if FileAccess.file_exists(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])):
-		get_window().set_theme(U.load_resource(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name").to_lower()])))
-	else:
-		_initialize_themes()
-		get_window().set_theme(U.load_resource(S.TEMPLATE_THEME.format(["dark"])))
+	if not FileAccess.file_exists(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])):
+		Settings.restore_default("editor_ui", "theme_name")
+	get_window().set_theme(U.load_resource(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])))
 
 
 ## Appends [param file_path] in [constant S.RECENT_FILES_DATA]. New file will be in top
