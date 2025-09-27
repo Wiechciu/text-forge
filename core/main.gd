@@ -36,7 +36,7 @@ const MENU_TRANSLATION_PREFIX = "menu."
 ## Editor node, you can find more options in [Editor] class.
 @export var editor: Editor
 ## Scripts Node, will keep action scripts separated from other nodes.
-@export var scripts: Control
+@export var scripts: Node
 ## [PanelManager] node, see class for more information.
 @export var panel_manager: PanelManager
 ## About window.

@@ -3,7 +3,7 @@ extends MenuButton
 @export var modulate_timer: Timer
 @onready var modules_list: Dictionary[String, Node] = {
 	"Extensions": Extensions,
-	"Action Scripts": Global.get_core().scripts,
+	"Action Scripts": Global.get_scripts_node(),
 	"Modes": Global.get_editor_api(),
 	"Network Connections": NetSuite,
 }

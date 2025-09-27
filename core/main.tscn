@@ -325,9 +325,7 @@ autostart = true
 wait_time = 0.2
 one_shot = true
 
-[node name="Scripts" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 0
+[node name="Scripts" type="Node" parent="."]
 
 [node name="About" type="Window" parent="."]
 title = "About Text Forge"

@@ -129,7 +129,7 @@ func get_core() -> Core:
 
 ## Returs node in [Core] that keep action scripts, it's useful when you need find an action script
 ## without its [code]id[/code].
-func get_scripts_node() -> Control:
+func get_scripts_node() -> Node:
 	return _core.scripts
 
 
