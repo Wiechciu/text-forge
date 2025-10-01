@@ -103,7 +103,7 @@ func get_text(key: String, source_file: String = "default") -> String:
 		return ""
 
 	if not FileAccess.file_exists(S.globalize_path(source_file)):
-		print("Can't load translation data\nFile {0} doesn't exitsts!".format([source_file]))
+		print("Can't load translation data\nFile {0} doesn't exist!".format([source_file]))
 		return key
 
 	var file := FileAccess.open(S.globalize_path(source_file), FileAccess.READ)
