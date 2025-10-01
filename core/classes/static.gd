@@ -91,5 +91,5 @@ static func merge_unique(array1: Array, array2: Array) -> Array:
 static func fade_out(object: Node, duration := 1.0) -> Tween:
 	var tween := object.create_tween()
 	tween.tween_property(object, "modulate", Color.TRANSPARENT, duration)
-	object.hide()
+	tween.tween_callback(object.hide)
 	return tween
