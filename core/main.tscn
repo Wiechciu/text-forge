@@ -325,9 +325,7 @@ autostart = true
 wait_time = 0.2
 one_shot = true
 
-[node name="Scripts" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 0
+[node name="Scripts" type="Node" parent="."]
 
 [node name="About" type="Window" parent="."]
 title = "About Text Forge"
@@ -349,11 +347,7 @@ layout_mode = 2
 theme_type_variation = &"AboutTabContainer"
 current_tab = 0
 
-[node name="About" type="MarginContainer" parent="About/MarginContainer/TabContainer"]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="Text" type="RichTextLabel" parent="About/MarginContainer/TabContainer/About"]
+[node name="About" type="RichTextLabel" parent="About/MarginContainer/TabContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[font_size=24]Text Forge[/font_size]
@@ -368,13 +362,10 @@ Based on:
  - scriptable design				- language agnostic design
  - data-driven interface		- object-oriented design
  - plug-and-play extension architecture"
+metadata/_tab_index = 0
 
-[node name="Authors" type="MarginContainer" parent="About/MarginContainer/TabContainer"]
+[node name="Authors" type="RichTextLabel" parent="About/MarginContainer/TabContainer"]
 visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="RichTextLabel" type="RichTextLabel" parent="About/MarginContainer/TabContainer/Authors"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[b]Project Founder[/b]
@@ -384,13 +375,10 @@ Mahan Khalili (mkh-user)
 [b]Developers[/b]
 Kuba / WCHC (Wiechciu)
 Mahan Khalili (mkh-user)"
+metadata/_tab_index = 1
 
-[node name="License" type="MarginContainer" parent="About/MarginContainer/TabContainer"]
+[node name="License" type="RichTextLabel" parent="About/MarginContainer/TabContainer"]
 visible = false
-layout_mode = 2
-metadata/_tab_index = 2
-
-[node name="Text" type="RichTextLabel" parent="About/MarginContainer/TabContainer/License"]
 layout_mode = 2
 text = "MIT License
 
@@ -401,30 +389,24 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+metadata/_tab_index = 2
 
-[node name="Third-party Licenses" type="MarginContainer" parent="About/MarginContainer/TabContainer"]
+[node name="Change Log" type="RichTextLabel" parent="About/MarginContainer/TabContainer"]
 visible = false
 layout_mode = 2
+bbcode_enabled = true
+script = ExtResource("6_kagtj")
 metadata/_tab_index = 3
 
-[node name="Text" type="RichTextLabel" parent="About/MarginContainer/TabContainer/Third-party Licenses"]
+[node name="Third-party Licenses" type="RichTextLabel" parent="About/MarginContainer/TabContainer"]
+visible = false
 layout_mode = 2
 bbcode_enabled = true
 text = "[b]Icons:[/b]
 		Main UI: MIT 2025 by Mahan Khalili
 
-[i]See [code]\"root/modes/\"[/code], [code]\"root/scripts/\"[/code], [code]\"userdata/extensions\"[/code] for other licenses. Modes, scripts and extensions without LICENSE file are onder Text Forge license."
-
-[node name="Change Log" type="MarginContainer" parent="About/MarginContainer/TabContainer" node_paths=PackedStringArray("label")]
-visible = false
-layout_mode = 2
-script = ExtResource("6_kagtj")
-label = NodePath("Text")
+[i]Check [code]modes[/code], [code]extensions[/code], and [code]themes[/code] for other licenses. Modes, themes and extensions without LICENSE file are onder Text Forge license."
 metadata/_tab_index = 4
-
-[node name="Text" type="RichTextLabel" parent="About/MarginContainer/TabContainer/Change Log"]
-layout_mode = 2
-bbcode_enabled = true
 
 [connection signal="code_completion_requested" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor/API" method="_on_editor_code_completion_requested"]
 [connection signal="text_changed" from="Margin/Sections/PanelManager/LeftSpliter/RightSpliter/BottomSpliter/Editor" to="." method="_on_editor_text_changed"]
@@ -436,4 +418,5 @@ bbcode_enabled = true
 [connection signal="pressed" from="Margin/Sections/BottomBar/CaretPos/PopupPanel/MarginContainer/VBoxContainer/Button" to="Margin/Sections/BottomBar/CaretPos" method="_on_go_pressed"]
 [connection signal="timeout" from="Margin/Sections/BottomBar/ModuleProfiler/RefreshTimer" to="Margin/Sections/BottomBar/ModuleProfiler" method="_refresh"]
 [connection signal="timeout" from="Margin/Sections/BottomBar/ModuleProfiler/ModulateTimer" to="Margin/Sections/BottomBar/ModuleProfiler" method="_on_timer_2_timeout"]
+[connection signal="about_to_popup" from="About" to="About/MarginContainer/TabContainer/Change Log" method="_on_about_about_to_popup"]
 [connection signal="close_requested" from="About" to="About" method="hide"]

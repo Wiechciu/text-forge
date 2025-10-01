@@ -1,4 +1,4 @@
 extends ActionScript
 
 func _run_action() -> void:
-	SLib.os_open("user://")
+	OS.shell_open(S.globalize_path("user://"))

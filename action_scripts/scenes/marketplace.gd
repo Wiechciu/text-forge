@@ -27,7 +27,7 @@ const PACK_INFORMATION = "pack.json"
 @export var search: LineEdit
 @export var filter: OptionButton
 
-var PackageItem := load(SLib.globalize_path(PACKAGE_ITEM_PATH))
+var PackageItem := load(S.globalize_path(PACKAGE_ITEM_PATH))
 var info: Array
 var version: String
 
@@ -37,11 +37,11 @@ func _ready() -> void:
 		_on_packages_info_request_completed,
 		{ "url": MP_HOST.path_join(version).path_join(PACKAGES_INFORMATION) }
 	) == null:
-		SLib.free_all_children(packages)
+		S.free_all_children(packages)
 
 
 func _on_packages_info_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-	SLib.free_all_children(packages)
+	S.free_all_children(packages)
 	if response_code != 200:
 		Global.send_notification(Global.Notification.ERROR, "Failed to connect to marketplace!", "Response code: " + str(response_code))
 		return
@@ -56,13 +56,13 @@ func _on_package_information_requested(id: String) -> void:
 	var pack_info: Dictionary = info.filter(func(p): return p["id"] == id)[0]
 
 	i_description.text = "Loading..."
-	SLib.free_all_children(i_images)
+	S.free_all_children(i_images)
 	NetSuite.http_request(
 		_complete_package_information.bind(pack_info),
 		{ "url": MP_HOST.path_join(version).path_join("packages").path_join(pack_info["id"]).path_join(PACK_INFORMATION) }
 	)
 
-	SLib.free_all_children(i_tags)
+	S.free_all_children(i_tags)
 	install_button.disabled = true
 
 	i_name.text = pack_info["name"]
@@ -112,7 +112,7 @@ func _complete_package_information(result: int, response_code: int, headers: Pac
 func _install_package(pack_info: Dictionary, _info: Dictionary) -> void:
 	var path_to_download := "user://_temp_mode.tfmode"
 	if pack_info["category"] == "themes":
-		path_to_download = FileDatabase.FOLDER_THEMES.path_join(_info["file"])
+		path_to_download = S.FOLDER_THEMES.path_join(_info["file"])
 	if pack_info["category"] == "extension":
 		path_to_download = "user://_temp_extension.tfx"
 	var data_to_pass := {
@@ -124,7 +124,6 @@ func _install_package(pack_info: Dictionary, _info: Dictionary) -> void:
 		_complete_installation.bind(data_to_pass),
 		{
 			"url": MP_HOST.path_join(version).path_join("packages").path_join(pack_info["id"]).path_join(_info["file"]),
-			"downloadfile": path_to_download
 		}
 	)
 	Global.send_notification(Global.Notification.INFO, "Please don't close marketplace window!", "Downloading and installing package is in progress...")
@@ -171,7 +170,7 @@ func _add_image(result: int, response_code: int, headers: PackedStringArray, bod
 
 
 func get_compatibility_status(compatible_versions: String) -> CompatibilityStatus:
-	var editor_version: Array[int] = Static.map_array_to_int(Static.EDITOR_VERSION.split(".", false, 2))
+	var editor_version: Array[int] = S.map_array_to_int(S.EDITOR_VERSION.split(".", false, 2))
 	var regex := RegEx.new()
 	regex.compile(r">(?<min_e>=?)(?<min>\d+\.\d+\.\d+)(?: <(?<max_e>=?)(?<max>\d+\.\d+\.\d+))? \|\| \?(?<unv>\d+\.\d+\.\d+)")
 	var result := regex.search(compatible_versions)
@@ -179,7 +178,7 @@ func get_compatibility_status(compatible_versions: String) -> CompatibilityStatu
 		Global.send_notification(Global.Notification.ERROR, "Invalid package version information!", compatible_versions + " doesn't match with package version information pattern.")
 		return CompatibilityStatus.INCOMPATIBLE
 	if true: # Unverified versions check
-		var unv := Static.map_array_to_int(result.get_string("unv").split(".", false, 2))
+		var unv := S.map_array_to_int(result.get_string("unv").split(".", false, 2))
 		if editor_version[0] > unv[0]:
 			return CompatibilityStatus.UNVERIFIED
 		elif editor_version[0] == unv[0]:
@@ -189,7 +188,7 @@ func get_compatibility_status(compatible_versions: String) -> CompatibilityStatu
 				if editor_version[2] >= unv[2]:
 					return CompatibilityStatus.UNVERIFIED
 	if true: # Minimum version check
-		var minimum := Static.map_array_to_int(result.get_string("min").split(".", false, 2))
+		var minimum := S.map_array_to_int(result.get_string("min").split(".", false, 2))
 		var minimum_e := result.get_string("min_e") != ""
 		if editor_version[0] < minimum[0]:
 			return CompatibilityStatus.INCOMPATIBLE
@@ -202,7 +201,7 @@ func get_compatibility_status(compatible_versions: String) -> CompatibilityStatu
 				elif editor_version[2] == minimum[2] and not minimum_e:
 					return CompatibilityStatus.INCOMPATIBLE
 	if result.get_string("max") != "": # Maximum version check
-		var maximum := Static.map_array_to_int(result.get_string("max").split(".", false, 2))
+		var maximum := S.map_array_to_int(result.get_string("max").split(".", false, 2))
 		var maximum_e := result.get_string("max_e") != ""
 		if editor_version[0] > maximum[0]:
 			return CompatibilityStatus.INCOMPATIBLE

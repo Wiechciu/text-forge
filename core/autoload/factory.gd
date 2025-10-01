@@ -45,14 +45,6 @@ func accept_dialog(
 	return dialog
 
 
-## Creates new [MenuButton] based on parameters.
-func menu_button(switch_on_hover := false, text := "") -> MenuButton:
-	var button := MenuButton.new()
-	button.switch_on_hover = switch_on_hover
-	button.text = text
-	return button
-
-
 ## Creates a [LineEdit] with [Button] for signle line input based on parameters. All will be in
 ## [PopupPanel] > [MarginContainer] > [HBoxContainer].
 func signle_line_input(
@@ -115,4 +107,4 @@ func file_dialog(
 ## Creates new [TextForgePanel] with a margin container as child, useful for modes and where scripts
 ## create panels.
 func simple_panel() -> TextForgePanel:
-	return Global.load_resource("res://core/classes/simple_panel.tscn").instantiate()
+	return U.load_resource("res://core/classes/simple_panel.tscn").instantiate()

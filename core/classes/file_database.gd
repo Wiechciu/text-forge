@@ -1,4 +1,4 @@
-class_name FileDatabase
+
 extends Object
 ## Source of file paths.
 ##
@@ -7,8 +7,6 @@ extends Object
 
 # NOTE: use this order: file paths - folders - templates - other
 
-## Saved scene for menus like "File" and "Edit", see also [member Core.menu_container].
-const MENU_BUTTON_SCENE = "res://core/prebuilds/menu_button.tscn"
 ## Path to UI configurations.
 const MAIN_UI_DATA = "res://data/main_ui.ini"
 ## Path to main translation source.

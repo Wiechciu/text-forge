@@ -18,7 +18,7 @@ var mode_panel: TextForgePanel
 var _temp_mode_index: int = 0
 
 func _ready() -> void:
-	child_order_changed.connect(func(): Signals.module_profiler_refresh.emit())
+	child_order_changed.connect(Signals.refresh_module_profiler)
 	mode_selected.connect(func(index): _temp_mode_index = index - 1)
 	Global.get_editor().type_timer_timeout.connect(_update_preview)
 	Global.get_editor().type_timer_timeout.connect(_update_outline)
@@ -34,15 +34,15 @@ func _ready() -> void:
 func _load_mode_list() -> void:
 	var damaged_modes: Dictionary[String, String] = {}
 
-	for mode_folder: String in DirAccess.get_directories_at(FileDatabase.FOLDER_MODES):
-		if not (FileAccess.file_exists(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder])))
-		and FileAccess.file_exists(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])))
-		and FileAccess.file_exists(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_ICON.format([mode_folder])))):
+	for mode_folder: String in DirAccess.get_directories_at(S.FOLDER_MODES):
+		if not (FileAccess.file_exists(S.globalize_path(S.TEMPLATE_MODE_INFO.format([mode_folder])))
+		and FileAccess.file_exists(S.globalize_path(S.TEMPLATE_MODE_SCRIPT.format([mode_folder])))
+		and FileAccess.file_exists(S.globalize_path(S.TEMPLATE_MODE_ICON.format([mode_folder])))):
 			damaged_modes[mode_folder] = "Missing files"
 			continue
 
 		var config = ConfigFile.new()
-		var err := config.load(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_INFO.format([mode_folder])))
+		var err := config.load(S.globalize_path(S.TEMPLATE_MODE_INFO.format([mode_folder])))
 
 		if err:
 			damaged_modes[mode_folder] = "Load config failed"
@@ -53,7 +53,7 @@ func _load_mode_list() -> void:
 		if Array(config.get_section_keys("mode")) != ["name", "description", "author", "version", "extensions"]:
 			damaged_modes[mode_folder] = "Invalid keys"
 			continue
-		if not is_instance_of(Global.load_resource(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode_folder])).new(), TextForgeMode):
+		if not is_instance_of(U.load_resource(S.TEMPLATE_MODE_SCRIPT.format([mode_folder])).new(), TextForgeMode):
 			damaged_modes[mode_folder] = "Invalid script"
 			continue
 
@@ -95,8 +95,8 @@ func import_mode(path: String) -> void:
 		Global.send_notification(Global.Notification.ERROR, "Can't load this file!", "Load {0} for import mode or mode kit failed. Error code: {1}".format([path, str(err)]))
 		return
 
-	if not DirAccess.dir_exists_absolute(SLib.globalize_path("user://modes")):
-		DirAccess.make_dir_absolute(SLib.globalize_path("user://modes"))
+	if not DirAccess.dir_exists_absolute(S.globalize_path("user://modes")):
+		DirAccess.make_dir_absolute(S.globalize_path("user://modes"))
 	var root_dir = DirAccess.open("user://")
 
 	var files = reader.get_files()
@@ -330,7 +330,7 @@ func _load_mode_panel() -> void:
 	if mode_script.panel:
 		mode_panel = mode_script.panel
 		Global.get_panel_manager().add_panel(PanelManager.Panels.LEFT, mode_script.panel,
-				ImageTexture.create_from_image(Image.load_from_file(SLib.globalize_path(FileDatabase.TEMPLATE_MODE_ICON.format([current_mode["id"]]))))
+				ImageTexture.create_from_image(Image.load_from_file(S.globalize_path(S.TEMPLATE_MODE_ICON.format([current_mode["id"]]))))
 		)
 
 
@@ -391,7 +391,7 @@ func _change_mode_to(mode: Dictionary) -> Error:
 	if mode == current_mode:
 		return OK
 
-	var new_mode_script: TextForgeMode = Global.load_resource(FileDatabase.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
+	var new_mode_script: TextForgeMode = U.load_resource(S.TEMPLATE_MODE_SCRIPT.format([mode["id"]])).new() as TextForgeMode
 	if not new_mode_script:
 		return ERR_INVALID_DATA
 
@@ -435,7 +435,7 @@ func _handle_save_file(file_path: String) -> void:
 		Global.send_notification(Global.Notification.ERROR, "Can't find mode script!", "Saving failed.")
 		return
 
-	DirAccess.make_dir_recursive_absolute(SLib.globalize_path(file_path.get_base_dir()))
+	DirAccess.make_dir_recursive_absolute(S.globalize_path(file_path.get_base_dir()))
 	var file := FileAccess.open(file_path, FileAccess.WRITE)
 
 	if FileAccess.get_open_error():
@@ -456,7 +456,7 @@ func _handle_load_file(file_path: String) -> void:
 		Global.send_notification(Global.Notification.ERROR, "Can't find mode script!", "Loading failed.")
 		return
 
-	DirAccess.make_dir_recursive_absolute(SLib.globalize_path(file_path.get_base_dir()))
+	DirAccess.make_dir_recursive_absolute(S.globalize_path(file_path.get_base_dir()))
 	var buffer := FileAccess.get_file_as_bytes(file_path)
 
 	if FileAccess.get_open_error():

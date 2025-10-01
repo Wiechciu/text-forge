@@ -25,19 +25,18 @@ config/icon="uid://c5as0fd5jhnm8"
 
 [autoload]
 
-SLib="*res://addons/SLib/SLib.gd"
-Settings="*res://core/autoload/settings_api.gd"
+Settings="*res://core/autoload/settings.gd"
 Signals="*res://core/autoload/signals.gd"
 TFT="*res://core/autoload/translation_manager.gd"
-ExtensionHub="*res://core/extensions/extension_hub.gd"
-SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
+ExtensionHub="*res://core/autoload/extension_hub.gd"
 Global="*res://core/autoload/global.gd"
 Factory="*res://core/autoload/factory.gd"
-Extensions="*res://core/extensions/extensions.gd"
+Extensions="*res://core/autoload/extensions.gd"
 BackupCore="*res://core/autoload/backup_core.gd"
 Tests="*res://core/autoload/tests.gd"
 Project="*res://core/autoload/project.gd"
 NetSuite="*res://core/autoload/net_suite.gd"
+U="*res://core/autoload/utils.gd"
 
 [debug]
 
@@ -54,7 +53,7 @@ window/per_pixel_transparency/allowed=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SLib/plugin.cfg", "res://addons/signal_lens/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 
 [gdunit4]
 

@@ -3,8 +3,9 @@ extends MenuButton
 @export var modulate_timer: Timer
 @onready var modules_list: Dictionary[String, Node] = {
 	"Extensions": Extensions,
-	"Action Scripts": Global.get_core().scripts,
+	"Action Scripts": Global.get_scripts_node(),
 	"Modes": Global.get_editor_api(),
+	"Network Connections": NetSuite,
 }
 var _old_count: int = 0
 var count = 0
@@ -50,7 +51,7 @@ func _update_count() -> void:
 	text = str(count) + " Module" + ("s" if count > 1 else "")
 	if _old_count > count:
 		modulate = Color.SPRING_GREEN
-	if _old_count < count:
+	elif _old_count < count:
 		modulate = Color.ORANGE
 	if count != _old_count:
 		modulate_timer.start()

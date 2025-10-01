@@ -83,7 +83,7 @@ func _on_save_pressed() -> void:
 	var old := config.encode_to_text()
 	config.set_value("project", "name", name_edit.text)
 	config.set_value("project", "details", details_edit.text)
-	if icon_button.text.get_extension().to_lower() in FileDatabase.IMAGE_EXTS:
+	if icon_button.text.get_extension().to_lower() in S.IMAGE_EXTS:
 		if FileAccess.get_file_as_bytes(config.get_value("project", "icon", "")) != FileAccess.get_file_as_bytes(icon_button.text):
 			config.set_value("project", "icon", Project.cache_icon(icon_button.text))
 	config.set_value("project", "tags", tags_edit.text.strip_edges())

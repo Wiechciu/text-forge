@@ -6,13 +6,18 @@ var end_time: int
 func _ready() -> void:
 	start_time = Time.get_ticks_msec()
 
-	get_tree().connect("process_frame", _on_first_frame, CONNECT_ONE_SHOT)
+	get_tree().process_frame.connect(_on_first_frame, CONNECT_ONE_SHOT)
 	Tests.open_started.connect(_monitor_open)
 	Tests.search_started.connect(_monitor_search)
+
+	await Global.get_panel_manager().load_completed
+
+	print("Panels loading (msec): " + str(Time.get_ticks_msec() - end_time))
 
 	await Signals.check_options
 
 	print("Action scripts loading (msec): " + str(Time.get_ticks_msec() - end_time))
+	print("Total startup (msec): " + str(Time.get_ticks_msec() - start_time))
 
 
 func _on_first_frame():
@@ -39,23 +44,3 @@ func _monitor_open() -> void:
 	var end := Time.get_ticks_msec()
 	var duration = end - start
 	print("Time to Open File (msec): ", duration)
-
-
-func _input(event: InputEvent) -> void:
-	if true:
-		return
-	if not (event is InputEventKey and Global.get_editor().has_focus()):
-		return
-	event = event as InputEventKey
-	if not (event.pressed and OS.is_keycode_unicode(event.keycode)):
-		return
-
-	var start := Time.get_ticks_usec()
-
-	await Global.get_editor().text_changed
-
-	var end := Time.get_ticks_usec()
-	var duration = end - start
-	if duration > 10000:
-		return
-	print("Type delay (usec): ", duration)

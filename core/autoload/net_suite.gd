@@ -1,27 +1,9 @@
 extends Node
 ## Helper for network tasks.
 
-## Default value for [param auto_free_on] in [method http_request].
-const DEFAULT_HTTP_AUTO_FREE: Array[HTTPClient.Status] = [
-	HTTPClient.STATUS_CANT_CONNECT,
-	HTTPClient.STATUS_CANT_RESOLVE,
-	HTTPClient.STATUS_CONNECTION_ERROR,
-	HTTPClient.STATUS_DISCONNECTED,
-	HTTPClient.STATUS_TLS_HANDSHAKE_ERROR
-]
-
-## Child [HTTPRequest]s with their [param auto_free_on] values, use [method http_request] to make new items.
-var http_requests: Dictionary[HTTPRequest, Array] = {}
-
-func _process(delta: float) -> void:
-	if http_requests.is_empty():
-		return
-	for hr in http_requests:
-		if hr.get_http_client_status() in http_requests[hr]:
-			hr.cancel_request()
-			http_requests.erase(hr)
-			remove_child(hr)
-			hr.queue_free()
+func _ready() -> void:
+	child_entered_tree.connect(Signals.refresh_module_profiler.unbind(1))
+	child_exiting_tree.connect(Signals.refresh_module_profiler.unbind(1))
 
 
 ## Creates a new [HTTPRequest] and intiailizes it with these optioanl parameters:[br]
@@ -33,18 +15,20 @@ func _process(delta: float) -> void:
 ## َ        - [code]"method"[/code] (Optional, default [constant HTTPClient.METHOD_GET]): Request method.[br]
 ## َ        - [code]"request_data_raw"[/code] (Optional, default empty [PackedByteArray]): Binary body when [code]"url"[/code] is [code]true[/code].[br]
 ## َ        - [code]"request_data"[/code] (Optional, default empty [String]): String body when [code]"url"[/code] is [code]false[/code] (default).[br]
-## َ    - [param downloadfile]: The file to download into.[br]
-## َ    - [param auto_free_on]: An [Array] of [enum HTTPClient.Status]es that will free this request.[br][br]
+## َ    - [param timeout]: Optional timeout in seconds.[br]
+## َ    - [param download_file]: The file to download into.[br][br]
 ## [b]Note:[/b] All parameters are optional, but if you need to send a request in this function you should set a value for [param request] [code]"url"[/code] key.[br][br]
-## [b]Note:[/b] [param auto_free_on] only works when you pass a valid [param request]. Otherwise, you should keep returned [HTTPRequest] yourself.[br][br]
 ## [b]See also:[/b] [HTTPRequest], [HTTPClient]
-func http_request(callback := Callable(), request := {}, downloadfile := "", auto_free_on := DEFAULT_HTTP_AUTO_FREE) -> HTTPRequest:
+func http_request(callback := Callable(), request := {}, timeout := 0.0, download_file := "") -> HTTPRequest:
 	var hr := HTTPRequest.new()
-	hr.download_file = downloadfile
+	hr.download_file = download_file
+	hr.timeout = timeout
 	if callback.is_valid():
 		hr.request_completed.connect(callback)
+		hr.request_completed.connect(func(a, b, c, d): await get_tree().process_frame; hr.queue_free())
 	if request.has("url"):
 		add_child(hr)
+		hr.name = "HTTPRequest (" + request.get("url").replace("://", ">").replace("/", ">").replace(".", "_") + ")"
 		var err := Error.OK
 		if request.get("raw", false):
 			err = hr.request_raw(
@@ -65,5 +49,4 @@ func http_request(callback := Callable(), request := {}, downloadfile := "", aut
 			remove_child(hr)
 			hr.queue_free()
 			return null
-		http_requests[hr] = auto_free_on
 	return hr

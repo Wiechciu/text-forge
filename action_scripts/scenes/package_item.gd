@@ -17,7 +17,7 @@ func setup(
 	n_version.text = version
 	n_category.text = category
 	n_author.text = "by " + author
-	SLib.free_all_children(n_tags)
+	S.free_all_children(n_tags)
 	for t in tags:
 		var tag := Label.new()
 		tag.text = t

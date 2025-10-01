@@ -17,7 +17,7 @@ func _on_item_list_item_selected(index: int) -> void:
 	current_file = file_list.get_item_text(index)
 	backup_list.clear()
 	for backup in backups[current_file]:
-		var content := FileAccess.get_file_as_string(FileDatabase.TEMPLATE_BACKUP_FILE.format([backups[current_file][backup]]))
+		var content := FileAccess.get_file_as_string(S.TEMPLATE_BACKUP_FILE.format([backups[current_file][backup]]))
 		backup_list.add_item(backup + " (" + str(content.count("\n") + 1) + " Lines)")
 
 
