@@ -184,6 +184,12 @@ func get_last_file_path() -> String:
 	return ""
 
 
+## @deprecated: Use [method Utils.load_resource] instead.
+func load_resource(path: String) -> Resource:
+	U.deprecated()
+	return U.load_resource(path)
+
+
 class WindowManager:
 	## Window manager to restore window position, size, and mode.
 	##
