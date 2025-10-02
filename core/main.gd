@@ -294,12 +294,12 @@ func _load_scripts() -> void:
 			else:
 				low_priority_paths.append(script_path)
 
-	U.load_resources_threaded(paths, _connect_script, _main_scripts_loaded)
-	U.load_resources_threaded(low_priority_paths, _connect_script, _all_scripts_loaded)
+	U.load_resources_threaded(paths, _connect_script, _main_scripts_loaded.bind(low_priority_paths))
 
 
-func _main_scripts_loaded() -> void:
+func _main_scripts_loaded(low_priority_paths: PackedStringArray) -> void:
 	Signals.check_options.emit()
+	U.load_resources_threaded(low_priority_paths, _connect_script, _all_scripts_loaded)
 
 
 func _connect_script(path: String, res: Resource) -> void:
