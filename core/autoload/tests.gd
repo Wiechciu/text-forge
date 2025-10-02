@@ -5,10 +5,12 @@ signal open_started
 signal search_started
 
 const DISABLE_ALL := false
-const PERFORMANCE_TEST := true
+const PERFORMANCE_ALL := true
+const PERFORMANCE_STARTUP := true
+const PERFORMANCE_OPEN_FILE := true
 
 func _ready() -> void:
 	if DISABLE_ALL:
 		return
-	if PERFORMANCE_TEST:
-		add_child(load("res://tests/performance.gd").new())
+	if PERFORMANCE_ALL:
+		add_child(load("res://tests/performance.gd").new(PERFORMANCE_STARTUP, PERFORMANCE_OPEN_FILE))
