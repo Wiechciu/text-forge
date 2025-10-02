@@ -144,12 +144,11 @@ func _handle_cmdline_arguments() -> void:
 		return
 
 	for arg in args:
-		var file_path := arg
-		if file_path.begins_with("uid://"):
+		if arg.begins_with("uid://") or arg == "--scene":
 			continue
-		if file_path.is_relative_path():
-			file_path = S.globalize_path(arg)
-		Signals.open_file.emit(file_path)
+		if arg.is_relative_path():
+			arg = S.globalize_path(arg)
+		Signals.open_file.emit(arg)
 
 
 func _handle_load_last_file() -> void:
