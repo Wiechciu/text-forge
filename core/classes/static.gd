@@ -62,7 +62,6 @@ static func map_array_to_int(array: Array) -> Array[int]:
 
 
 static func globalize_path(path: String) -> String:
-	path = path.simplify_path()
 	if path.begins_with("res://"):
 		if OS.has_feature("editor"):
 			path = ProjectSettings.globalize_path(path)

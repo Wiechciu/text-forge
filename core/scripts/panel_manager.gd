@@ -183,21 +183,21 @@ func _apply_split() -> void:
 		spliters[Panels.LEFT].split_offset = 0
 		containers[Panels.LEFT].current_tab = -1
 	else:
-		containers[Panels.LEFT].current_tab = data[Panels.LEFT]["last_tab"]
+		containers[Panels.LEFT].current_tab = min(data[Panels.LEFT]["last_tab"], containers[Panels.LEFT].get_tab_count() - 1)
 
 	spliters[Panels.RIGHT].split_offset = max(spliters[Panels.RIGHT].size.x - data[Panels.RIGHT].size, containers[Panels.RIGHT].get_child(containers[Panels.RIGHT].current_tab).custom_minimum_size.x if containers[Panels.RIGHT].get_child_count() else 0)
 	if data[Panels.RIGHT].closed or containers[Panels.RIGHT].get_child_count() == 0:
 		spliters[Panels.RIGHT].split_offset = spliters[Panels.RIGHT].size.x
 		containers[Panels.RIGHT].current_tab = -1
 	else:
-		containers[Panels.RIGHT].current_tab = data[Panels.RIGHT]["last_tab"]
+		containers[Panels.RIGHT].current_tab = min(data[Panels.RIGHT]["last_tab"], containers[Panels.RIGHT].get_tab_count() - 1)
 
 	spliters[Panels.BOTTOM].split_offset = max(spliters[Panels.BOTTOM].size.y - data[Panels.BOTTOM].size, containers[Panels.BOTTOM].get_child(containers[Panels.BOTTOM].current_tab).custom_minimum_size.y if containers[Panels.BOTTOM].get_child_count() else 0)
 	if data[Panels.BOTTOM].closed or containers[Panels.BOTTOM].get_child_count() == 0:
 		spliters[Panels.BOTTOM].split_offset = spliters[Panels.BOTTOM].size.y
 		containers[Panels.BOTTOM].current_tab = -1
 	else:
-		containers[Panels.BOTTOM].current_tab = data[Panels.BOTTOM]["last_tab"]
+		containers[Panels.BOTTOM].current_tab = min(data[Panels.BOTTOM]["last_tab"], containers[Panels.BOTTOM].get_tab_count() - 1)
 
 
 func _write_tab(tab: int, side: Panels):
