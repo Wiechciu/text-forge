@@ -2,6 +2,53 @@ class_name Utils
 extends Node
 ## Keeps useful and helper functions for global access.
 
+enum SyntaxColors {
+	BUILTIN,
+	COMMENT,
+	CUSTOM_1,
+	CUSTOM_2,
+	CUSTOM_3,
+	CUSTOM_4,
+	CUSTOM_5,
+	DEFAULT,
+	DOC_COMMENT,
+	FUNCTION,
+	FUNCTION_DEF,
+	KEYWORD_1,
+	KEYWORD_2,
+	KEYWORD_3,
+	MEMBER,
+	NUMBER,
+	STRING,
+	SYMBOL,
+	TYPE_1,
+	TYPE_2,
+	TYPE_3,
+}
+
+const SYNTAX_COLORS_MAP = {
+	SyntaxColors.BUILTIN: "builtin",
+	SyntaxColors.COMMENT: "comment",
+	SyntaxColors.CUSTOM_1: "custom1",
+	SyntaxColors.CUSTOM_2: "custom2",
+	SyntaxColors.CUSTOM_3: "custom3",
+	SyntaxColors.CUSTOM_4: "custom4",
+	SyntaxColors.CUSTOM_5: "custom5",
+	SyntaxColors.DEFAULT: "default",
+	SyntaxColors.DOC_COMMENT: "doc_comment",
+	SyntaxColors.FUNCTION: "function",
+	SyntaxColors.FUNCTION_DEF: "function_def",
+	SyntaxColors.KEYWORD_1: "keyword1",
+	SyntaxColors.KEYWORD_2: "keyword2",
+	SyntaxColors.KEYWORD_3: "keyword3",
+	SyntaxColors.MEMBER: "member",
+	SyntaxColors.NUMBER: "number",
+	SyntaxColors.STRING: "string",
+	SyntaxColors.SYMBOL: "symbol",
+	SyntaxColors.TYPE_1: "type1",
+	SyntaxColors.TYPE_2: "type2",
+	SyntaxColors.TYPE_3: "type3",
+}
 
 ## Sends a deprecated notification to user.
 func deprecated() -> void:
@@ -58,6 +105,10 @@ func load_resource(path: String) -> Resource:
 func load_resources_threaded(paths: PackedStringArray, for_each: Callable, after_all := Callable()) -> void:
 	var loader := ThreadedLoader.new(get_tree(), paths, for_each, after_all)
 	loader.start()
+
+
+func get_syntax_color(token_name: SyntaxColors) -> Color:
+	return get_window().get_theme_color(SYNTAX_COLORS_MAP[token_name], "SyntaxColors")
 
 
 func _format_stack(stack: Dictionary) -> String:
