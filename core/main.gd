@@ -168,6 +168,7 @@ func _load_last_file(is_automatic := true) -> void:
 	Signals.open_file.emit(Global.get_last_file_path())
 	if is_automatic and Settings.get_setting_bool("notifications", "automatic_load_last_file_at_start"):
 		Global.send_notification(Global.Notification.INFO, "Your last opened file was loaded!", "You can change this behavior or disable this notification in preferences.")
+	editor.grab_focus()
 
 
 ## Loads data in [member main_menu_data], uses [constant S.MAIN_UI_DATA] and [constant DATA_SECTION].
@@ -274,6 +275,7 @@ func _create_submenu(root_menu: PopupMenu, root_option: Dictionary, config_file:
 ## Emits [signal SignalBus.check_option] after load.
 func _load_scripts() -> void:
 	var paths := PackedStringArray()
+	var low_priority_paths := PackedStringArray()
 	for menu: String in main_menu_data:
 		for item: Dictionary in main_menu_data[menu]:
 			if item.get("type", OptionTypes.REGULAR) == OptionTypes.SEPARATOR: # ignore separators
@@ -287,9 +289,17 @@ func _load_scripts() -> void:
 					item.get("popup").set_item_disabled(item.get("popup").get_item_index(item.get("code", 0)), true)
 				continue
 
-			paths.append(script_path)
+			if menu == "file_menu":
+				paths.append(script_path)
+			else:
+				low_priority_paths.append(script_path)
 
-	U.load_resources_threaded(paths, _connect_script, _all_scripts_loaded)
+	U.load_resources_threaded(paths, _connect_script, _main_scripts_loaded)
+	U.load_resources_threaded(low_priority_paths, _connect_script, _all_scripts_loaded)
+
+
+func _main_scripts_loaded() -> void:
+	Signals.check_options.emit()
 
 
 func _connect_script(path: String, res: Resource) -> void:
