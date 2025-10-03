@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/
 
 ### Added
 - Higher priority for main action scripts loading ([#112](https://github.com/text-forge/text-forge/pull/112))
+- Syntax highlighing colors by themes ([#113](https://github.com/text-forge/text-forge/pull/113))
 
 ## [v0.2-beta1] - 2025-9-25
 
