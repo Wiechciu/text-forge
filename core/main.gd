@@ -117,6 +117,11 @@ func _handle_settings() -> void:
 	if not FileAccess.file_exists(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])):
 		Settings.restore_default("editor_ui", "theme_name")
 	get_window().set_theme(U.load_resource(S.TEMPLATE_THEME.format([Settings.get_setting("editor_ui", "theme_name")])))
+	var current_mode := Global.get_editor_api().current_mode
+	if current_mode:
+		Global.get_editor_api()._unload_current_mode()
+		await U.wait()
+		Global.get_editor_api()._change_mode_to(current_mode)
 
 
 ## Appends [param file_path] in [constant S.RECENT_FILES_DATA]. New file will be in top
