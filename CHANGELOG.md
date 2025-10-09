@@ -2,10 +2,41 @@
 
 All notable changes to this project will be documented in this file. (Notable changes means some internal changes may not be here!)
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog (1.1)](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning (2.0)](https://semver.org/spec/v2.0.0.html).
 
 ## [unreleased]
+
+### Added
+- Higher priority for main action scripts loading ([#112](https://github.com/text-forge/text-forge/pull/112))
+- Syntax highlighting colors by themes ([#113](https://github.com/text-forge/text-forge/pull/113))
+
+## [v0.2-beta1] - 2025-9-25
+
+### Added
+- Caret position button ([#96](https://github.com/text-forge/text-forge/pull/96))
+- Add Project module (TFPM): .tfproj support, Project menu, Files panel and Recent Projects ([#95](https://github.com/text-forge/text-forge/pull/95))
+- Theme support ([#100](https://github.com/text-forge/text-forge/pull/100))
+- **API:** `NetSuite` autoload ([#105](https://github.com/text-forge/text-forge/pull/105))
+- Marketplace ([#106](https://github.com/text-forge/text-forge/pull/106))
+
+### Fixed
+- Preserve editor scroll when text is updated programmatically when `keep_carets` is true ([#101](https://github.com/text-forge/text-forge/pull/101))
+- Error when multiple save requests sent at same time ([#102](https://github.com/text-forge/text-forge/pull/102))
+- Restore panel open state ([#103](https://github.com/text-forge/text-forge/pull/103))
+
+## [v0.1-rc2] - 2025-8-26
+
+### Added
+- Open with handling ([#82](https://github.com/text-forge/text-forge/pull/82))
+- Backup system ([#92](https://github.com/text-forge/text-forge/pull/92))
+- Threaded action script loading ([#93](https://github.com/text-forge/text-forge/pull/93))
+- Big performance improve ([#93](https://github.com/text-forge/text-forge/pull/93))
+
+### Fixed
+- Error for multiple available modes selection ([#93](https://github.com/text-forge/text-forge/pull/93))
+
+## [v0.1-rc1] - 2025-8-19
 
 ### Added
 
@@ -22,18 +53,69 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Automaticaly load last opened file at start ([#77](https://github.com/text-forge/text-forge/pull/77))
 - Scrolling for preferences tabs ([#78](https://github.com/text-forge/text-forge/pull/78))
 - polski translation `PL` ([#84](https://github.com/text-forge/text-forge/pull/84))
+- Added Change Log tab to About panel ([#83](https://github.com/text-forge/text-forge/pull/83))
+- **Action Script:** More option state check for Format > Auto Format ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **Action Script:** Edit > Indention > Auto Indent ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **Action Script:** Edit > Completion Query ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `Global.damaged_modes` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `Global.temprory_children` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `Signals.mode_changed` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `Signals.preview_updated` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `Signals.problems_updated` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `Signals.ouline_updated` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `ActionScript._check_option_extra` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `TextForgeMode` class ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Comment delimiters by modes ([#71](https://github.com/text-forge/text-forge/pull/71))
+- String delimiters by modes ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Optional mode panel ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Feature enable/disabling for modes ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Initialization for modes ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Auto indent feature by modes ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Code completion by modes ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Preview generation by mode ([#71](https://github.com/text-forge/text-forge/pull/71))
+- File outline by modes ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Linting and problems by modes ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `TextForgePanel` class ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Type timer for editor ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Mode viewer ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `TextForgePanel.index` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `TextForgePanel.place` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `PanelManager.remove_panel` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Problem counter ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Outline panel ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Preview panel ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Problems panel ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Test mode script ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Export all mode files from mode manager export option ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **Docs:** `mode_development.md` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Close mode manager after `edit script` option pressing ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `Factory.simple_panel` ([#71](https://github.com/text-forge/text-forge/pull/71))
 
 ### Changed
 
-- ~Editor / Auto Indention~ to ~Edit / Auto Indention~ in settings ([#76](https://github.com/text-forge/text-forge/pull/76))
+- ~Editor / Auto Indention~ to Edit / Auto Indention in settings ([#76](https://github.com/text-forge/text-forge/pull/76))
+- Modes syntax highlighting logic ([#71](https://github.com/text-forge/text-forge/pull/71))
+- ~File based save/load~ to Buffer based save/load ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Complete refactor for **EditorAPI** ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Load main editor settings in Core instead of EditorAPI ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Mode Packages renamed to Mode Kits ([#71](https://github.com/text-forge/text-forge/pull/71))
+
+### Removed
+
+- **API:** `Signals.caret_selected` ([#71](https://github.com/text-forge/text-forge/pull/71))
+- **API:** `Signals.mode_selected` ([#71](https://github.com/text-forge/text-forge/pull/71))
 
 ### Fixed
 
 - Missing `queue_free()` call for standard file dialogs ([#75](https://github.com/text-forge/text-forge/pull/75), ([#80](https://github.com/text-forge/text-forge/pull/80)))
 - **Action Script:** Safer disabling for View > Show Fold Gutter ([#79](https://github.com/text-forge/text-forge/pull/79))
 - Wrong value for left panel node ([#81](https://github.com/text-forge/text-forge/pull/81))
+- More type check in panel manager ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Wrong error for bug in panels ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Fixed size for panel icons ([#71](https://github.com/text-forge/text-forge/pull/71))
+- Missing icon changes for notification panel ([#71](https://github.com/text-forge/text-forge/pull/71))
 
-## [0.1] - 2025-7-27 (Beta)
+## [v0.1-beta] - 2025-7-27
 
 ### Added
 
@@ -111,7 +193,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Few `Signals.check_options` emissions (for update action scripts) ([761722b]())
 - `is_outside_tree` in `Global.get_core()` ([6108b64]())
 
-## [0.1 - Dev1] - 2025-06-30
+## [v0.1-dev1] - 2025-06-30
 
 ### Added
 
@@ -122,6 +204,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Data-driven UI.
 - Docs in 4 languages (en, fa, es, zh)
 
-[unreleased]: https://github.com/text-forge/text-forge/compare/v0.1.0-beta...HEAD
-[0.1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-beta
-[0.1 - Dev1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-dev1
+[unreleased]: https://github.com/text-forge/text-forge/compare/v0.2.0-beta1...HEAD
+[v0.2-beta1]: https://github.com/text-forge/text-forge/releases/tag/v0.2.0-beta1
+[v0.1-rc2]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-rc2
+[v0.1-rc1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-rc1
+[v0.1-beta]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-beta
+[v0.1-dev1]: https://github.com/text-forge/text-forge/releases/tag/v0.1.0-dev1

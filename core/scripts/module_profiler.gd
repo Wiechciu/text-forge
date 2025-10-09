@@ -1,10 +1,13 @@
 extends MenuButton
 
+@export var modulate_timer: Timer
 @onready var modules_list: Dictionary[String, Node] = {
 	"Extensions": Extensions,
-	"Action Scripts": Global.get_core().scripts,
+	"Action Scripts": Global.get_scripts_node(),
 	"Modes": Global.get_editor_api(),
+	"Network Connections": NetSuite,
 }
+var _old_count: int = 0
 var count = 0
 
 func _ready() -> void:
@@ -19,6 +22,7 @@ func _refresh() -> void:
 		return
 	if get_popup().visible:
 		await get_popup().visibility_changed
+	_old_count = count
 	count = 0
 	_update_menu()
 	_update_count()
@@ -45,6 +49,12 @@ func _node_to_popup_menu_tree(node: Node) -> PopupMenu:
 
 func _update_count() -> void:
 	text = str(count) + " Module" + ("s" if count > 1 else "")
+	if _old_count > count:
+		modulate = Color.SPRING_GREEN
+	elif _old_count < count:
+		modulate = Color.ORANGE
+	if count != _old_count:
+		modulate_timer.start()
 
 
 func _on_index_pressed(index: int) -> void:
@@ -52,3 +62,7 @@ func _on_index_pressed(index: int) -> void:
 		return
 
 	_refresh()
+
+
+func _on_timer_2_timeout() -> void:
+	create_tween().tween_property(self, ^"modulate", Color.WHITE, 1)

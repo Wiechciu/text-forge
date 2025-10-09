@@ -1,4 +1,10 @@
 key,en,fa,pl
+menu.project,Project,پروژه
+menu.project.new_project,New Project,پروژه جدید
+menu.project.open_project,Open Project,باز کردن پروژه
+menu.project.recent_projects,Recent Projects,پروژه های اخیر
+menu.project.close_project,Close Project,بستن پروژه
+menu.project.project_settings,Project Settings,تنظیمات پروژه
 menu.file,File,فایل,Plik
 menu.file.new,New,جدید,Nowy
 menu.file.new_window,New Window,پنجره جدید,Nowe okno
@@ -13,10 +19,6 @@ menu.file.backup_create,Create Backup...,ایجاد پشتیبان...,Stwórz ko
 menu.file.backup_load,Load From Backup...,بارگذاری از پشتیبان...,Wczytaj kopię...
 menu.file.copy_path,Copy Path,رونوشت مسیر,Skopiuj ścieżkę
 menu.file.show_in_filesystem,Show In FileSystem,نمایش در فایل ها,Pokaż w eksploratorze plików
-menu.file.version_history,Version History...,تاریخچه نسخه...,Historia wersji...
-menu.file.merge_with,Merge With...,ادغام با...,Scal z...
-menu.file.compare_with,Compare With...,مقایسه با...,Porównaj z...
-menu.file.storage_management,Storage Management...,مدیریت فضای ذخیره سازی...,Zarządzanie danymi...
 menu.file.secure_delete,Secure Delete,حذف امن,Bezpiecznie usuń
 menu.file.restart,Restart,راه اندازی دوباره,Zrestartuj
 menu.file.exit,Exit,خروج,Zamknij
@@ -28,6 +30,8 @@ menu.edit.copy,Copy,رونوشت,Kopiuj
 menu.edit.paste,Paste,جایگذاری,Wklej
 menu.edit.delete,Delete,حذف,Usuń
 menu.edit.select_all,Select All,انتخاب همه,Zaznacz wszystko
+menu.edit.select_next_occurence,Select Next Occurence,انتخاب مشابه بعدی,Następny podobny wybór
+menu.edit.select_all_occurences,Select All Occurences,انتخاب همه مشابهات,Zaznacz wszystkie podobne
 menu.edit.duplicate_selection,Duplicate Selection,تکثیر انتخاب شده,Zduplikuj zaznaczenie
 menu.edit.evulate_selection,Evaluate Selection,محاسبه انتخاب شده,Przelicz zaznaczenie
 menu.edit.line,Line,خط,Linia
@@ -68,9 +72,6 @@ menu.go_to.table_of_contents,Table Of Contents...,لیست محتوا...,Spis tr
 menu.go_to.bookmarks,Bookmarks...,نشانک ها...,Zakładki...
 menu.go_to.toggle_bookmark,Toggle Bookmark,نشانک گذاری,Przełącz zakładki
 menu.go_to.remove_all_bookmarks,Remove All Bookmarks,حذف همه نشانک ها,Usuń wszystkie zakładki
-menu.go_to.breakpoints,Breakpoints...,نقاط توقف...,Punkt stop...
-menu.go_to.toggle_breakpoint,Toggle Breakpoint,نقطه توقف,Przełącz punkty stopu
-menu.go_to.remove_all_breakpoints,Remove All Breakpoints,حذف همه نقاط توقف,Usuń wszystkie punkty stopu
 menu.command,Command,دستور,Komendy
 menu.command.palette,Command Palette...,پالت فرمان...,Lista komend...
 menu.format,Format,قالب,Formatuj
@@ -85,8 +86,6 @@ menu.view.reduce_font,Reduce Font Size,کاهش اندازه قلم,Zmniejsz roz
 menu.view.reset_font,Reset Font Size,بازنشانی اندازه قلم,Zresetuj rozmiar czcionki
 menu.view.toggle_dark_mode,Toggle Dark Mode,تغییر حالت تاریک,Przełącz ciemny motyw
 menu.view.focus_editor,Focus On Editor,تمرکز روی ویرایشگر,Fokus na edytorze
-menu.view.notes_panel,Notes Panel,پنل یادداشت,Panel notatek
-menu.view.changelog_panel,Change Log Panel,پنل گزارش تعییرات,Panel listy zmian
 menu.view.line_length_guides,Line Length Guides...,خطوط راهنما...,Ustawienia długości linii...
 menu.view.show_bookmarks,Show Bookmarks,نمایش نشانک ها,Pokaż zakładki
 menu.view.show_line_numbers,Show Line Numbers,نمایش شماره خط,Pokaż numery linii
@@ -98,12 +97,8 @@ menu.view.highlight_current_line,Highlight Current Line,برجسته کردن خ
 menu.view.show_control_chars,Show Control Characters,نمایش کاراکتر های کنترل,Pokaż znaki kontrolne
 menu.view.show_tabs,Show Tabs,نمایش تب ها,Pokaż tabulatory
 menu.view.show_spaces,Show Spaces,نمایش فاصله ها,Pokaż spacje
-menu.view.normal_view,Normal View,نمای عادی,Widok normalny
-menu.view.presentation_view,Presentation View,نمای ارائه,Widok prezentacji
-menu.view.reading_view,Reading View,نمای مطالعه,Widok czytnika
 menu.view.full_screen,Full Screen,تمام صفحه,Pełny ekran
 menu.tools,Tools,ابزار ها,Narzędzia
-menu.tools.spell_check,Spell Check,بررسی املا,Słownik
 menu.tools.color_picker,Color Picker,انتخابگر رنگ,Wybór koloru
 menu.tools.security,Security...,امنیت...,Bezpieczeństwo...
 menu.tools.counter,Counter...,شماشگر...,Licznik...
@@ -123,6 +118,7 @@ menu.settings,Settings,تنظیمات,Ustawienia
 menu.settings.preferences,Preferences...,ترجیحات...,Preferencje...
 menu.settings.mode_manager,Mode Manager...,مدیریت مود ها...,Manadżer trybów
 menu.settings.extensions,Extensions...,افزونه ها...,Rozszerzenia...
+menu.settings.marketplace,Marketplace...,بازار...,Rynek...
 menu.settings.open_data_folder,Open Data Folder,بازکردن پوشه داده,Otwórz folder danych
 menu.help,Help,کمک,Pomoc
 menu.help.github,GitHub Repository,مخزن گیت هاب,Repozytorium GitHub

@@ -6,18 +6,17 @@ extends Node
 ## out in this way.
 
 @warning_ignore_start("unused_signal")
-
+## Standard way to send notifications between modules.[br]
+## [b]Note:[/b] For extensions, use [GlobalExtensionHub].
+signal internal_notification(id: String, data: Array)
+## Standard notifications from editor, see [enum GlobalAccess.Notification] for [param type] meanings.
+signal editor_notification(type: Global.Notification, title: String, text: String)
 ## Emits when a script run requested, it will send to all [ActionScript]s. (See also [method ActionScript.run])
 signal run_script(script_id: int)
 ## Emits when a subscript run requested, it will send to all [MultiActionScript]s. (See also [method MultiActionScript.run])
 signal run_subscript(subscript_id: int, submenu: PopupMenu, submenu_name: String)
 ## Will send to all scripts to check current state with them activation state.
 signal check_options
-## Standard way to send notifications between modules.[br]
-## [b]Note:[/b] For extensions, use [GlobalExtensionHub].
-signal notification(id: String, data: Array)
-## Standard notifications from editor, see [enum GlobalAccess.Notification] for [param type] meanings.
-signal editor_notification(type: Global.Notification, title: String, text: String)
 ## Requests close file, close script should connect itself to this.
 signal close_file
 ## Requests open file, open script should connect itself to this.
@@ -34,10 +33,6 @@ signal open_find_panel
 signal shift_find_result(next: bool)
 ## Requests replace all find results.
 signal replace_all
-## Emits when user selects a caret (for multi caret edits that have caret selection support).
-signal caret_selected(index: int)
-## Emits when user selects a mode.
-signal mode_selected(index: int)
 ## Emits when one or more setting option changed with centalized preferences editor. Connect your
 ## modules to this to reload related settings after change and apply them.
 signal settings_changed
@@ -45,7 +40,14 @@ signal settings_changed
 signal reload_recent_files
 ## Requests refresh module list from module profiler.
 signal module_profiler_refresh
-
+## Emits when current mode changes.
+signal mode_changed(mode: Dictionary)
+## Emits when new preview is available.
+signal preview_updated(new: String)
+## Shares problems list.
+signal problems_updated(problems: Array[Dictionary])
+## Shares file outline.
+signal outline_updated(outline: Array)
 @warning_ignore_restore("unused_signal")
 
 func _ready() -> void:
@@ -59,11 +61,11 @@ func _log_notification(type: Global.Notification, title: String, text: String) -
 	var start: String
 	match type:
 		Global.Notification.INFO:
-			start = "[color=white]Notification: Info: "
+			start = "[color=white]Info: "
 		Global.Notification.WARNING:
-			start = "[color=yellow]Notification: Warning: "
+			start = "[color=yellow]Warning: "
 		Global.Notification.ERROR:
-			start = "[color=red]Notification: Error: "
+			start = "[color=red]Error: "
 		_:
 			start = "[color=darkgray]Notification: Other: "
 	print_rich("{0}{1}[/color]{2}{3}".format([start, title, "\n\t" if text != "" else "", text]))
@@ -72,11 +74,16 @@ func _log_notification(type: Global.Notification, title: String, text: String) -
 ## Connected to [signal save_request]. Creates a save change [ConfirmationDialog] and show it, [param confirmed] signal will connected
 ## to [method _save_changes] and [param canceled] will connected to [method _resum_after_save].
 func _handle_save_request(from: int) -> void:
-	add_child(Factory.confirmation_dialog(
-			"You have unsaved changes in currently opened file, what do you want to do with them?",
-			"Save", "Discard", "You have unsaved changes!", _resume_after_save.bind(from),
-			_save_changes.bind(from), true
-	))
+	if get_child_count():
+		# When recieves other request when dialog in visible, handles that request with current dialog.
+		await child_exiting_tree
+		save_finished.emit(from)
+	else:
+		add_child(Factory.confirmation_dialog(
+				"You have unsaved changes in currently opened file, what do you want to do with them?",
+				"Save", "Discard", "You have unsaved changes!", _resume_after_save.bind(from),
+				_save_changes.bind(from), true
+		))
 
 
 ## Calls [signal run_script] with id of save script and sets its callback to [param from], save
@@ -92,6 +99,10 @@ func _save_changes(from: int) -> void:
 func _resume_after_save(to: int) -> void:
 	if to == -1:
 		return
-	await SLib.wait(0.5)
+	await U.wait(0.5)
 	Global.set_file_name(Global.get_file_name().replace("*", ""))
 	run_script.emit(to)
+
+
+func refresh_module_profiler() -> void:
+	module_profiler_refresh.emit()

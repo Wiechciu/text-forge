@@ -24,40 +24,40 @@ func _on_node_signal_data_requested(prefix, data) -> bool:
 	if new_target_node == null:
 		printerr("No node found in path " + str(data[0]))
 		return false
-
+	
 	# Avoid error when trying to inspect root node
 	if new_target_node == get_tree().root:
 		EngineDebugger.send_message("signal_lens:incoming_node_signal_data", ["Root"])
 		return false
-
+	
 	# Disconnect this autoload's callable connections from the previously targeted node's signals
 	if target_node != null:
 		if target_node != new_target_node:
 			for signal_name in target_node.get_signal_list().map(func(p_signal): return p_signal["name"]):
 				if target_node.is_connected(signal_name, _on_target_node_signal_emitted):
 					target_node.disconnect(signal_name, _on_target_node_signal_emitted)
-
+	
 	# Acquire newly targeted node reference
 	target_node = new_target_node
-
+	
 	# Initialize the first piece of data that will be sent to the debugger
 	# The unique name of the targeted node
 	# This will be used to set the name of the main graph node in the editor panel
 	var target_node_name: String = target_node.name
-
+	
 	# Get target node class using Object.get_class()
 	var target_node_class: String = target_node.get_class()
-
+	
 	# Initialize the array that will store the node's signal data
 	var target_node_signal_data: Array
-
+	
 	# Get unparsed signal data from target node
 	var target_node_signal_list: Array[Dictionary] = target_node.get_signal_list()
-
-	# Iterate all signals in target node and parse signal data
+	
+	# Iterate all signals in target node and parse signal data 
 	# to debugger-friendly format
 	for i in range(target_node_signal_list.size()):
-
+		
 		var raw_signal_data: Dictionary = target_node_signal_list[i]
 		# Raw signal data is formatted as:
 		# [name] is the name of the method, as a String
@@ -66,28 +66,28 @@ func _on_node_signal_data_requested(prefix, data) -> bool:
 		# [flags] is a combination of MethodFlags
 		# [id] is the method's internal identifier int
 		# [return] is the returned value, as a Dictionary;
-
+		
 		# Parse signal name
 		var parsed_signal_name: String = raw_signal_data["name"]
-
+		
 		# Parse signal callables
 		var raw_signal_connections: Array[Dictionary] = target_node.get_signal_connection_list(raw_signal_data["name"])
 		# Raw signal connection is formatted as:
 		# [signal] is a reference to the Signal;
 		# [callable] is a reference to the connected Callable;
 		# [flags] is a combination of ConnectFlags.
-
+		
 		var parsed_signal_callables = parse_signal_callables_to_debugger_format(raw_signal_connections)
-
+		
 		# Create debugger-friendly signal data dictionary
 		var parsed_signal_data: Dictionary = {
 				"signal": parsed_signal_name,
 				"callables": parsed_signal_callables
 			}
-
+			
 		# Append to overall signal data that will be sent to debugger
 		target_node_signal_data.append(parsed_signal_data)
-
+		
 		# Connect this autoload's signal emission capture callable to currently iterated signal
 		# so we can send signal emissions to the editor panel
 		if not target_node.is_connected(parsed_signal_name, _on_target_node_signal_emitted):
@@ -96,7 +96,7 @@ func _on_node_signal_data_requested(prefix, data) -> bool:
 				target_node.connect(parsed_signal_name, _on_target_node_signal_emitted.bind(target_node_name, parsed_signal_name).unbind(signal_args.size()))
 			else:
 				target_node.connect(parsed_signal_name, _on_target_node_signal_emitted.bind(target_node_name, parsed_signal_name))
-
+				
 	# On node data ready, prepare the array as per the debugger's specifications
 	EngineDebugger.send_message("signal_lens:incoming_node_signal_data", [target_node_name, target_node_signal_data, target_node_class])
 	return true
@@ -108,29 +108,29 @@ func parse_signal_callables_to_debugger_format(raw_signal_connections):
 	for raw_signal_connection: Dictionary in raw_signal_connections:
 		var parsed_callable_object: Object = raw_signal_connection["callable"].get_object()
 		var parsed_callable_object_name: String
-
+		
 		# If object has property "name", get this property
 		# Otherwise, get the string value of the object
 		# This is important to allow parsing anonymous lambdas, which
 		# don't have name properties. The names in the nodes are not
-		# very user-friendly right now, so this is a good spot for a
+		# very user-friendly right now, so this is a good spot for a 
 		# TODO: improve readability of anonymous lambda nodes
 		if not parsed_callable_object: return {"object_name": "ERROR: Couldn't parse node name."}
 		if parsed_callable_object.get("name") != null:
 			parsed_callable_object_name = parsed_callable_object.get("name")
 		else:
 			parsed_callable_object_name = parsed_callable_object.to_string()
-
+		
 		var parsed_callable_method_name = str(raw_signal_connection["callable"].get_method())
-
+		
 		# Don't parse callable that is in this autoload
 		if parsed_callable_method_name == "_on_target_node_signal_emitted": continue
-
+		
 		var parsed_callable_data = {
-			"object_name": parsed_callable_object_name,
+			"object_name": parsed_callable_object_name, 
 			"method_name": parsed_callable_method_name
 			}
-
+		
 		parsed_signal_callables.append(parsed_callable_data)
 	return parsed_signal_callables
 
@@ -148,11 +148,11 @@ func _on_target_node_signal_emitted(node_name: String, signal_name: String):
 		"process_frames": Engine.get_process_frames(),
 		"physics_frames": Engine.get_physics_frames(),
 	}
-
+	
 	EngineDebugger.send_message("signal_lens:incoming_node_signal_emission", [emission_data])
 
 
-# NOTE: This function is compatible with Godot 4.5+ only, but 1.4.0 version of Signal Lens
+# NOTE: This function is compatible with Godot 4.5+ only, but 1.4.0 version of Signal Lens 
 # will still support 4.3+, so I'm keeping it here so it can reimplemented in a future release.
 #func _on_target_node_signal_emitted(...args: Array):
 	#
@@ -178,15 +178,15 @@ func get_current_datetime_string() -> String:
 
 func get_engine_ticks_string() -> String:
 	var ticks: int = Time.get_ticks_msec()
-
+	
 	# Convert milliseconds to total seconds
 	var total_seconds = ticks / 1000
 	var milliseconds = ticks % 1000
-
+	
 	# Calculate hours, minutes, and seconds
 	var hours = total_seconds / 3600
 	var minutes = (total_seconds % 3600) / 60
 	var seconds = total_seconds % 60
-
+	
 	# Format with leading zeros
 	return "%02d:%02d:%02d:%03d" % [hours, minutes, seconds, milliseconds]

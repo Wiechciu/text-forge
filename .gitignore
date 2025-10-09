@@ -19,7 +19,8 @@ mono_crash.*.json
 modes/
 
 # Intellij
-/.idea
+.idea/
 
 # Docs importing
 docs/**/*.import
+reports/

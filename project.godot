@@ -17,7 +17,7 @@ config/use_custom_user_dir=true
 config/custom_user_dir_name="Text Forge"
 config/auto_accept_quit=false
 config/quit_on_go_back=false
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 run/max_fps=60
 boot_splash/bg_color=Color(0.0823529, 0.121569, 0.160784, 1)
 boot_splash/image="uid://c53xda8pdrml6"
@@ -25,15 +25,18 @@ config/icon="uid://c5as0fd5jhnm8"
 
 [autoload]
 
-SLib="*res://addons/SLib/SLib.gd"
-Settings="*res://core/autoload/settings_api.gd"
+Settings="*res://core/autoload/settings.gd"
 Signals="*res://core/autoload/signals.gd"
 TFT="*res://core/autoload/translation_manager.gd"
-ExtensionHub="*res://core/extensions/extension_hub.gd"
-SignalLens="*res://addons/signal_lens/autoload/signal_lens_autoload.gd"
+ExtensionHub="*res://core/autoload/extension_hub.gd"
 Global="*res://core/autoload/global.gd"
 Factory="*res://core/autoload/factory.gd"
-Extensions="*res://core/extensions/extensions.gd"
+Extensions="*res://core/autoload/extensions.gd"
+BackupCore="*res://core/autoload/backup_core.gd"
+Tests="*res://core/autoload/tests.gd"
+Project="*res://core/autoload/project.gd"
+NetSuite="*res://core/autoload/net_suite.gd"
+U="*res://core/autoload/utils.gd"
 
 [debug]
 
@@ -43,13 +46,14 @@ gdscript/warnings/narrowing_conversion=0
 
 [display]
 
+window/energy_saving/keep_screen_on=false
 window/subwindows/embed_subwindows=false
 window/stretch/aspect="ignore"
 window/per_pixel_transparency/allowed=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SLib/plugin.cfg", "res://addons/csv_to_gettext_converter/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/signal_lens/plugin.cfg")
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 
 [gdunit4]
 
@@ -69,10 +73,15 @@ var ${source_var}: ${source_class}
 
 func before() -> void:
 	${source_var} = ${source_class}.new()"
+report/godot/push_error=true
 
 [gui]
 
-theme/custom="uid://dnvygvv1c55qb"
+theme/custom="uid://biemqm07w26kl"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.11834, 0.167543, 0.216756, 1)
 
 [internationalization]
 

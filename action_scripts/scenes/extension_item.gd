@@ -44,9 +44,9 @@ func _export_self(path: String) -> void:
 		Global.send_notification(Global.Notification.ERROR, "Cann't export extension!", "Error code: " + str(err))
 		return
 
-	for f in DirAccess.get_files_at(FileDatabase.FOLDER_EXTENSIONS.path_join(id)):
+	for f in DirAccess.get_files_at(S.FOLDER_EXTENSIONS.path_join(id)):
 		writer.start_file(id.path_join(f))
-		var file := FileAccess.open(FileDatabase.FOLDER_EXTENSIONS.path_join(id).path_join(f), FileAccess.READ)
+		var file := FileAccess.open(S.FOLDER_EXTENSIONS.path_join(id).path_join(f), FileAccess.READ)
 		writer.write_file(file.get_as_text().to_utf8_buffer())
 		writer.close_file()
 

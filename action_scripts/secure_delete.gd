@@ -20,6 +20,6 @@ func _secure_delete() -> void:
 	var file = FileAccess.open(Global.get_file_path(), FileAccess.WRITE)
 	file.store_buffer(PackedByteArray(clear_buffer))
 	file.close()
-	DirAccess.remove_absolute(SLib.globalize_path(Global.get_file_path()))
+	DirAccess.remove_absolute(S.globalize_path(Global.get_file_path()))
 	Signals.close_file.emit()
 	Global.send_notification(Global.Notification.INFO, "Secure delete completed.")

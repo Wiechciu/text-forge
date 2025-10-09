@@ -1,4 +1,4 @@
-extends Control
+extends TextForgePanel
 
 @export var counter: Label
 @export var match_case: CheckBox
@@ -8,12 +8,10 @@ extends Control
 @export var replace: LineEdit
 @export var list: ItemList
 
-var index: int
-
 var matches: Array[Vector2i] = []
 
 func _ready() -> void:
-	Signals.open_find_panel.connect(Global.get_panel_manager().show_panel.bind(PanelManager.Panels.RIGHT, index))
+	Signals.open_find_panel.connect(Global.get_panel_manager().show_panel.bind(place, index))
 	Signals.shift_find_result.connect(func(next):
 		if next:
 			_on_next_pressed()
@@ -25,6 +23,7 @@ func _ready() -> void:
 
 func _on_line_edit_text_changed(new_text: String) -> void:
 	matches.clear()
+	Tests.search_started.emit()
 	while true:
 		var next = Global.get_editor().search(
 			new_text,

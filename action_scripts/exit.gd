@@ -14,4 +14,4 @@ func _close() -> void:
 		Signals.save_request.emit(id)
 		return
 	await get_tree().process_frame
-	SLib.exit()
+	get_tree().quit()
